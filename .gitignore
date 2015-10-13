@@ -33,3 +33,5 @@ node_modules
 *.lot
 *.pdf
 *.gz
+*.out
+*.toc
