@@ -6,5 +6,5 @@ This project's idea is to create a web platform for project management using MLS
 
 ##Structure
 - This dir includes all the works of this project.
-- The thesis paper can be found under documents/thesis_latex/
+- The thesis paper can be found under [documents/thesis_latex/](https://github.com/khangpn/hotpot/tree/master/documents/thesis_latex)
 
