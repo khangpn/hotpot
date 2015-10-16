@@ -6,7 +6,37 @@
 
 %----------------------------------------------------------------------------------------
 
-MLS is a very popular term in security field, which means every subjects (\ie users) has different roles in a same system; so that corresponding to their role, the subject will have distinct security level to access to suitable data sources to perform their jobs. In later chapters, We will explain more detailed about it. This is a very common scenario of most of IT-related projects where many roles (\eg\,developers, designers, project managers, customers etc.) work together sharing the same data source. While almost every existing project management tools focus on productivity, accessibility of the project; some of services \eg\,FreshDesk even provides further data protection (authentication, data integrity etc.); however, not many projects realize how well MLS satisfies the scenario of multi-roles project management, and it could be used as a skeleton for a PM tool to help us have a advanced sign about PM and innumerable assets for our projects which we will see later.
+MLS is a very popular term in security field, which means every subjects (\ie users) has different roles in a same system; so that corresponding to their role, the subject will have distinct security level to access to suitable data sources to perform their jobs.
+It's very trivial in military systems and we will explain more detailed about it in later chapter.
+This is a very common scenario of most of IT-related projects where many roles (\eg\,developers, designers, project managers, customers etc.) work together sharing the same data source.
+While almost every existing project management tools focus on productivity, accessibility of the project; some of services \eg\,FreshDesk even provides further data protection (authentication, data integrity etc.); however, not many projects realize how well MLS satisfies the scenario of multi-roles project management, and it could be used as a skeleton for a PM tool to help us have a advanced sign about PM and innumerable assets for our projects which we will see later.
 
-The goal of this project is to build a PM tool which embeds MLS as the core security principal. 
+The goal of this project is to build a PM tool which embeds MLS as the core security principal.
+From that point of view, we are going to see the possibility that MLS can be used in PM for typical size organizations.
+In the beginning of this document, we are going to see how MTS can fit into PM tool, brief explanation about the use-cases, and how we are going to cover them in our tool.
+\marginpar{Since it is 'hot' and I use it to 'cook' my thesis}At the moment, we will name this project \myProject.
+
+%----------------------------------------------------------------------------------------
+
+\section{The Use-Cases}
+Let's have an example of a web project with its team members of various roles like these:
+\begin{description}
+\item[Developer] The builders of the project, who only care about: \emph{Sprint backlog}, \emph{coding tickets}, \emph{test cases}, \emph{Sprint review}, \emph{daily report}.
+\item[Designer] They don't need to know about what happens on the back stage, they only need access right to: \emph{Sprint backlog}, \emph{pages list}, \emph{designing tickets}, \emph{design layouts}.
+\item[Project Manager] They concern about: \emph{Product backlog}, \emph{Sprint backlog}, \emph{Sprint review}, \emph{daily report}, \emph{coding and designing tickets}.
+\item[Customer] The one who pays bills, so they need to access to: \emph{Product backlog}, \emph{Sprint backlog}, \emph{Sprint review}.
+\end{description}
+So, as we can see, there are multiple roles playing in a project who require different datasource for their work. 
+Whist some of them require the same piece of data and the others require distinguished ones.
+This is what we normally see in most of PM tools feature list.
+Though, many of them don't have access control on those datasources.
+Other subjects with not-related-roles can still look at the others' data as long as they are public (if the tool supports privacy mode for data sharing).
+
+Now, let's us push this example to another level. In the \emph{Sprint review}, there are some comments and valuation of the project manager for \emph{developers} and \emph{designers} teams, or some of customer's feedbacks at the 'company' level.
+These pieces of information has nothing to do with the rest of the team, except the \emph{Project Manager} (\ie the appropriate person who need to due with them).
+The key point of this is that all of information concerned to the project should be kept in one place for convenience in tracking and making future plans.
+At the same time, we want to isolate them from currious eyes (\ie improper level subjects)which interacting with the same system.
+Another advanced use-case is that, even in the same project, there may be some features that only need to get knowledge by high level developers \eg\, security features, customer's private information (bank account...) etc.
+So that, we can see how MTS is applicable in a PM tool, and it can also help us to create a transparent working environment where people only receive what are essential for them to finish their job without suffering from 'finding a leaf in the forrest'.
+
 
