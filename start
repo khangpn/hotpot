@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # Run this in Guest OS
-DEBUG=myapp npm start
+DEBUG=hotpot npm start
 

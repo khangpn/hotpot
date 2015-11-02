@@ -35,3 +35,11 @@ node_modules
 *.gz
 *.out
 *.toc
+
+#some annoying files which I haven't sorted out yet
+documents/note.md
+documents/thesis_2.zip
+documents/thesis_2/
+documents/thesis_draft
+documents/thesis_ideas
+documents/thesis_latex.zip
