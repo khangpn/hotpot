@@ -1,7 +1,6 @@
 module.exports = function (orm, db) {
   var Account = db.define('account', {
-    id: { type: 'serial', required: true },
-    name: { type: 'text', required: true,  big:  true },
+    name: { type: 'text', required: true, unique: true, big:  true },
     password: { type: 'text', required: true},
     createdAt: { type: 'date', required: true, time: true},
     updatedAt: { type: 'date', required: true, time: true}
