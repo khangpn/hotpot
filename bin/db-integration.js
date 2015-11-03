@@ -1,18 +1,17 @@
 var fs = require('fs');
+var path = require('path');
 var orm      = require('orm');
 var settings = require('../settings');
 
 function setup(db) {
-  // Uncomment this to import all models
-  //fs.readdirSync(__dirname + '/../models').forEach(function(name){
-  //  console.log('\nLoading model %s:', name);
-  //  var model = require('./../models/' + name);
-  //  model(orm, db);
-  //});
-
-  // Comment this when finish all models
-  var model = require('./../models/account');
-  model(orm, db);
+  // Uncomment these lines to import all models
+  fs.readdirSync(__dirname + '/../models').forEach(function(name){
+    if (path.extname(name) === '.js') {
+      console.log('\nLoading model %s:', name);
+      var model = require('./../models/' + name);
+      model(orm, db);
+    }
+  });
 }
 
 (function () {
@@ -24,15 +23,6 @@ function setup(db) {
 
     //db.drop();
     db.sync(function(){
-      // This is for testing
-      //db.models.account.create([
-      //  {
-      //    name: 'khang',
-      //    password: 'khangnguyen',
-      //  }
-      //], function (err, items){
-      //  if (err) return console.log(err);
-      //});
     });
   });
 })();
