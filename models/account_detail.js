@@ -1,5 +1,5 @@
 module.exports = function (orm, db) {
-  var AccountInfo = db.define('account_detail', {
+  var AccountDetail = db.define('account_detail', {
     fullname: { type: 'text', required: true,  big:  true },
     email: { type: 'text', required: true, unique: true, big:  true },
     createdAt: { type: 'date', required: true, time: true},
@@ -21,7 +21,7 @@ module.exports = function (orm, db) {
     },
     methods: {}
   });
-  // This is read 'AccountInfo belongs to Account'.
+  // This is read 'AccountDetail belongs to Account'.
   // Because ORM2 only has hasOne for both has and belong.
-  AccountInfo.hasOne("account", db.models.account, {reverse: 'account_detail'});
+  AccountDetail.hasOne("account", db.models.account, {reverse: 'account_detail'});
 };
