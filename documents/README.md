@@ -7,7 +7,9 @@ Documentation will be noted along the coding process. Final thesis paper will be
 
 -------------------------------------------------------------
 # Documents
-All the tex paper is stored here. The pdf version of my thesis can be found [here](https://www.dropbox.com/s/fc09h2s5blzjgbn/main.pdf?dl=0 PDF File).
+
+- All the tex paper is stored here. The pdf version of my thesis can be found [here](https://www.dropbox.com/s/fc09h2s5blzjgbn/main.pdf?dl=0 PDF File).
+- [Diary](https://github.com/khangpn/hotpot/tree/master/documents/diary) directory contains my reports for every working days. It includes my work, problems I encouter, solution and learning from that day's work.
 
 -------------------------------------------------------------
 # Features List
