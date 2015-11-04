@@ -15,9 +15,12 @@ module.exports = function (orm, db) {
     },
     validations: {
       password: [
-        orm.enforce.ranges.length(8, undefined, "must be atleast 8 letter long"),
-        orm.enforce.ranges.length(undefined, 256, "cannot be longer than 256 letters")
+        orm.enforce.ranges.length(8, undefined, "Password must be atleast 8 letter long"),
+        orm.enforce.ranges.length(undefined, 256, "Password cannot be longer than 256 letters")
       ],
+      password_confirm: [
+        orm.enforce.sameAs("password", "Confirmed password is not matched")
+      ]
     },
     methods: {}
   });
