@@ -1,27 +1,29 @@
-module.exports = function (orm, db) {
-  var AccountDetail = db.define('account_detail', {
-    fullname: { type: 'text', required: true,  big:  true },
-    email: { type: 'text', required: true, unique: true, big:  true },
-    createdAt: { type: 'date', required: true, time: true},
-    updatedAt: { type: 'date', required: true, time: true}
-  },
-  {
-    hooks: {
-      beforeValidation: function (next) {
-        if (!this.createdAt) this.createdAt = new Date();
-        this.updatedAt = new Date();
-        next();
+"use strict";
+
+module.exports = function(sequelize, DataTypes) {
+  var AccountDetail = sequelize.define('account_detail', {
+      fullname: { 
+        type: DataTypes.STRING, 
+        required: true 
+      },
+      email: { 
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
       }
     },
-    validations: {
-      email: [
-        orm.enforce.patterns.email("The email address is not valid"),
-        orm.enforce.ranges.length(undefined, 256, "cannot be longer than 256 letters")
-      ],
-    },
-    methods: {}
-  });
-  // This is read 'AccountDetail belongs to Account'.
-  // Because ORM2 only has hasOne for both has and belong.
-  AccountDetail.hasOne("account", db.models.account, {reverse: 'account_detail'});
+    { 
+      classMethods: {
+        associate: function(models) {
+          AccountDetail.belongsTo(models.account, {
+            foreignKey: {
+              allowNull: false
+            }
+          });
+        }
+      }
+    }
+  );
+
+  return AccountDetail
 };

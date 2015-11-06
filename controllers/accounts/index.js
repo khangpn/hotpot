@@ -4,11 +4,13 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   var Account = req.models.account;
-  Account.find(function (err, accounts) {
-    if (err) return next(err);
-    console.log(accounts);
-    res.render("list", {accounts: accounts});
-  });
+  Account.findAll()
+    .error(function(error){
+      return next(err);
+    })
+    .then(function(accounts){
+      res.render("list", {accounts: accounts});
+    });
 });
 
 router.get('/create', function(req, res, next) {
@@ -21,18 +23,29 @@ router.post('/create', function(req, res, next) {
   console.log(req.body);
   var data = req.body;
   var Account = req.models.account;
-  Account.create(data, function (err, newAcc) {
-    if (err) return next(err);
-    res.redirect('/accounts/view/' + newAcc.id);
-  });
+
+  Account.create(data)
+    .error(function(err){
+      console.error(err);
+      if (err) 
+        return res.render("create", {
+          error: err
+        });
+    })
+    .then(function(newAcc){
+      res.redirect('/accounts/view/' + newAcc.id);
+    });
 });
 
 router.get('/view/:id', function (req, res, next) {
   var Account = req.models.account;
-  Account.get(req.params.id, function(err, account) {
-    if (err) return next(err);
-    res.render('view', {account: account});
-  });
+  Account.findById(req.params.id)
+    .error(function(err){
+      return next(err);
+    })
+    .then(function(account){
+      res.render('view', {account: account});
+    });
 });
 
 module.exports = router;

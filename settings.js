@@ -1,22 +1,24 @@
 var settings = {
   development: {
     database: {
-      protocol : "postgresql",
-      query    : { pool: true },
-      host     : "127.0.0.1",
       database : "hotpot",
-      user     : "hotpot",
-      password : "hotpot"
+      username : "hotpot",
+      password : "hotpot",
+      options  : {
+        dialect : "postgresql",
+        host     : "127.0.0.1"
+      }
     }
   },
   production: {
     database: {
-      protocol : "postgresql",
-      query    : { pool: true },
-      host     : "127.0.0.1",
       database : "hotpot",
-      user     : "hotpot",
-      password : "hotpot"
+      username : "hotpot",
+      password : "hotpot",
+      options  : {
+        dialect : "postgresql",
+        host     : "127.0.0.1"
+      }
     }
   }
 };
