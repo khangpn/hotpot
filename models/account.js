@@ -51,7 +51,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   );
-  Account.password_confirm = '';
 
   return Account;
 };
