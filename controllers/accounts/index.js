@@ -25,26 +25,23 @@ router.post('/create', function(req, res, next) {
   var Account = req.models.account;
 
   Account.create(data)
-    .error(function(err){
-      console.error(err);
-      if (err) 
-        return res.render("create", {
-          error: err
-        });
-    })
     .then(function(newAcc){
       res.redirect('/accounts/view/' + newAcc.id);
+    }, function(err){
+      console.error("====== Account create errors========");
+      console.error(err);
+      return res.render("create", {
+        error: err
+      });
     });
 });
 
 router.get('/view/:id', function (req, res, next) {
   var Account = req.models.account;
   Account.findById(req.params.id)
-    .error(function(err){
-      return next(err);
-    })
     .then(function(account){
-      res.render('view', {account: account});
+      res.render('view', {account: account}); }, function(err){
+      return next(err);
     });
 });
 
