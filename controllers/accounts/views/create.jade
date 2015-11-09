@@ -9,8 +9,9 @@ block content
       div.row
         div.alert.alert-danger(role="alert")
           ul
-            each val, index in error
-              li= val
+            - errors = error.errors;
+            each val, index in errors
+              li= val.message
     // creation form
     div.col-md-9
       include ./_form.jade
