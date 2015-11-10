@@ -12,13 +12,5 @@ form.form-horizontal(action='/accounts/create', method='post')
     div.col-sm-10
       input.form-control(type='password', name='password_confirm', id='Account_password_confirm', placeholder='Retype Password')
   div.form-group
-    label.col-sm-2.control-label(for='AccountDetail_fullname') Fullname
-    div.col-sm-10
-      input.form-control(type='text', name='account_detail[fullname]', id='AccountDetail_fullname', placeholder='Fullname')
-  div.form-group
-    label.col-sm-2.control-label(for='AccountDetail_email') Email
-    div.col-sm-10
-      input.form-control(type='text', name='account_detail[email]', id='AccountDetail_email', placeholder='Email')
-  div.form-group
     div.col-sm-offset-2.col-sm-10
       input.btn.btn-default(type='submit' value='Submit')
