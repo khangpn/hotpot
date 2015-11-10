@@ -6,8 +6,13 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING, 
         allowNull: false,
         validate: {
-          notEmpty: true,
-          len: [1, 128]
+          notEmpty: {
+            msg: "Fullname is required"
+          },
+          len: {
+            args: [8, 128],
+            msg: "Fullname should be from 8 to 128 characters length"
+          }
         }
       },
       email: { 
@@ -16,8 +21,9 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         validate: {
           isEmail: true,
-          notEmpty: true,
-          len: [3, 128]
+          notEmpty: {
+            msg: "Email is required"
+          }
         }
       }
     },

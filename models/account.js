@@ -10,24 +10,39 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
         unique: true,
         validate: {
-          notEmpty: true,
-          len: [8, 128]
-        }
-      },
-      password_confirm: { 
-        type: DataTypes.VIRTUAL,
-        allowNull: false,
-        validate: {
-          notEmpty: true,
-          len: [8, 128]
+          notEmpty: {
+            msg: "Username is required"
+          },
+          len: {
+            args: [8, 128],
+            msg: "Username should be from 8 to 128 characters length"
+          }
         }
       },
       password: { 
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true,
-          len: [8, 128]
+          notEmpty: {
+            msg: "Password is required"
+          },
+          len: {
+            args: [8, 128],
+            msg: "Password should be from 8 to 128 characters length"
+          }
+        }
+      },
+      password_confirm: { 
+        type: DataTypes.VIRTUAL,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Password confirmation is required"
+          },
+          len: {
+            args: [8, 128],
+            msg: "Password confirmation should be from 8 to 128 characters length"
+          }
         }
       }
     }, 
