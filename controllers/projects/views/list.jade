@@ -1,0 +1,21 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Project Info
+    div.panel-body
+      div.table-responsive
+        table.table.table-hover
+          thead
+            tr
+              th Name
+              th Due Date
+              th Description
+          tbody
+            for project in projects
+              tr
+                td
+                  a(href='/projects/' + project.id)=project.name
+                td=project.due_date
+                td=project.description

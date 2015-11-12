@@ -1,0 +1,26 @@
+form.form-horizontal(action='/projects/create', method='post')
+  div.form-group
+    label.col-sm-2.control-label(for='Project_name') Name
+    div.col-sm-10
+      input.form-control(type='text',
+        name='name',
+        id='Project_name',
+        placeholder='Project name',
+        value=project ? project.name : '') 
+  div.form-group
+    label.col-sm-2.control-label(for='Project_description') Description
+    div.col-sm-10
+      textarea.form-control(name='description',
+        id='Project_description',
+        placeholder='Description')
+        =project ? project.name : ''
+  div.form-group
+    label.col-sm-2.control-label(for='Project_due_date') Due date
+    div.col-sm-10
+      input.form-control(type='date',
+        name='due_date',
+        id='Project_due_date',
+        value=project ? project.due_date : '') 
+  div.form-group
+    div.col-sm-offset-2.col-sm-10
+      input.btn.btn-default(type='submit' value='Submit')

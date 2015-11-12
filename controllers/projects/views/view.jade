@@ -1,0 +1,36 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Project Info
+    div.panel-body
+      div.row
+        label.col-md-2 Project name:
+        div.col-md-4
+          = project.name
+      div.row
+        label.col-md-2 Description:
+        div.col-md-4
+          = project.description
+      div.row
+        label.col-md-2 Due date:
+        div.col-md-4
+          = project.due_date
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Project's Members
+    div.panel-body
+      // error output
+      if error
+        div.row
+          div.alert.alert-danger(role="alert")
+            ul
+              - errors = error.errors;
+              each val, index in errors
+                li= val.message
+      // creation form
+      div.row
+        div.col-md-6
+          include ./_details_form.jade
+      include ./_members_list.jade
