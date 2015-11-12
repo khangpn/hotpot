@@ -25,7 +25,7 @@ router.post('/create', function(req, res, next) {
 
   Account.create(data)
     .then(function(newAcc){
-      res.redirect('/accounts/view/' + newAcc.id);
+      res.redirect('/accounts/' + newAcc.id);
     }, function(error){
       return res.render("create", {
         error: error
@@ -46,7 +46,7 @@ router.post('/updateDetail/:id', function(req, res, next) {
         var detail = account.account_detail;
 
         var handleSuccess = function () {
-          res.redirect('/accounts/view/' + account.id);
+          res.redirect('/accounts/' + account.id);
         }
 
         var handleError = function (account, error) {
@@ -81,7 +81,7 @@ router.post('/updateDetail/:id', function(req, res, next) {
     );
 });
 
-router.get('/view/:id', function (req, res, next) {
+router.get('/:id', function (req, res, next) {
   var Account = req.models.account;
   Account.findById(req.params.id, {include: req.models.account_detail})
     .then(function(account) {

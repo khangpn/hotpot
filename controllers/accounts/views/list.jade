@@ -18,6 +18,7 @@ block content
               - var detail = account.account_detail;
               tr
                 td=account.id
-                td=account.name
+                td
+                  a(href='/accounts/' + account.id)=account.name
                 td=detail ? detail.fullname : ''
                 td=detail ? detail.email : ''
