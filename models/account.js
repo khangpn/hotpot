@@ -62,6 +62,10 @@ module.exports = function(sequelize, DataTypes) {
               allowNull: false
             }
           });
+          Account.belongsToMany(models.project, {
+            through: models.account_project,
+            as: "projects"
+          });
         }
       }
     }
