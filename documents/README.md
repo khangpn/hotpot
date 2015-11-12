@@ -18,6 +18,9 @@ This is the list of features which are going to be implemented in the project or
 1. create user
   - assign category, security level
   - only admin can create account
+1. create project
+  - Create new project
+  - Add member to project
 2. create document
   - creator can only create documents with his categories labeled, with the same or higher security level.
   - creator can make a document public or private.
