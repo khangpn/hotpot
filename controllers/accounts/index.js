@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   var Account = req.models.account;
-  Account.findAll()
+  Account.findAll({include: req.models.account_detail})
     .then(function(accounts){
         res.render("list", {accounts: accounts});
       }, 

@@ -6,7 +6,7 @@ form.form-horizontal(action='/accounts/updateDetail/' + account.id, method='post
       input.form-control(type='text',
         name='fullname',
         id='AccountDetail_fullname',
-        placeholder='Fullname'
+        placeholder='Fullname',
         value=detail ? detail.fullname : '') 
   div.form-group
     label.col-sm-2.control-label(for='AccountDetail_email') Email
