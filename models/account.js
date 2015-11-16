@@ -66,6 +66,9 @@ module.exports = function(sequelize, DataTypes) {
             through: models.account_project,
             as: "projects"
           });
+          Account.belongsTo(models.security_level, {
+            onDelete: "CASCADE"
+          });
         }
       }
     }
