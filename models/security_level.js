@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
         validate: {
           notEmpty: {
             msg: "Level name is required"
-          },
-          len: {
-            args: [8, 128],
-            msg: "Level name should be from 8 to 128 characters length"
           }
         }
       },
@@ -28,6 +24,9 @@ module.exports = function(sequelize, DataTypes) {
             msg: "Level is required"
           }
         }
+      },
+      description: { 
+        type: DataTypes.TEXT
       }
     }, 
     { 
