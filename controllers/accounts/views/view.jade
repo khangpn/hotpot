@@ -13,6 +13,11 @@ block content
         label.col-md-1 Password:
         div.col-md-1
           = account.password
+      if account.security_level
+        div.row
+          label.col-md-1 Security Level:
+          div.col-md-1
+            = account.security_level.name
       hr
       // error output
       if error

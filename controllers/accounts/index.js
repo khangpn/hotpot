@@ -83,7 +83,7 @@ router.post('/updateDetail/:id', function(req, res, next) {
 
 router.get('/:id', function (req, res, next) {
   var Account = req.models.account;
-  Account.findById(req.params.id, {include: req.models.account_detail})
+  Account.findById(req.params.id, {include: [req.models.account_detail, req.models.security_level]})
     .then(function(account) {
         res.render('view', {account: account}); 
       }, 
