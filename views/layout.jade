@@ -68,5 +68,20 @@ html
                 li
                   a(href="/security_levels/create")
                     | Create level
+            li.dropdown
+              a.dropdown-toggle(href="#",
+                data-toggle="dropdown",
+                role="button",
+                aria-haspopup="true",
+                aria-expanded="false")
+                | Roles
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href="/roles")
+                    | Roles list
+                li
+                  a(href="/roles/create")
+                    | Create role
     div.container
       block content
