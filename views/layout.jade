@@ -53,5 +53,20 @@ html
                 li
                   a(href="/projects/create")
                     | Create project
+            li.dropdown
+              a.dropdown-toggle(href="#",
+                data-toggle="dropdown",
+                role="button",
+                aria-haspopup="true",
+                aria-expanded="false")
+                | Security Levels
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href="/security_levels")
+                    | Levels list
+                li
+                  a(href="/security_levels/create")
+                    | Create level
     div.container
       block content
