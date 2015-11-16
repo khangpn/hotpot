@@ -4,7 +4,7 @@ if members
       div.col-md-1
         =index +  1
       div.col-md-1
-        =member.name
+        a(href='/accounts/' + member.id)=member.name
       div.col-md-1
         a.btn.btn-default(href="/projects/"+project.id+"/removeAccount/"+member.id, role="button")
           |Delete
