@@ -1,0 +1,18 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Role Info
+    div.panel-body
+      div.table-responsive
+        table.table.table-hover
+          thead
+            tr
+              th Name
+              th Description
+          tbody
+            for role in roles
+              tr
+                td: a(href='/roles/' + role.id)=role.name
+                td=role.description

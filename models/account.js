@@ -66,6 +66,10 @@ module.exports = function(sequelize, DataTypes) {
             through: models.account_project,
             as: "projects"
           });
+          Account.belongsToMany(models.role, {
+            through: models.account_role,
+            as: "roles"
+          });
           Account.belongsTo(models.security_level, {
             onDelete: "CASCADE"
           });
