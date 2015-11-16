@@ -1,0 +1,23 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Project Info
+    div.panel-body
+      div.table-responsive
+        table.table.table-hover
+          thead
+            tr
+              th ID
+              th Level name
+              th Security Level
+              th Description
+          tbody
+            for level in levels
+              tr
+                td=level.id
+                td
+                  a(href='/security_levels/' + level.id)=level.name
+                td=level.level
+                td=level.description

@@ -1,0 +1,37 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Profile
+    div.panel-body
+      div.row
+        label.col-md-1 Level name:
+        div.col-md-1
+          = level.name
+      div.row
+        label.col-md-1 Security level:
+        div.col-md-1
+          = level.level
+      div.row
+        label.col-md-1 Description:
+        div.col-md-1
+          = level.description
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title
+        =level.name + " accounts"
+    div.panel-body
+      // error output
+      if error
+        div.row
+          div.alert.alert-danger(role="alert")
+            ul
+              - errors = error.errors;
+              each val, index in errors
+                li= val.message
+      // adding form
+      div.row
+        div.col-md-6
+          include ./_add_account.jade
+      include ./_members_list.jade

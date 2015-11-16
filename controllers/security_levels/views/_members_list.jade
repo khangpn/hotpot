@@ -1,0 +1,10 @@
+if members
+  each member, index in members
+    div.row
+      div.col-md-1
+        =index +  1
+      div.col-md-1
+        a(href='/accounts/' + member.id)=member.name
+      div.col-md-1
+        a.btn.btn-default(href="/security_levels/"+level.id+"/removeAccount/"+member.id, role="button")
+          |Delete

@@ -1,0 +1,11 @@
+form.form-inline(
+  action='/security_levels/' + level.id + '/addAccount',
+  method='post',
+  name='account_detail')
+  div.form-group
+    label.control-label(for='Account_id') Account ID
+    input.form-control(type='text',
+      name='account_id',
+      id='Account_id',
+      placeholder='Account ID')
+    input.btn.btn-default(type='submit' value='Add')
