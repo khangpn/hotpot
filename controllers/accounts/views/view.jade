@@ -7,17 +7,29 @@ block content
     div.panel-body
       div.row
         label.col-md-1 Username:
-        div.col-md-1
+        div.col-md-11
           = account.name
       div.row
         label.col-md-1 Password:
-        div.col-md-1
+        div.col-md-11
           = account.password
       if account.security_level
         div.row
           label.col-md-1 Security Level:
-          div.col-md-1
+          div.col-md-11
             = account.security_level.name
+      if roles
+        div.row
+          label.col-md-1 Roles:
+          each role, index in roles
+            div.col-md-11
+              = role.name + ' '
+      if projects
+        div.row
+          label.col-md-1 Projects:
+          each project, index in projects
+            div.col-md-11
+              = project.name + ' '
       hr
       // error output
       if error

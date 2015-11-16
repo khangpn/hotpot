@@ -85,7 +85,23 @@ router.get('/:id', function (req, res, next) {
   var Account = req.models.account;
   Account.findById(req.params.id, {include: [req.models.account_detail, req.models.security_level]})
     .then(function(account) {
-        res.render('view', {account: account}); 
+        if (!account) return next(new Error("Can't find the account with id: " + req.params.id));
+        account.getProjects()
+          .then(function (projects) {
+              account.getRoles()
+                .then(function (roles) {
+                    res.render('view', {
+                      account: account,
+                      projects: projects,
+                      roles: roles}); 
+                  }, function (errors) {
+                    return next(error);
+                  }
+                );
+            }, function (errors) {
+              return next(error);
+            }
+          );
       }, 
       function(error) {
         return next(error);
