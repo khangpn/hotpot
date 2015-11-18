@@ -35,7 +35,7 @@ This is the list of features which are going to be implemented in the project or
 7. quick task dispenser (optional)
   - single btn to give user his next task based on the priority and due date of the ticket.
 
-## 1st Iteration (27/10/2015 to 16/11/2015)
+## 1st Iteration (27/10/2015 to 16/11/2015) ENDED
 - Setup env.
 - Create initial DB schema.
 - Create user.
@@ -44,6 +44,14 @@ This is the list of features which are going to be implemented in the project or
 Outcome: 
 - A skeleton of the tool with user creation function.
 - Update document to show this feature with illustration e.g SQL diagram...
+
+### Result:
+- Create *accounts* with associated *details*.
+- Create *projects*
+- Add/remove *accounts* into/from *projects*.
+- Create *roles*, *security level*.
+- Assign *account* to many *role*, and one *level*.
+- NOT update the document to add the illustrations yet.
 
 ## 2nd Iteration (17/11/2015 to 7/12/2015)
 - Create document.
