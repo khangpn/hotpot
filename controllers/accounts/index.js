@@ -83,21 +83,15 @@ router.post('/updateDetail/:id', function(req, res, next) {
 
 router.get('/:id', function (req, res, next) {
   var Account = req.models.account;
-  Account.findById(req.params.id, {include: [req.models.account_detail, req.models.security_level]})
+  Account.findById(req.params.id, {include: [req.models.account_detail]})
     .then(function(account) {
         if (!account) return next(new Error("Can't find the account with id: " + req.params.id));
         account.getProjects()
           .then(function (projects) {
-              account.getRoles()
-                .then(function (roles) {
-                    res.render('view', {
-                      account: account,
-                      projects: projects,
-                      roles: roles}); 
-                  }, function (errors) {
-                    return next(error);
-                  }
-                );
+              res.render('view', {
+                account: account,
+                projects: projects
+              }); 
             }, function (errors) {
               return next(error);
             }

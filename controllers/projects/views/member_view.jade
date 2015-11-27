@@ -1,0 +1,38 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Profile
+    div.panel-body
+      - var account = member.account;
+      if account
+        div.row
+          label.col-md-1 Username:
+          div.col-md-11
+            = account.name
+      - var security_level = member.security_level
+      if security_level
+        div.row
+          label.col-md-1 Security Level:
+          div.col-md-11
+            = security_level.name
+      if roles
+        div.row
+          label.col-md-1 Roles:
+          each role, index in roles
+            div.col-md-11
+              = role.name + ' '
+      hr
+      // error output
+      if error
+        div.row
+          div.alert.alert-danger(role="alert")
+            ul
+              - errors = error.errors;
+              each val, index in errors
+                li= val.message
+      // update form
+      div.row
+        div.col-md-6
+          include ./_member_view_update_form.jade

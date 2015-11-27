@@ -111,4 +111,115 @@ router.get('/:id', function (req, res, next) {
     });
 });
 
+router.get('/:id/member/:member_id', function (req, res, next) {
+  var AccountProject = req.models.account_project;
+  var member_id = req.params.member_id;
+  var project_id = req.params.id;
+  AccountProject.findAll({
+    where: {
+      account_id: member_id,
+      project_id: project_id
+    },
+    include: [
+      req.models.account, 
+      req.models.security_level, 
+      req.models.project
+    ]
+  })
+  .then(function(members) {
+      if (!members || members.length == 0) 
+        return next(
+          new Error(
+            "Can't find the info of member: " 
+            + member_id + " in project: " + project_id
+        ));
+      members[0].getRoles()
+        .then(function (roles) {
+            res.render('member_view', {
+              member: members[0],
+              roles: roles
+            }); 
+          }, function (errors) {
+            return next(error);
+          }
+        );
+    }, 
+    function(error) {
+      return next(error);
+  });
+});
+
+router.post('/update_member', function (req, res, next) {
+  console.log(req.body);
+  if (!req.body)
+    return next(new Error('Cannot get the req.body'));
+  var data = req.body;
+  if (!data.project_id || !data.member_id) 
+    return next(new Error('project_id and account_id cannot be empty'));
+  var AccountProject = req.models.account_project;
+  var SecurityLevel = req.models.security_level;
+  var Role = req.models.role;
+  var member_id = data.member_id;
+  var project_id = data.project_id;
+
+  AccountProject.findAll({
+    where: {
+      account_id: member_id,
+      project_id: project_id
+    },
+    include: [
+      req.models.account, 
+      req.models.security_level, 
+      req.models.project
+    ]
+  })
+  .then(function(members) {
+      if (!members || members.length == 0) 
+        return next(
+          new Error(
+            "Can't find the info of member: " 
+            + member_id + " in project: " + project_id
+        ));
+      var member = members[0];
+
+      if (data.security_level) {
+        var security_level = data.security_level;
+        SecurityLevel.findById(security_level)
+        .then(function(security) {
+            console.log(security);
+            security.addAccount(member)
+              .then(function() {
+                }, function (errors) {
+                  return next(error);
+                }
+              );
+          }, function (errors) {
+            return next(error);
+          }
+        );
+      }
+
+      if (data.role) {
+        var role = data.role;
+        Role.findById(role)
+        .then(function(role) {
+            role.addAccount(member)
+              .then(function() {
+                }, function (errors) {
+                  return next(error);
+                }
+              );
+          }, function (errors) {
+            return next(error);
+          }
+        );
+      }
+      res.redirect('/projects/' + project_id + '/member/' + member_id );
+    }, 
+    function(error) {
+      return next(error);
+  });
+});
+
+
 module.exports = router;
