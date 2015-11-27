@@ -28,6 +28,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     { 
+      underscored: true,
+      freezeTableName: true,
       classMethods: {
         associate: function(models) {
           AccountDetail.belongsTo(models.account, {

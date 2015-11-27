@@ -10,6 +10,11 @@ module.exports = function(sequelize, DataTypes) {
         primaryKey: true,
         autoIncrement: true
       }
+    },
+    {
+      underscored: true,
+      freezeTableName: true,
+      tableName: 'account_role'
     }
   );
 

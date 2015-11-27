@@ -30,10 +30,13 @@ module.exports = function(sequelize, DataTypes) {
       }
     }, 
     { 
+      underscored: true,
+      freezeTableName: true,
       classMethods: {
         associate: function(models) {
-          Level.hasMany(models.account, {
-            onDelete: "CASCADE"
+          Level.hasMany(models.account_project, {
+            onDelete: "CASCADE",
+            as: 'accounts'
           });
         }
       }

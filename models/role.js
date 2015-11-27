@@ -24,9 +24,11 @@ module.exports = function(sequelize, DataTypes) {
       }
     }, 
     { 
+      underscored: true,
+      freezeTableName: true,
       classMethods: {
         associate: function(models) {
-          Role.belongsToMany(models.account, {
+          Role.belongsToMany(models.account_project, {
             through: models.account_role,
             as: "accounts"
           });

@@ -36,6 +36,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     }, 
     { 
+      underscored: true,
+      freezeTableName: true,
       classMethods: {
         associate: function(models) {
           Project.belongsToMany(models.account, {

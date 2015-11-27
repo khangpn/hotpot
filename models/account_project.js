@@ -10,6 +10,24 @@ module.exports = function(sequelize, DataTypes) {
         primaryKey: true,
         autoIncrement: true
       }
+    },
+    {
+      underscored: true,
+      freezeTableName: true,
+      classMethods: {
+        associate: function(models) {
+          AccountProject.belongsToMany(models.role, {
+            through: models.account_role,
+            as: "roles"
+          });
+          AccountProject.belongsTo(models.security_level, {
+          });
+          AccountProject.belongsTo(models.account, {
+          });
+          AccountProject.belongsTo(models.project, {
+          });
+        }
+      }
     }
   );
 

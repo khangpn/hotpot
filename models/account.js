@@ -47,6 +47,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     }, 
     { 
+      underscored: true,
+      freezeTableName: true,
       validate: {
         matchConfirmedPassword: function() {
           if (this.password !== this.password_confirm) {
@@ -65,13 +67,6 @@ module.exports = function(sequelize, DataTypes) {
           Account.belongsToMany(models.project, {
             through: models.account_project,
             as: "projects"
-          });
-          Account.belongsToMany(models.role, {
-            through: models.account_role,
-            as: "roles"
-          });
-          Account.belongsTo(models.security_level, {
-            onDelete: "CASCADE"
           });
         }
       }
