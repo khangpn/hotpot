@@ -18,10 +18,14 @@ block content
         div.col-md-4
           = project.due_date
       div.row
-        div.col-sm-offset-2.col-sm-10
-          a.btn.btn-primary(href="/projects/update/" + project.id,
+        div.col-sm-offset-2.col-sm-1
+          a.btn.btn-primary(href="/projects/edit/" + project.id,
             role="button")
-            | Update
+            | Edit
+        div.col-sm-1
+          a.btn.btn-danger(href="/projects/delete/" + project.id,
+            role="button")
+            | Delete
   div.panel.panel-default
     div.panel-heading
       h3.panel-title Project's Members

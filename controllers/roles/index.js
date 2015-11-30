@@ -3,12 +3,12 @@ var router = express.Router();
 
 //------------------- Admin Section ----------------------
 //NOTE: after handling login, remove :id from this link
-router.get('/update/:id', function(req, res, next) {
+router.get('/edit/:id', function(req, res, next) {
   var Role = req.models.role;
   Role.findById(req.params.id)
     .then(function(role) {
         if (!role) return next(new Error("Can't find the role with id: " + req.params.id));
-        res.render('update', {
+        res.render('edit', {
           role: role
         }); 
       }, 
@@ -31,7 +31,7 @@ router.post('/update', function(req, res, next) {
           .then(function(account) {
             res.redirect('/roles/' + role.id);
           }, function (error) {
-            res.render('update', {
+            res.render('edit', {
               role: role,
               error: error
             }); 
@@ -116,6 +116,8 @@ router.get('/:id/removeAccount/:account_id', function(req, res, next) {
         return next(error);
       }
     );
+});
+router.get('/delete/:id', function(req, res, next) {
 });
 //--------------------------------------------------------
 

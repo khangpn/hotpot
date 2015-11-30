@@ -77,12 +77,12 @@ router.post('/update_member', function (req, res, next) {
 
 //------------------- Owner section ----------------------
 //NOTE: after handling login, remove :id from this link
-router.get('/update/:id', function(req, res, next) {
+router.get('/edit/:id', function(req, res, next) {
   var Project = req.models.project;
   Project.findById(req.params.id)
     .then(function(project) {
         if (!project) return next(new Error("Can't find the project with id: " + req.params.id));
-        res.render('update', {
+        res.render('edit', {
           project: project
         }); 
       }, 
@@ -105,7 +105,7 @@ router.post('/update', function(req, res, next) {
           .then(function(account) {
             res.redirect('/projects/' + project.id);
           }, function (error) {
-            res.render('update', {
+            res.render('edit', {
               project: project,
               error: error
             }); 
@@ -174,6 +174,9 @@ router.get('/:id/removeAccount/:account_id', function(req, res, next) {
         return next(error);
       }
     );
+});
+
+router.get('/delete/:id', function(req, res, next) {
 });
 //--------------------------------------------------------
 

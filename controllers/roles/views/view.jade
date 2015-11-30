@@ -14,10 +14,14 @@ block content
         div.col-md-4
           = role.description
       div.row
-        div.col-sm-offset-2.col-sm-10
-          a.btn.btn-primary(href="/roles/update/" + role.id,
+        div.col-sm-offset-2.col-sm-1
+          a.btn.btn-primary(href="/roles/edit/" + role.id,
             role="button")
-            | Update
+            | Edit
+        div.col-sm-1
+          a.btn.btn-danger(href="/roles/delete/" + role.id,
+            role="button")
+            | Delete
   div.panel.panel-default
     div.panel-heading
       h3.panel-title Role's Members

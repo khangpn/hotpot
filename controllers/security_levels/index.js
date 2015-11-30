@@ -113,6 +113,8 @@ router.get('/:id/removeAccount/:account_id', function(req, res, next) {
       }
     );
 });
+router.get('/edit/:id', function(req, res, next) {
+});
 //--------------------------------------------------------
 
 //----------------- Authenticated section --------------------

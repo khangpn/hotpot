@@ -18,10 +18,14 @@ block content
         div.col-md-1
           = level.description
       div.row
-        div.col-sm-offset-2.col-sm-10
+        div.col-sm-offset-2.col-sm-1
           a.btn.btn-primary(href="/security_levels/edit/" + level.id,
             level="button")
-            | Update
+            | Edit
+        div.col-sm-1
+          a.btn.btn-danger(href="/security_levels/delete/" + level.id,
+            role="button")
+            | Delete
   div.panel.panel-default
     div.panel-heading
       h3.panel-title

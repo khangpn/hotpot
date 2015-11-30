@@ -21,6 +21,9 @@ router.post('/create', function(req, res, next) {
       });
     });
 });
+
+router.get('/delete/:id', function(req, res, next) {
+});
 //--------------------------------------------------------
 
 //------------------- Owner section ----------------------
