@@ -1,18 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  var Level = req.models.security_level;
-  Level.findAll()
-    .then(function(levels){
-        res.render("list", {levels: levels});
-      }, 
-      function(error){
-        return next(error);
-    });
-});
-
+//------------------- Admin Section ----------------------
 router.get('/create', function(req, res, next) {
   res.render("create");
 });
@@ -64,25 +53,6 @@ router.post('/update', function(req, res, next) {
         });
     }, function(error){
       return next(error);
-    });
-});
-
-router.get('/:id', function (req, res, next) {
-  var Level = req.models.security_level;
-  Level.findById(req.params.id)
-    .then(function(level) {
-        level.getAccounts()
-          .then(function (members) {
-              res.render('view', {
-                level: level,
-                members: members}); 
-            }, function (errors) {
-              return next(error);
-            }
-          );
-      }, 
-      function(error) {
-        return next(error);
     });
 });
 
@@ -143,5 +113,40 @@ router.get('/:id/removeAccount/:account_id', function(req, res, next) {
       }
     );
 });
+//--------------------------------------------------------
+
+//----------------- Authenticated section --------------------
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  var Level = req.models.security_level;
+  Level.findAll()
+    .then(function(levels){
+        res.render("list", {levels: levels});
+      }, 
+      function(error){
+        return next(error);
+    });
+});
+
+router.get('/:id', function (req, res, next) {
+  var Level = req.models.security_level;
+  Level.findById(req.params.id)
+    .then(function(level) {
+        level.getAccounts()
+          .then(function (members) {
+              res.render('view', {
+                level: level,
+                members: members}); 
+            }, function (errors) {
+              return next(error);
+            }
+          );
+      }, 
+      function(error) {
+        return next(error);
+    });
+});
+//--------------------------------------------------------
+
 
 module.exports = router;

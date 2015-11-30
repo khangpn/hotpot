@@ -1,6 +1,7 @@
-if level && !level.isNewRecord
-  form.form-horizontal(action='/security_levels/update', method='post')
-    input(type='hidden', name='id', value=level.id)
+form.form-horizontal(action=(!level || level.isNewRecord) ? 
+  '/security_levels/create' : '/security_levels/update',
+  method='post')
+  if !level || level.isNewRecord
     div.form-group
       label.col-sm-2.control-label(for='Level_name') Level name
       div.col-sm-10
@@ -9,49 +10,25 @@ if level && !level.isNewRecord
           id='Level_name',
           placeholder='Level name e.g Secret, Top Secret,...',
           value=level ? level.name : '') 
-    div.form-group
-      label.col-sm-2.control-label(for='Level_level') Security Level
-      div.col-sm-10
-        input.form-control(type='text',
-          name='level',
-          id='Level_level',
-          placeholder='Security level e.g 1, 2, ...',
-          value=level ? level.level : '') 
-    div.form-group
-      label.col-sm-2.control-label(for='Level_description') Description
-      div.col-sm-10
-        textarea.form-control(name='description',
-          id='Level_description',
-          placeholder='Description')
-          =level ? level.description : ''
-    div.form-group
-      div.col-sm-offset-2.col-sm-10
-        input.btn.btn-default(type='submit' value='Submit')
-else
-  form.form-horizontal(action='/security_levels/create', method='post')
-    div.form-group
-      label.col-sm-2.control-label(for='Level_name') Level name
-      div.col-sm-10
-        input.form-control(type='text',
-          name='name',
-          id='Level_name',
-          placeholder='Level name e.g Secret, Top Secret,...',
-          value=level ? level.name : '') 
-    div.form-group
-      label.col-sm-2.control-label(for='Level_level') Security Level
-      div.col-sm-10
-        input.form-control(type='text',
-          name='level',
-          id='Level_level',
-          placeholder='Security level e.g 1, 2, ...',
-          value=level ? level.level : '') 
-    div.form-group
-      label.col-sm-2.control-label(for='Level_description') Description
-      div.col-sm-10
-        textarea.form-control(name='description',
-          id='Level_description',
-          placeholder='Description')
-          =level ? level.description : ''
-    div.form-group
-      div.col-sm-offset-2.col-sm-10
-        input.btn.btn-default(type='submit' value='Submit')
+  else
+    input(type='hidden',
+      name='id',
+      value=level.id)
+  div.form-group
+    label.col-sm-2.control-label(for='Level_level') Security Level
+    div.col-sm-10
+      input.form-control(type='text',
+        name='level',
+        id='Level_level',
+        placeholder='Security level e.g 1, 2, ...',
+        value=level ? level.level : '') 
+  div.form-group
+    label.col-sm-2.control-label(for='Level_description') Description
+    div.col-sm-10
+      textarea.form-control(name='description',
+        id='Level_description',
+        placeholder='Description')
+        =level ? level.description : ''
+  div.form-group
+    div.col-sm-offset-2.col-sm-10
+      input.btn.btn-default(type='submit' value='Submit')
