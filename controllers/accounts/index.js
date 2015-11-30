@@ -111,6 +111,7 @@ router.post('/update_password', function(req, res, next) {
 });
 //--------------------------------------------------------
 
+//----------------- Authenticated section --------------------
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   var Account = req.models.account;
@@ -143,5 +144,6 @@ router.get('/:id', function (req, res, next) {
         return next(error);
     });
 });
+//--------------------------------------------------------
 
 module.exports = router;
