@@ -23,39 +23,6 @@ router.post('/create', function(req, res, next) {
 });
 //--------------------------------------------------------
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  var Account = req.models.account;
-  Account.findAll({include: req.models.account_detail})
-    .then(function(accounts){
-        res.render("list", {accounts: accounts});
-      }, 
-      function(error){
-        return next(error);
-    });
-});
-
-router.get('/:id', function (req, res, next) {
-  var Account = req.models.account;
-  Account.findById(req.params.id, {include: [req.models.account_detail]})
-    .then(function(account) {
-        if (!account) return next(new Error("Can't find the account with id: " + req.params.id));
-        account.getProjects()
-          .then(function (projects) {
-              res.render('view', {
-                account: account,
-                projects: projects
-              }); 
-            }, function (errors) {
-              return next(error);
-            }
-          );
-      }, 
-      function(error) {
-        return next(error);
-    });
-});
-
 //------------------- Owner section ----------------------
 router.post('/updateDetail/:id', function(req, res, next) {
   var data = req.body;
@@ -143,5 +110,38 @@ router.post('/update_password', function(req, res, next) {
     });
 });
 //--------------------------------------------------------
+
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  var Account = req.models.account;
+  Account.findAll({include: req.models.account_detail})
+    .then(function(accounts){
+        res.render("list", {accounts: accounts});
+      }, 
+      function(error){
+        return next(error);
+    });
+});
+
+router.get('/:id', function (req, res, next) {
+  var Account = req.models.account;
+  Account.findById(req.params.id, {include: [req.models.account_detail]})
+    .then(function(account) {
+        if (!account) return next(new Error("Can't find the account with id: " + req.params.id));
+        account.getProjects()
+          .then(function (projects) {
+              res.render('view', {
+                account: account,
+                projects: projects
+              }); 
+            }, function (error) {
+              return next(error);
+            }
+          );
+      }, 
+      function(error) {
+        return next(error);
+    });
+});
 
 module.exports = router;
