@@ -1,19 +1,26 @@
-form.form-horizontal(action='/roles/create', method='post')
-  div.form-group
-    label.col-sm-2.control-label(for='Role_name') Name
-    div.col-sm-10
-      input.form-control(type='text',
-        name='name',
-        id='Role_name',
-        placeholder='Role name',
-        value=role ? role.name : '') 
+form.form-horizontal(action=(!role || role.isNewRecord) ? 
+    '/roles/create' : '/roles/update',
+  method='post')
+  if !role || role.isNewRecord
+    div.form-group
+      label.col-sm-2.control-label(for='Role_name') Name
+      div.col-sm-10
+        input.form-control(type='text',
+          name='name',
+          id='Role_name',
+          placeholder='Role name',
+          value=role ? role.name : '') 
+  else
+    input.form-control(type='hidden',
+      name='id',
+      value=role ? role.id : '') 
   div.form-group
     label.col-sm-2.control-label(for='Role_description') Description
     div.col-sm-10
       textarea.form-control(name='description',
         id='Role_description',
         placeholder='Description')
-        =role ? role.name : ''
+        =role ? role.description : ''
   div.form-group
     div.col-sm-offset-2.col-sm-10
       input.btn.btn-default(type='submit' value='Submit')

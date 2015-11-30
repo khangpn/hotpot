@@ -1,20 +1,47 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
+//------------------- Admin Section ----------------------
+//NOTE: after handling login, remove :id from this link
+router.get('/update/:id', function(req, res, next) {
   var Role = req.models.role;
-  Role.findAll()
-    .then(function(roles){
-        res.render("list", {roles: roles});
+  Role.findById(req.params.id)
+    .then(function(role) {
+        if (!role) return next(new Error("Can't find the role with id: " + req.params.id));
+        res.render('update', {
+          role: role
+        }); 
       }, 
-      function(error){
+      function(error) {
         return next(error);
     });
 });
 
-router.get('/create', function(req, res, next) {
-  res.render("create");
+router.post('/update', function(req, res, next) {
+  if (!req.body) return next(new Error('Cannot get the req.body'));
+
+  var data = req.body;
+  var Role = req.models.role;
+
+  Role.findById(data.id)
+    .then(function(role) {
+        if (!role) return next(new Error("Can't find the role with id: " + req.params.id));
+        delete data.id;
+        role.update(data)
+          .then(function(account) {
+            res.redirect('/roles/' + role.id);
+          }, function (error) {
+            res.render('update', {
+              role: role,
+              error: error
+            }); 
+          }
+        );
+      }, 
+      function(error) {
+        return next(error);
+      }
+    );
 });
 
 router.post('/create', function(req, res, next) {
@@ -90,6 +117,21 @@ router.get('/:id/removeAccount/:account_id', function(req, res, next) {
       }
     );
 });
+//--------------------------------------------------------
+
+//----------------- Authenticated section --------------------
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  var Role = req.models.role;
+  Role.findAll()
+    .then(function(roles){
+        res.render("list", {roles: roles});
+      }, 
+      function(error){
+        return next(error);
+    });
+});
+
 
 router.get('/:id', function (req, res, next) {
   var Role = req.models.role;
@@ -110,5 +152,6 @@ router.get('/:id', function (req, res, next) {
         return next(error);
     });
 });
+//--------------------------------------------------------
 
 module.exports = router;

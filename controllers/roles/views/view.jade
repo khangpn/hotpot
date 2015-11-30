@@ -13,6 +13,11 @@ block content
         label.col-md-2 Description:
         div.col-md-4
           = role.description
+      div.row
+        div.col-sm-offset-2.col-sm-10
+          a.btn.btn-primary(href="/roles/update/" + role.id,
+            role="button")
+            | Update
   div.panel.panel-default
     div.panel-heading
       h3.panel-title Role's Members
