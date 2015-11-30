@@ -1,19 +1,25 @@
-form.form-horizontal(action='/projects/create', method='post')
-  div.form-group
-    label.col-sm-2.control-label(for='Project_name') Name
-    div.col-sm-10
-      input.form-control(type='text',
-        name='name',
-        id='Project_name',
-        placeholder='Project name',
-        value=project ? project.name : '') 
+form.form-horizontal(action=(!project || project.isNewRecord) ? '/projects/create' : '/projects/update',
+  method='post')
+  if !project || project.isNewRecord
+    div.form-group
+      label.col-sm-2.control-label(for='Project_name') Name
+      div.col-sm-10
+        input.form-control(type='text',
+          name='name',
+          id='Project_name',
+          placeholder='Project name',
+          value=project ? project.name : '') 
+  else
+    input.form-control(type='hidden',
+      name='id',
+      value=project ? project.id : '') 
   div.form-group
     label.col-sm-2.control-label(for='Project_description') Description
     div.col-sm-10
       textarea.form-control(name='description',
         id='Project_description',
         placeholder='Description')
-        =project ? project.name : ''
+        =project ? project.description : ''
   div.form-group
     label.col-sm-2.control-label(for='Project_due_date') Due date
     div.col-sm-10

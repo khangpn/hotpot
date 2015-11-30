@@ -1,36 +1,50 @@
+/*
+* Only authenticated user can access to '/projects' controller
+*/
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
+//------------------- Owner section ----------------------
+//NOTE: after handling login, remove :id from this link
+router.get('/update/:id', function(req, res, next) {
   var Project = req.models.project;
-  Project.findAll()
-    .then(function(projects){
-        res.render("list", {projects: projects});
+  Project.findById(req.params.id)
+    .then(function(project) {
+        if (!project) return next(new Error("Can't find the project with id: " + req.params.id));
+        res.render('update', {
+          project: project
+        }); 
       }, 
-      function(error){
+      function(error) {
         return next(error);
     });
 });
 
-router.get('/create', function(req, res, next) {
-  res.render("create");
-});
-
-router.post('/create', function(req, res, next) {
+router.post('/update', function(req, res, next) {
   if (!req.body) return next(new Error('Cannot get the req.body'));
 
   var data = req.body;
   var Project = req.models.project;
 
-  Project.create(data)
-    .then(function(newProject){
-      res.redirect('/projects/' + newProject.id);
-    }, function(error){
-      return res.render("create", {
-        error: error
-      });
-    });
+  Project.findById(data.id)
+    .then(function(project) {
+        if (!project) return next(new Error("Can't find the project with id: " + req.params.id));
+        delete data.id;
+        project.update(data)
+          .then(function(account) {
+            res.redirect('/projects/' + project.id);
+          }, function (error) {
+            res.render('update', {
+              project: project,
+              error: error
+            }); 
+          }
+        );
+      }, 
+      function(error) {
+        return next(error);
+      }
+    );
 });
 
 router.post('/:id/addAccount', function(req, res, next) {
@@ -89,64 +103,6 @@ router.get('/:id/removeAccount/:account_id', function(req, res, next) {
         return next(error);
       }
     );
-});
-
-router.get('/:id', function (req, res, next) {
-  var Project = req.models.project;
-  Project.findById(req.params.id)
-    .then(function(project) {
-        if (!project) return next(new Error("Can't find the project with id: " + req.params.id));
-        project.getAccounts()
-          .then(function (members) {
-              res.render('view', {
-                project: project,
-                members: members}); 
-            }, function (errors) {
-              return next(error);
-            }
-          );
-      }, 
-      function(error) {
-        return next(error);
-    });
-});
-
-router.get('/:id/member/:member_id', function (req, res, next) {
-  var AccountProject = req.models.account_project;
-  var member_id = req.params.member_id;
-  var project_id = req.params.id;
-  AccountProject.findAll({
-    where: {
-      account_id: member_id,
-      project_id: project_id
-    },
-    include: [
-      req.models.account, 
-      req.models.security_level, 
-      req.models.project
-    ]
-  })
-  .then(function(members) {
-      if (!members || members.length == 0) 
-        return next(
-          new Error(
-            "Can't find the info of member: " 
-            + member_id + " in project: " + project_id
-        ));
-      members[0].getRoles()
-        .then(function (roles) {
-            res.render('member_view', {
-              member: members[0],
-              roles: roles
-            }); 
-          }, function (errors) {
-            return next(error);
-          }
-        );
-    }, 
-    function(error) {
-      return next(error);
-  });
 });
 
 router.post('/update_member', function (req, res, next) {
@@ -220,6 +176,98 @@ router.post('/update_member', function (req, res, next) {
       return next(error);
   });
 });
+//--------------------------------------------------------
 
+//------------------- Authenticated section ----------------------
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  var Project = req.models.project;
+  Project.findAll()
+    .then(function(projects){
+        res.render("list", {projects: projects});
+      }, 
+      function(error){
+        return next(error);
+    });
+});
+
+router.get('/create', function(req, res, next) {
+  res.render("create");
+});
+
+router.post('/create', function(req, res, next) {
+  if (!req.body) return next(new Error('Cannot get the req.body'));
+
+  var data = req.body;
+  var Project = req.models.project;
+
+  Project.create(data)
+    .then(function(newProject){
+      res.redirect('/projects/' + newProject.id);
+    }, function(error){
+      return res.render("create", {
+        error: error
+      });
+    });
+});
+
+router.get('/:id/member/:member_id', function (req, res, next) {
+  var AccountProject = req.models.account_project;
+  var member_id = req.params.member_id;
+  var project_id = req.params.id;
+  AccountProject.findAll({
+    where: {
+      account_id: member_id,
+      project_id: project_id
+    },
+    include: [
+      req.models.account, 
+      req.models.security_level, 
+      req.models.project
+    ]
+  })
+  .then(function(members) {
+      if (!members || members.length == 0) 
+        return next(
+          new Error(
+            "Can't find the info of member: " 
+            + member_id + " in project: " + project_id
+        ));
+      members[0].getRoles()
+        .then(function (roles) {
+            res.render('member_view', {
+              member: members[0],
+              roles: roles
+            }); 
+          }, function (errors) {
+            return next(error);
+          }
+        );
+    }, 
+    function(error) {
+      return next(error);
+  });
+});
+
+router.get('/:id', function (req, res, next) {
+  var Project = req.models.project;
+  Project.findById(req.params.id)
+    .then(function(project) {
+        if (!project) return next(new Error("Can't find the project with id: " + req.params.id));
+        project.getAccounts()
+          .then(function (members) {
+              res.render('view', {
+                project: project,
+                members: members}); 
+            }, function (errors) {
+              return next(error);
+            }
+          );
+      }, 
+      function(error) {
+        return next(error);
+    });
+});
+//--------------------------------------------------------
 
 module.exports = router;

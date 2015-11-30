@@ -17,6 +17,11 @@ block content
         label.col-md-2 Due date:
         div.col-md-4
           = project.due_date
+      div.row
+        div.col-sm-offset-2.col-sm-10
+          a.btn.btn-primary(href="/projects/update/" + project.id,
+            role="button")
+            | Update
   div.panel.panel-default
     div.panel-heading
       h3.panel-title Project's Members
