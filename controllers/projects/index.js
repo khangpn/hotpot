@@ -2,72 +2,149 @@ var express = require('express');
 var router = express.Router();
 
 //------------------- Admin Section ----------------------
-router.post('/update_member', function (req, res, next) {
-  console.log(req.body);
+router.post('/update_member_security', function (req, res, next) {
   if (!req.body)
     return next(new Error('Cannot get the req.body'));
   var data = req.body;
-  if (!data.project_id || !data.member_id) 
+  if (!data.project_id || !data.account_id) 
     return next(new Error('project_id and account_id cannot be empty'));
+  if (!data.security_level) 
+    return next(new Error('security_level cannot be empty'));
   var AccountProject = req.models.account_project;
   var SecurityLevel = req.models.security_level;
-  var Role = req.models.role;
-  var member_id = data.member_id;
+  var account_id = data.account_id;
   var project_id = data.project_id;
 
   AccountProject.findAll({
     where: {
-      account_id: member_id,
+      account_id: account_id,
       project_id: project_id
-    },
-    include: [
-      req.models.account, 
-      req.models.security_level, 
-      req.models.project
-    ]
+    }
   })
   .then(function(members) {
       if (!members || members.length == 0) 
         return next(
           new Error(
             "Can't find the info of member: " 
-            + member_id + " in project: " + project_id
+            + account_id + " in project: " + project_id
         ));
       var member = members[0];
+      var security_level = data.security_level;
 
-      if (data.security_level) {
-        var security_level = data.security_level;
-        SecurityLevel.findById(security_level)
-        .then(function(security) {
-            console.log(security);
-            security.addAccount(member)
-              .then(function() {
-                }, function (errors) {
-                  return next(error);
-                }
-              );
-          }, function (errors) {
-            return next(error);
-          }
-        );
-      }
+      SecurityLevel.findById(security_level)
+      .then(function(security) {
+          console.log(security);
+          security.addAccount(member)
+            .then(function() {
+              res.redirect('/projects/' + project_id + '/member/' + account_id );
+              }, function (error) {
+                return next(error);
+              }
+            );
+        }, function (error) {
+          return next(error);
+        }
+      );
+    }, 
+    function(error) {
+      return next(error);
+  });
+});
 
-      if (data.role) {
-        var role = data.role;
-        Role.findById(role)
-        .then(function(role) {
-            role.addAccount(member)
-              .then(function() {
-                }, function (errors) {
-                  return next(error);
-                }
-              );
-          }, function (errors) {
-            return next(error);
-          }
-        );
-      }
-      res.redirect('/projects/' + project_id + '/member/' + member_id );
+router.post('/add_member_role', function (req, res, next) {
+  if (!req.body)
+    return next(new Error('Cannot get the req.body'));
+  var data = req.body;
+  if (!data.project_id || !data.account_id) 
+    return next(new Error('project_id and account_id cannot be empty'));
+  if (!data.role) 
+    return next(new Error('role cannot be empty'));
+  var AccountProject = req.models.account_project;
+  var Role = req.models.role;
+  var account_id = data.account_id;
+  var project_id = data.project_id;
+
+  AccountProject.findAll({
+    where: {
+      account_id: account_id,
+      project_id: project_id
+    }
+  })
+  .then(function(members) {
+      if (!members || members.length == 0) 
+        return next(
+          new Error(
+            "Can't find the info of member: " 
+            + account_id + " in project: " + project_id
+        ));
+      var member = members[0];
+      var role = data.role;
+
+      Role.findById(role)
+      .then(function(role) {
+          if (!role) 
+            return next(new Error("Can't find the role: " + role));
+          role.addAccount(member)
+            .then(function() {
+              res.redirect('/projects/' + project_id + '/member/' + account_id );
+              }, function (error) {
+                return next(error);
+              }
+            );
+        }, function (error) {
+          return next(error);
+        }
+      );
+    }, 
+    function(error) {
+      return next(error);
+  });
+});
+
+router.post('/remove_member_role', function (req, res, next) {
+  if (!req.body)
+    return next(new Error('Cannot get the req.body'));
+  var data = req.body;
+  if (!data.project_id || !data.account_id) 
+    return next(new Error('project_id and account_id cannot be empty'));
+  if (!data.role) 
+    return next(new Error('role cannot be empty'));
+  var AccountProject = req.models.account_project;
+  var Role = req.models.role;
+  var account_id = data.account_id;
+  var project_id = data.project_id;
+
+  AccountProject.findAll({
+    where: {
+      account_id: account_id,
+      project_id: project_id
+    }
+  })
+  .then(function(members) {
+      if (!members || members.length == 0) 
+        return next(
+          new Error(
+            "Can't find the info of member: " 
+            + account_id + " in project: " + project_id
+        ));
+      var member = members[0];
+      var role = data.role;
+
+      Role.findById(role)
+      .then(function(role) {
+          if (!role) 
+            return next(new Error("Can't find the role: " + role));
+          role.removeAccount(member)
+            .then(function() {
+              res.redirect('/projects/' + project_id + '/member/' + account_id );
+              }, function (error) {
+                return next(error);
+              }
+            );
+        }, function (error) {
+          return next(error);
+        }
+      );
     }, 
     function(error) {
       return next(error);
@@ -213,13 +290,13 @@ router.post('/create', function(req, res, next) {
     });
 });
 
-router.get('/:id/member/:member_id', function (req, res, next) {
+router.get('/:id/member/:account_id', function (req, res, next) {
   var AccountProject = req.models.account_project;
-  var member_id = req.params.member_id;
+  var account_id = req.params.account_id;
   var project_id = req.params.id;
   AccountProject.findAll({
     where: {
-      account_id: member_id,
+      account_id: account_id,
       project_id: project_id
     },
     include: [
@@ -233,7 +310,7 @@ router.get('/:id/member/:member_id', function (req, res, next) {
         return next(
           new Error(
             "Can't find the info of member: " 
-            + member_id + " in project: " + project_id
+            + account_id + " in project: " + project_id
         ));
       members[0].getRoles()
         .then(function (roles) {
@@ -241,7 +318,7 @@ router.get('/:id/member/:member_id', function (req, res, next) {
               member: members[0],
               roles: roles
             }); 
-          }, function (errors) {
+          }, function (error) {
             return next(error);
           }
         );

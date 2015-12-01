@@ -24,7 +24,7 @@ if members
           - var security_level = member.security_level;
           tr
             td=index + 1
-            td: a(href='/projects/' + project.id)=account.name
+            td: a(href=project.id + '/member/' + account.id)=account.name
             td: a(href='/security_levels/' + security_level.id)=security_level.name
             td: a(href='/security_levels/' + security_level.id)=security_level.name
             td: a.btn.btn-default(href="/projects/"
