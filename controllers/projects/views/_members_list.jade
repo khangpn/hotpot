@@ -25,8 +25,12 @@ if members
           tr
             td=index + 1
             td: a(href=project.id + '/member/' + account.id)=account.name
-            td: a(href='/security_levels/' + security_level.id)=security_level.name
-            td: a(href='/security_levels/' + security_level.id)=security_level.name
+            if security_level
+              td: a(href='/security_levels/' + security_level.id)=security_level.name
+              td: a(href='/security_levels/' + security_level.id)=security_level.name
+            else
+              td
+              td
             td: a.btn.btn-default(href="/projects/"
               +project.id+"/removeAccount/"+member.id,
               role="button") Delete
