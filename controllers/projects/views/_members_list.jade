@@ -27,10 +27,10 @@ if members
             td: a(href=project.id + '/member/' + account.id)=account.name
             if security_level
               td: a(href='/security_levels/' + security_level.id)=security_level.name
-              td: a(href='/security_levels/' + security_level.id)=security_level.name
             else
               td
-              td
+            td
+              // roles should use lazy loading to load later
             td: a.btn.btn-default(href="/projects/"
               +project.id+"/removeAccount/"+member.id,
               role="button") Delete
