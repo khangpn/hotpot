@@ -140,7 +140,10 @@ router.get('/:id', function (req, res, next) {
   Role.findById(req.params.id)
     .then(function(role) {
         if (!role) return next(new Error("Can't find the role with id: " + req.params.id));
-        role.getAccounts()
+        role.getAccounts({include: [
+            req.models.account,
+            req.models.project
+          ]})
           .then(function (members) {
               res.render('view', {
                 role: role,

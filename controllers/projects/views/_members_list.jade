@@ -8,3 +8,25 @@ if members
       div.col-md-1
         a.btn.btn-default(href="/projects/"+project.id+"/removeAccount/"+member.id, role="button")
           |Delete
+if members
+  div.table-responsive
+    table.table.table-hover
+      thead
+        tr
+          th Index
+          th Member Name
+          th Security Level
+          th Roles
+          th 
+      tbody
+        each member, index in members
+          - var account = member.account;
+          - var security_level = member.security_level;
+          tr
+            td=index + 1
+            td: a(href='/projects/' + project.id)=account.name
+            td: a(href='/security_levels/' + security_level.id)=security_level.name
+            td: a(href='/security_levels/' + security_level.id)=security_level.name
+            td: a.btn.btn-default(href="/projects/"
+              +project.id+"/removeAccount/"+member.id,
+              role="button") Delete

@@ -134,7 +134,10 @@ router.get('/:id', function (req, res, next) {
   var Level = req.models.security_level;
   Level.findById(req.params.id)
     .then(function(level) {
-        level.getAccounts()
+        level.getAccounts({include: [
+            req.models.account,
+            req.models.project
+          ]})
           .then(function (members) {
               res.render('view', {
                 level: level,

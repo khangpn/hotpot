@@ -253,18 +253,32 @@ router.get('/:id/member/:member_id', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
   var Project = req.models.project;
-  Project.findById(req.params.id)
+  var project_id = req.params.id;
+  Project.findById(project_id)
     .then(function(project) {
         if (!project) return next(new Error("Can't find the project with id: " + req.params.id));
-        project.getAccounts()
-          .then(function (members) {
-              res.render('view', {
-                project: project,
-                members: members}); 
-            }, function (errors) {
-              return next(error);
-            }
-          );
+
+        //NOTE: Should move the accountproject query to Project instanceMethods
+        var AccountProject = req.models.account_project;
+        AccountProject.findAll({
+          where: {
+            project_id: project_id
+          },
+          include: [
+            req.models.account, 
+            req.models.security_level, 
+            req.models.project
+          ]
+        })
+        .then(function(members) {
+            res.render('view', {
+              project: project,
+              members: members
+            }); 
+          }, 
+          function(error) {
+            return next(error);
+        });
       }, 
       function(error) {
         return next(error);
