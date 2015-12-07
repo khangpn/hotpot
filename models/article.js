@@ -4,13 +4,13 @@
 * id, createdAt, updatedAt will be generated automatichally
 */
 module.exports = function(sequelize, DataTypes) {
-  var Document = sequelize.define("document", {
+  var Article = sequelize.define("article", {
       name: { 
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: {
-            msg: "Document name is required"
+            msg: "Article name is required"
           }        }
       },
       description: { 
@@ -21,9 +21,15 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
         validate: {
           notEmpty: {
-            msg: "Document content is required"
+            msg: "Article content is required"
           }
         }
+      },
+      writable: { 
+        type: DataTypes.BOOLEAN
+      },
+      readable: { 
+        type: DataTypes.BOOLEAN
       }
     }, 
     { 
@@ -31,23 +37,23 @@ module.exports = function(sequelize, DataTypes) {
       freezeTableName: true,
       classMethods: {
         associate: function(models) {
-          Document.belongsTo(models.account, {
+          Article.belongsTo(models.account, {
             onDelete: "CASCADE",
             foreignKey: {
               allowNull: false
             }
           });
-          Document.belongsTo(models.project, {
+          Article.belongsTo(models.project, {
             onDelete: "CASCADE",
             foreignKey: {
               allowNull: false
             }
           });
-          Document.belongsToMany(models.role, {
-            through: models.document_role,
+          Article.belongsToMany(models.role, {
+            through: models.article_role,
             as: "roles"
           });
-          Document.belongsTo(models.security_level, {
+          Article.belongsTo(models.security_level, {
             onDelete: "CASCADE"
           });
         }
@@ -55,5 +61,5 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
 
-  return Document;
+  return Article;
 };

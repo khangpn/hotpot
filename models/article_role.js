@@ -4,7 +4,7 @@
 * id, createdAt, updatedAt will be generated automatichally
 */
 module.exports = function(sequelize, DataTypes) {
-  var DocumentRole = sequelize.define("document_role", {
+  var ArticleRole = sequelize.define("article_role", {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -17,5 +17,5 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
 
-  return DocumentRole;
+  return ArticleRole;
 };

@@ -38,6 +38,12 @@ module.exports = function(sequelize, DataTypes) {
             onDelete: "CASCADE",
             as: 'accounts'
           });
+          Level.hasMany(models.article, {
+            onDelete: "CASCADE",
+            foreignKey: {
+              allowNull: false
+            }
+          });
         }
       }
     }

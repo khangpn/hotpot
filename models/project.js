@@ -44,6 +44,12 @@ module.exports = function(sequelize, DataTypes) {
             through: models.account_project,
             as: "accounts"
           });
+          Project.hasMany(models.article, {
+            onDelete: "CASCADE",
+            foreignKey: {
+              allowNull: false
+            }
+          });
         }
       }
     }

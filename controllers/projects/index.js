@@ -258,7 +258,6 @@ router.get('/delete/:id', function(req, res, next) {
 //--------------------------------------------------------
 
 //----------------- Authenticated section --------------------
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   var Project = req.models.project;
   Project.findAll()
