@@ -1,0 +1,50 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Article Info
+    div.panel-body
+      div.row
+        label.col-md-2 Article name:
+        div.col-md-4
+          = article.name
+      div.row
+        label.col-md-2 Description:
+        div.col-md-4
+          = article.description
+      div.row
+        label.col-md-2 Content:
+        div.col-md-4
+          = article.content
+      div.row
+        label.col-md-2 Permission:
+        div.col-md-4
+          = article.readable ? 'readable ' : ''
+          = article.writable ? 'writable ' : ''
+      div.row
+        div.col-sm-offset-2.col-sm-1
+          a.btn.btn-primary(href="/articles/edit/" + article.id,
+            role="button")
+            | Edit
+        div.col-sm-1
+          a.btn.btn-danger(href="/articles/delete/" + article.id,
+            role="button")
+            | Delete
+//  div.panel.panel-default
+//    div.panel-heading
+//      h3.panel-title Article's Members
+//    div.panel-body
+//      // error output
+//      if error
+//        div.row
+//          div.alert.alert-danger(role="alert")
+//            ul
+//              - errors = error.errors;
+//              each val, index in errors
+//                li= val.message
+//      // creation form
+//      div.row
+//        div.col-md-6
+//          include ./_add_account.jade
+//      include ./_members_list.jade

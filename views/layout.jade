@@ -83,6 +83,21 @@ html
                 li
                   a(href="/roles/create")
                     | Create role
+            li.dropdown
+              a.dropdown-toggle(href="#",
+                data-toggle="dropdown",
+                role="button",
+                aria-haspopup="true",
+                aria-expanded="false")
+                | Articles
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href="/articles")
+                    | Articles list
+                li
+                  a(href="/articles/create")
+                    | Create article
     div.container
       if notification
         div.row

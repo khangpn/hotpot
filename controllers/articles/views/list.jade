@@ -1,0 +1,23 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Article Info
+    div.panel-body
+      div.table-responsive
+        table.table.table-hover
+          thead
+            tr
+              th Name
+              th Description
+              th Permission
+          tbody
+            for article in articles
+              tr
+                td
+                  a(href='/articles/' + article.id)=article.name
+                td=article.description
+                td
+                  =article.readable ? "readable " : ''
+                  =article.writable ? "writable" : ''

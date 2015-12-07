@@ -26,10 +26,14 @@ module.exports = function(sequelize, DataTypes) {
         }
       },
       writable: { 
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       },
       readable: { 
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       }
     }, 
     { 
@@ -54,7 +58,10 @@ module.exports = function(sequelize, DataTypes) {
             as: "roles"
           });
           Article.belongsTo(models.security_level, {
-            onDelete: "CASCADE"
+            onDelete: "CASCADE",
+            foreignKey: {
+              allowNull: false
+            }
           });
         }
       }

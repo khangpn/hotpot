@@ -1,0 +1,63 @@
+form.form-horizontal(action=(!article || article.isNewRecord) ? '/articles/create' : '/articles/update',
+  method='post')
+  input.form-control(type='hidden',
+    name='project_id',
+    value=project_id) 
+  if article && !article.isNewRecord
+    input.form-control(type='hidden',
+      name='id',
+      value=article ? article.id : '') 
+  div.form-group
+    label.col-sm-2.control-label(for='Article_name') Name
+    div.col-sm-10
+      input.form-control(type='text',
+        name='name',
+        id='Article_name',
+        placeholder='Article name',
+        value=article ? article.name : '') 
+  div.form-group
+    label.col-sm-2.control-label(for='Article_description') Description
+    div.col-sm-10
+      textarea.form-control(name='description',
+        id='Article_description',
+        placeholder='Description')
+        =article ? article.description : ''
+  div.form-group
+    label.col-sm-2.control-label(for='Article_content') Content
+    div.col-sm-10
+      textarea.form-control(name='content',
+        id='Article_content',
+        placeholder='Content')
+        =article ? article.content : ''
+  div.form-group
+    div.col-sm-offset-2.col-sm-10
+      div.checkbox
+        label 
+          input(type='checkbox',
+            name='readable',
+            id='Article_readable',
+            checked=(!article || !article.readable ? 
+            undefined : 'checked')) 
+          |Readable
+  div.form-group
+    div.col-sm-offset-2.col-sm-10
+      div.checkbox
+        label
+          input(type='checkbox',
+            name='writable',
+            id='Article_readable',
+            checked=(!article || !article.writable ?
+            undefined : 'checked')) 
+          |Writable
+  div.form-group
+    label.col-sm-2.control-label(for='Article_security_level') Security Level
+    div.col-sm-10
+      select.form-control(
+        name='security_level_id',
+        id='Article_security_level')
+        each level in security_levels
+          option(value=level.id)
+            =level.name
+  div.form-group
+    div.col-sm-offset-2.col-sm-10
+      input.btn.btn-default(type='submit' value='Submit')
