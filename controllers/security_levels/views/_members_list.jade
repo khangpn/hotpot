@@ -4,17 +4,13 @@ if members
       thead
         tr
           th Index
+          th Account Name
           th Project
-          th Member Name
-          th 
       tbody
         each member, index in members
           - var account = member.account;
           - var project = member.project;
           tr
             td=index + 1
+            td: a(href='/projects/' + project.id + '/member/' + account.id)=account.name
             td: a(href='/projects/' + project.id)=project.name
-            td: a(href='/accounts/' + account.id)=account.name
-            td: a.btn.btn-default(href="/security_levels/"
-              +level.id+"/removeAccount/"+member.id,
-              role="button") Delete

@@ -33,7 +33,8 @@ router.post('/update_member_security', function (req, res, next) {
 
       SecurityLevel.findById(security_level)
       .then(function(security) {
-          console.log(security);
+          if (!security) 
+            return next(new Error("Cannot find security level with id: " + security_level));
           security.addAccount(member)
             .then(function() {
               res.redirect('/projects/' + project_id + '/member/' + account_id );

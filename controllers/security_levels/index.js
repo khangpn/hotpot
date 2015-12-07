@@ -56,64 +56,17 @@ router.post('/update', function(req, res, next) {
     });
 });
 
-router.post('/:id/addAccount', function(req, res, next) {
+router.get('/delete/:id', function(req, res, next) {
   var Level = req.models.security_level;
-  var Account = req.models.account;
-  Level.findById(req.params.id)
-    .then(function(level) {
-        if (!level) return next(new Error("Can't find the level with id: " + req.params.id));
-        var account_id = req.body.account_id;
-        if (isNaN(account_id)) return next(new Error("Account ID must be integer"));
-        Account.findById(account_id)
-          .then(function(account) {
-              if (!account) return next(new Error("Can't find the account with id: " + account_id));
-              level.addAccount(account)
-                .then(function() {
-                  res.redirect('/security_levels/' + level.id);
-                }, function (error) {
-                  return next(error);
-                });
-            }, function (error) {
-              return next(error);
-            }
-          );
+  Level.destroy({
+    where: { id: req.params.id }
+    })
+    .then(function(deleteds){
+        res.redirect("/security_levels");
       }, 
-      function(error) {
+      function(error){
         return next(error);
-      }
-    );
-});
-
-// After front-end implement AngularJs, this should be
-// switch to post
-router.get('/:id/removeAccount/:account_id', function(req, res, next) {
-  var Level = req.models.security_level;
-  var Account = req.models.account;
-  Level.findById(req.params.id)
-    .then(function(level) {
-        if (!level) return next(new Error("Can't find the level with id: " + req.params.id));
-        var account_id = req.params.account_id;
-        if (isNaN(account_id)) return next(new Error("Account ID must be integer"));
-        Account.findById(account_id)
-          .then(function(account) {
-              if (!account) return next(new Error("Can't find the account with id: " + account_id));
-              level.removeAccount(account)
-                .then(function() {
-                  res.redirect('/security_levels/' + level.id);
-                }, function (error) {
-                  return next(error);
-                });
-            }, function (error) {
-              return next(error);
-            }
-          );
-      }, 
-      function(error) {
-        return next(error);
-      }
-    );
-});
-router.get('/edit/:id', function(req, res, next) {
+    });
 });
 //--------------------------------------------------------
 

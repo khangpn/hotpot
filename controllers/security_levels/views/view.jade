@@ -1,5 +1,4 @@
 extends ../../../views/layout
-
 block content
   div.panel.panel-default
     div.panel-heading
@@ -31,16 +30,4 @@ block content
       h3.panel-title
         =level.name + " accounts"
     div.panel-body
-      // error output
-      if error
-        div.row
-          div.alert.alert-danger(level="alert")
-            ul
-              - errors = error.errors;
-              each val, index in errors
-                li= val.message
-      // adding form
-      div.row
-        div.col-md-6
-          include ./_add_account.jade
       include ./_members_list.jade
