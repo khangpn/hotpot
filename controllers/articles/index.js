@@ -48,15 +48,33 @@ router.post('/update', function(req, res, next) {
       }
     );
 });
+
+router.get('/delete/:id', function(req, res, next) {
+  var Article = req.models.article;
+  Article.findById(req.params.id)
+    .then(function(article){
+        if (!article) return next(new Error("Can't find the article with id: " + req.params.id));
+        var project_id = article.project_id;
+        article.destroy()
+          .then(function(){
+            res.redirect("/articles/project/" + project_id);
+            }, 
+            function(error){
+              return next(error);
+          });
+      }, 
+      function(error){
+        return next(error);
+    });
+});
 //--------------------------------------------------------
 
 //------------------- Permitted section ----------------------
-//--------------------------------------------------------
-
-//----------------- Authenticated section --------------------
-router.get('/', function(req, res, next) {
+router.get('/project/:project_id', function(req, res, next) {
   var Article = req.models.article;
-  Article.findAll()
+  Article.findAll({
+    where: { project_id: req.params.project_id}
+    })
     .then(function(articles){
         res.render("list", {articles: articles});
       }, 
@@ -65,7 +83,10 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/create/project/:project_id', function(req, res, next) {
+//--------------------------------------------------------
+
+//----------------- Authenticated section --------------------
+router.get('/project/:project_id/create/', function(req, res, next) {
   var SecurityLevel = req.models.security_level;
   //NOTE:filter the security_level upon account's level
   SecurityLevel.findAll()
