@@ -1,5 +1,6 @@
 "use strict";
 
+var bcrypt = require('bcrypt');
 /*
 * id, createdAt, updatedAt will be generated automatichally
 */
@@ -53,6 +54,13 @@ module.exports = function(sequelize, DataTypes) {
         matchConfirmedPassword: function() {
           if (this.password !== this.password_confirm) {
             throw new Error('Confirmed password does not match')
+          }
+        }
+      },
+      hooks: {
+        afterValidate: function(account, options) {
+          if (account.changed('password')) {
+            account.password = account.password_confirm = bcrypt.hashSync(account.password, 8);
           }
         }
       },
