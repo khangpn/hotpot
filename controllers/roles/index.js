@@ -118,6 +118,16 @@ router.get('/:id/removeAccount/:account_id', function(req, res, next) {
     );
 });
 router.get('/delete/:id', function(req, res, next) {
+  var Role = req.models.role;
+  Role.destroy({
+    where: { id: req.params.id }
+    })
+    .then(function(deleteds){
+        res.redirect("/roles");
+      }, 
+      function(error){
+        return next(error);
+    });
 });
 //--------------------------------------------------------
 
