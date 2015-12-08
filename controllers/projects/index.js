@@ -255,6 +255,16 @@ router.get('/:id/removeAccount/:account_id', function(req, res, next) {
 });
 
 router.get('/delete/:id', function(req, res, next) {
+  var Project = req.models.project;
+  Project.destroy({
+    where: { id: req.params.id }
+    })
+    .then(function(deleteds){
+        res.redirect("/projects");
+      }, 
+      function(error){
+        return next(error);
+    });
 });
 //--------------------------------------------------------
 
