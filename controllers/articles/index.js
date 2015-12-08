@@ -57,7 +57,7 @@ router.get('/delete/:id', function(req, res, next) {
         var project_id = article.project_id;
         article.destroy()
           .then(function(){
-            res.redirect("/articles/project/" + project_id);
+            res.redirect("/projects/" + project_id);
             }, 
             function(error){
               return next(error);
