@@ -33,6 +33,7 @@ module.exports = function(sequelize, DataTypes) {
       classMethods: {
         associate: function(models) {
           AccountDetail.belongsTo(models.account, {
+            onDelete: "CASCADE",
             foreignKey: {
               allowNull: false
             }

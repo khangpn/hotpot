@@ -45,7 +45,8 @@ module.exports = function(sequelize, DataTypes) {
             onDelete: "CASCADE",
             foreignKey: {
               allowNull: false
-            }
+            },
+            as: 'owner'
           });
           Article.belongsTo(models.project, {
             onDelete: "CASCADE",
@@ -58,10 +59,6 @@ module.exports = function(sequelize, DataTypes) {
             as: "roles"
           });
           Article.belongsTo(models.security_level, {
-            onDelete: "CASCADE",
-            foreignKey: {
-              allowNull: false
-            }
           });
         }
       }

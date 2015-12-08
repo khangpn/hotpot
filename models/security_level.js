@@ -35,11 +35,9 @@ module.exports = function(sequelize, DataTypes) {
       classMethods: {
         associate: function(models) {
           Level.hasMany(models.account_project, {
-            onDelete: "CASCADE",
             as: 'accounts'
           });
           Level.hasMany(models.article, {
-            onDelete: "CASCADE",
             foreignKey: {
               allowNull: false
             }
