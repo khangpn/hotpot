@@ -23,6 +23,16 @@ router.post('/create', function(req, res, next) {
 });
 
 router.get('/delete/:id', function(req, res, next) {
+  var Account = req.models.account;
+  Account.destroy({
+    where: { id: req.params.id }
+    })
+    .then(function(deleteds){
+        res.redirect("/accounts");
+      }, 
+      function(error){
+        return next(error);
+    });
 });
 //--------------------------------------------------------
 
