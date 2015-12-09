@@ -75,6 +75,39 @@ router.post('/login', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
+  if (!req.body) return next(new Error('Cannot get the req.body'));
+  var token_name = req.cookies.token;
+  if (res.locals.authenticated && token_name) {
+    var Account = req.models.account;
+    var Token = req.models.token;
+
+    Token.findAll({
+      where: {
+        name: token_name
+      },
+      limit: 1,
+      include: req.models.account
+    }).then(
+      function(tokens) {
+        if (tokens && tokens.length === 1) {
+          var token = tokens[0];
+          token.destroy().then(function() {
+              res.clearCookie('token');
+              res.redirect('/');
+            }, function(error) {
+              return next(error);
+            }
+          );
+        } else {
+          res.redirect('/');
+        }
+      }, function (error) {
+        return next(error);
+      }
+    );
+  } else {
+    res.redirect('/');
+  }
 });
 //--------------------------------------------------------
 
