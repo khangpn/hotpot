@@ -5,6 +5,12 @@ var bcrypt = require('bcrypt');
 * id, createdAt, updatedAt will be generated automatichally
 */
 module.exports = function(sequelize, DataTypes) {
+  var encryptPassword = function(account){
+    if (account.changed('password')) {
+      account.password = account.password_confirm = bcrypt.hashSync(account.password, 8);
+    }
+  }
+
   var Account = sequelize.define("account", {
       name: { 
         type: DataTypes.STRING,
@@ -58,10 +64,11 @@ module.exports = function(sequelize, DataTypes) {
         }
       },
       hooks: {
-        afterValidate: function(account, options) {
-          if (account.changed('password')) {
-            account.password = account.password_confirm = bcrypt.hashSync(account.password, 8);
-          }
+        beforeCreate: function(account, options) {
+          encryptPassword(account);
+        },
+        beforeUpdate: function(account, options) {
+          encryptPassword(account);
         }
       },
       classMethods: {
@@ -81,6 +88,19 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: {
               allowNull: false
             }
+          });
+        }
+      },
+      instanceMethods: {
+        authenticate: function(auth, next) {
+          if (this.name !== auth.name){
+            return next(false);
+          }
+
+          bcrypt.compare(auth.password, this.password, 
+            function(err, result) {
+            if (err) return next(err);
+            return next(null, result);
           });
         }
       }
