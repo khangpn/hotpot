@@ -83,6 +83,11 @@ html
                 li
                   a(href="/roles/create")
                     | Create role
+          if authenticated
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href="/accounts/" + current_account.id)
+                  ="Hello " + current_account.name
     div.container
       if notification
         div.row

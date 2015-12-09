@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var controller = require('./lib/setup-controller');
 var model = require('./lib/setup-model');
+var token_validation = require('./lib/validate-token');
 
 console.log("Welcome to HotPot!");
 console.log("You are running on %s mode!", process.env.NODE_ENV);
@@ -25,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // load models
 app.use(model);
+// check logged in
+app.use(token_validation);
 // load controllers
 controller(app);
 
