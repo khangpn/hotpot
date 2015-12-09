@@ -7,8 +7,7 @@ var bcrypt = require('bcrypt');
 */
 module.exports = function(sequelize, DataTypes) {
   var encryptToken = function(token){
-      token.name = bcrypt.hashSync(token.name, 8);
-    }
+    token.name = bcrypt.hashSync(token.name, 8);
   }
 
   var Token = sequelize.define("token", {
