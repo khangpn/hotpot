@@ -1,10 +1,16 @@
 "use strict";
 
 var uuid = require('uuid');
+var bcrypt = require('bcrypt');
 /*
 * id, createdAt, updatedAt will be generated automatichally
 */
 module.exports = function(sequelize, DataTypes) {
+  var encryptToken = function(token){
+      token.name = bcrypt.hashSync(token.name, 8);
+    }
+  }
+
   var Token = sequelize.define("token", {
       name: { 
         type: DataTypes.STRING,
@@ -33,7 +39,11 @@ module.exports = function(sequelize, DataTypes) {
       underscored: true,
       freezeTableName: true,
       validate: { },
-      hooks: { },
+      hooks: { 
+        beforeCreate: function(token, options) {
+          encryptToken(token);
+        }
+      },
       classMethods: {
         associate: function(models) {
           Token.belongsTo(models.account, {
@@ -49,7 +59,12 @@ module.exports = function(sequelize, DataTypes) {
           });
         }
       },
-      instanceMethods: { }
+      instanceMethods: { 
+        validate: function() {
+          var elapsedSeconds = (Date.now() - this.created_at) / 1000;
+          return elapsedSeconds < this.ttl;
+        }
+      }
     }
   );
 
