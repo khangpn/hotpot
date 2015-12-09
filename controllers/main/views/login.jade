@@ -1,0 +1,43 @@
+extends ../../../views/layout
+
+block content
+  div.row
+    div.page-header
+      h1 Login
+    // error output
+    if error
+      div.row
+        div.alert.alert-danger(role="alert")
+          ul
+            - errors = error.errors;
+            each val, index in errors
+              li= val.message
+    // login form
+    div.col-md-9
+      form.form-horizontal(action='/login', method='post')
+        div.form-group
+          label.col-sm-2.control-label(for='Account_name') Username
+          div.col-sm-10
+            input.form-control(type='text',
+            name='name',
+            id='Account_name',
+            placeholder='Username')
+        div.form-group
+          label.col-sm-2.control-label(for='Account_password') Password
+          div.col-sm-10
+            input.form-control(type='password',
+            name='password',
+            id='Account_password',
+            placeholder='Password')
+        div.form-group
+          div.col-sm-offset-2.col-sm-10
+            div.checkbox
+              label 
+                input(type='checkbox',
+                  name='remember',
+                  id='Account_remember'
+                ) 
+                |Remember me
+        div.form-group
+          div.col-sm-offset-2.col-sm-10
+            input.btn.btn-default(type='submit' value='Submit')
