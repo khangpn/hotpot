@@ -42,7 +42,7 @@ router.post('/login', function(req, res, next) {
             if (data.remember === 'on') {
               res.cookie('token', tk.name, {
                 httpOnly: true,
-                maxAge: 900000
+                maxAge: 1209600000
               });
             } else {
               res.cookie('token', tk.name, {
