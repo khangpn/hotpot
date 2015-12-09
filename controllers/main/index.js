@@ -14,14 +14,16 @@ router.post('/login', function(req, res, next) {
   if (!req.body) return next(new Error('Cannot get the req.body'));
   var data = req.body;
   var Account = req.models.account;
+  var Token = req.models.token;
   Account.findAll({
     where: {
       name: data.name
     }
   })
     .then(function(accounts){
-      var error = { errors: [] };
+      // Handle wrong authentication
       function wrongAuth () {
+        var error = { errors: [] };
         var e = {
           message: "Username or password is not correct"
         };
@@ -30,27 +32,39 @@ router.post('/login', function(req, res, next) {
           error: error
         });
       }
+
+      // Handle logging in
+      function login() {
+        var token = Token.generateToken();
+        token.account_id = account.id;
+        token.save()
+          .then(function(tk){
+            if (data.remember === 'on') {
+              res.cookie('token', tk.name, {
+                httpOnly: true,
+                maxAge: 900000
+              });
+            } else {
+              res.cookie('token', tk.name, {
+                httpOnly: true
+              });
+            }
+            res.redirect('/accounts/' + account.id);
+            
+          }, function(error) {
+            return next(error);
+          });
+      }
+
       if (!accounts || accounts.length===0) {
         wrongAuth();
       }
-
       var account = accounts[0];
-
       account.authenticate(data, function(error, result){
         if (error) return next(error);
 
         if (result) {
-          if (data.remember === 'on') {
-            res.cookie('token', account.id, {
-              httpOnly: true,
-              maxAge: 900000
-            });
-          } else {
-            res.cookie('token', account.id, {
-              httpOnly: true
-            });
-          }
-          res.redirect('/accounts/' + account.id);
+          login();
         } else {
           wrongAuth();
         }
