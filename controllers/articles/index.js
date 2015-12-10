@@ -5,16 +5,22 @@ var router = express.Router();
 //--------------------------------------------------------
 
 //------------------- Owner section ----------------------
-//NOTE: after handling login, remove :id from this link
 //Permitted user can edit if the article is writable
 router.get('/edit/:id', function(req, res, next) {
-  var Project = req.models.project;
-  Project.findById(req.params.id)
-    .then(function(project) {
-        if (!project) return next(new Error("Can't find the project with id: " + req.params.id));
-        res.render('edit', {
-          project: project
-        }); 
+  var Article = req.models.article;
+  var SecurityLevel = req.models.security_level;
+  Article.findById(req.params.id)
+    .then(function(article) {
+        if (!article) return next(new Error("Can't find the article with id: " + req.params.id));
+        SecurityLevel.findAll()
+          .then(function(security_levels){
+            res.render('edit', {
+              article: article,
+              security_levels: security_levels
+            }); 
+          }, function(error){
+            return next(error);
+          });
       }, 
       function(error) {
         return next(error);
@@ -26,20 +32,27 @@ router.post('/update', function(req, res, next) {
   if (!req.body) return next(new Error('Cannot get the req.body'));
 
   var data = req.body;
-  var Project = req.models.project;
+  var Article = req.models.article;
+  var SecurityLevel = req.models.security_level;
 
-  Project.findById(data.id)
-    .then(function(project) {
-        if (!project) return next(new Error("Can't find the project with id: " + req.params.id));
+  Article.findById(data.id)
+    .then(function(article) {
+        if (!article) return next(new Error("Can't find the article with id: " + req.params.id));
         delete data.id;
-        project.update(data)
+        article.update(data)
           .then(function(account) {
-            res.redirect('/projects/' + project.id);
+            res.redirect('/articles/' + article.id);
           }, function (error) {
-            res.render('edit', {
-              project: project,
-              error: error
-            }); 
+            SecurityLevel.findAll()
+              .then(function(security_levels){
+                res.render('edit', {
+                  article: article,
+                  security_levels: security_levels,
+                  error: error
+                }); 
+              }, function(error){
+                return next(error);
+              });
           }
         );
       }, 
@@ -86,7 +99,7 @@ router.get('/project/:project_id', function(req, res, next) {
 //--------------------------------------------------------
 
 //----------------- Authenticated section --------------------
-router.get('/project/:project_id/create/', function(req, res, next) {
+router.get('/project/:project_id/create', function(req, res, next) {
   var SecurityLevel = req.models.security_level;
   //NOTE:filter the security_level upon account's level
   SecurityLevel.findAll()
@@ -100,12 +113,11 @@ router.get('/project/:project_id/create/', function(req, res, next) {
     });
 });
 
-router.post('/create', function(req, res, next) {
+router.post('/project/:project_id/create', function(req, res, next) {
   if (!req.body) return next(new Error('Cannot get the req.body'));
 
   var data = req.body;
-  //NOTE: switch this with currently logged in account
-  data.account_id = 1; 
+  data.account_id = res.locals.current_account.id; 
 
   console.log(data);
   var Article = req.models.article;
@@ -114,6 +126,7 @@ router.post('/create', function(req, res, next) {
     .then(function(newArticle){
       res.redirect('/articles/' + newArticle.id);
     }, function(error){
+      console.log(error);
       var SecurityLevel = req.models.security_level;
       //NOTE:filter the security_level upon account's level
       SecurityLevel.findAll()

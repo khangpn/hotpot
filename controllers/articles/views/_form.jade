@@ -1,8 +1,14 @@
-form.form-horizontal(action=(!article || article.isNewRecord) ? '/articles/create' : '/articles/update',
+form.form-horizontal(action=(!article || article.isNewRecord)
+? '/articles/project/'+project_id+'/create' : '/articles/update',
   method='post')
-  input.form-control(type='hidden',
-    name='project_id',
-    value=project_id) 
+  if (!article || article.isNewRecord)
+    input.form-control(type='hidden',
+      name='project_id',
+      value=project_id) 
+  else
+    input.form-control(type='hidden',
+      name='project_id',
+      value=article.project_id) 
   if article && !article.isNewRecord
     input.form-control(type='hidden',
       name='id',
