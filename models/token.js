@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
         }
       },
       ttl: { 
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 1209600,
         validate: {
