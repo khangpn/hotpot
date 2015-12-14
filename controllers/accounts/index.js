@@ -3,10 +3,20 @@ var router = express.Router();
 
 //------------------- Admin Section ----------------------
 router.get('/create', function(req, res, next) {
+  if (!res.locals.isAdmin) {
+    var err = new Error('You are not permitted to access this!');
+    err.status = 401;
+    return next(err);
+  }
   res.render("create");
 });
 
 router.post('/create', function(req, res, next) {
+  if (!res.locals.isAdmin) {
+    var err = new Error('You are not permitted to access this!');
+    err.status = 401;
+    return next(err);
+  }
   if (!req.body) return next(new Error('Cannot get the req.body'));
 
   var data = req.body;
@@ -23,6 +33,11 @@ router.post('/create', function(req, res, next) {
 });
 
 router.get('/delete/:id', function(req, res, next) {
+  if (!res.locals.isAdmin) {
+    var err = new Error('You are not permitted to access this!');
+    err.status = 401;
+    return next(err);
+  }
   var Account = req.models.account;
   Account.destroy({
     where: { id: req.params.id }
@@ -38,6 +53,11 @@ router.get('/delete/:id', function(req, res, next) {
 
 //------------------- Owner section ----------------------
 router.post('/updateDetail/:id', function(req, res, next) {
+  if (!res.locals.authenticated || res.locals.current_account.id != req.params.id) {
+    var err = new Error('You are not permitted to access this!');
+    err.status = 401;
+    return next(err);
+  }
   var data = req.body;
   var Account = req.models.account;
   var AccountDetail = req.models.account_detail;
@@ -82,12 +102,18 @@ router.post('/updateDetail/:id', function(req, res, next) {
     );
 });
 
-//NOTE: after handling login, remove :id from this link
-router.get('/update_password/:id', function(req, res, next) {
+router.get('/update_password', function(req, res, next) {
+  if (!res.locals.authenticated || res.locals.current_account.id != req.params.id) {
+    var err = new Error('You are not permitted to access this!');
+    err.status = 401;
+    return next(err);
+  }
   var Account = req.models.account;
-  Account.findById(req.params.id, {include: [req.models.account_detail]})
+  var id = res.locals.current_account.id;
+  Account.findById(id, {include: [req.models.account_detail]})
     .then(function(account) {
-        if (!account) return next(new Error("Can't find the account with id: " + req.params.id));
+        if (!account) 
+          return next(new Error("Can't find the account with id: " + req.params.id));
         res.render('update_password', {
           account: account
         }); 
@@ -98,6 +124,11 @@ router.get('/update_password/:id', function(req, res, next) {
 });
 
 router.post('/update_password', function(req, res, next) {
+  if (!res.locals.authenticated || res.locals.current_account.id != req.params.id) {
+    var err = new Error('You are not permitted to access this!');
+    err.status = 401;
+    return next(err);
+  }
   if (!req.body) return next(new Error('Cannot get the req.body'));
 
   var data = req.body;
@@ -126,6 +157,11 @@ router.post('/update_password', function(req, res, next) {
 
 //----------------- Authenticated section --------------------
 router.get('/', function(req, res, next) {
+  if (!res.locals.authenticated) {
+    var err = new Error('You are not permitted to access this!');
+    err.status = 401;
+    return next(err);
+  }
   var Account = req.models.account;
   Account.findAll({include: req.models.account_detail})
     .then(function(accounts){
@@ -137,6 +173,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', function (req, res, next) {
+  if (!res.locals.authenticated) {
+    var err = new Error('You are not permitted to access this!');
+    err.status = 401;
+    return next(err);
+  }
   var Account = req.models.account;
   Account.findById(req.params.id, {include: [req.models.account_detail]})
     .then(function(account) {
