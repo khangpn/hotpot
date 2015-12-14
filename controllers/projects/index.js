@@ -226,7 +226,7 @@ router.post('/:id/addAccount', function(req, res, next) {
 
 // After front-end implement AngularJs, this should be
 // switch to post
-router.get('/:id/removeAccount/:account_id', function(req, res, next) {
+router.get('/:id/remove_account/:account_id', function(req, res, next) {
   var Project = req.models.project;
   var Account = req.models.account;
   Project.findById(req.params.id)

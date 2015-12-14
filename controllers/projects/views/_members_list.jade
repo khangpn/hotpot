@@ -1,14 +1,4 @@
 if members
-  each member, index in members
-    div.row
-      div.col-md-1
-        =index +  1
-      div.col-md-1
-        a(href='/projects/' + project.id + '/member/' + member.id)=member.name
-      div.col-md-1
-        a.btn.btn-default(href="/projects/"+project.id+"/removeAccount/"+member.id, role="button")
-          |Delete
-if members
   div.table-responsive
     table.table.table-hover
       thead
@@ -32,5 +22,5 @@ if members
             td
               // roles should use lazy loading to load later
             td: a.btn.btn-default(href="/projects/"
-              +project.id+"/removeAccount/"+member.id,
+              +project.id+"/remove_account/"+account.id,
               role="button") Delete
