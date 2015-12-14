@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var crypto = require('crypto');
 
 //--------------- Unauthenticated section ------------------
 router.get('/', function(req, res, next) {
@@ -77,15 +78,17 @@ router.post('/login', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
+  if (!res.locals.authenticated) return res.redirect('/');
   if (!req.body) return next(new Error('Cannot get the req.body'));
   var token_name = req.cookies.token;
-  if (res.locals.authenticated && token_name) {
+  if (token_name) {
     var Account = req.models.account;
     var Token = req.models.token;
+    var hashed_token = crypto.createHash('md5').update(token_name).digest('hex');
 
     Token.findAll({
       where: {
-        name: token_name
+        name: hashed_token
       },
       limit: 1,
       include: req.models.account
