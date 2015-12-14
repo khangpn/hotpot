@@ -1,13 +1,13 @@
 "use strict";
 
 var uuid = require('uuid');
-var bcrypt = require('bcrypt');
+var crypto = require('crypto');
 /*
 * id, createdAt, updatedAt will be generated automatichally
 */
 module.exports = function(sequelize, DataTypes) {
-  var encryptToken = function(token){
-    token.name = bcrypt.hashSync(token.name, 8);
+  var hashToken = function(token){
+    token.name = crypto.createHash('md5').update(token.name).digest('hex');
   }
 
   var Token = sequelize.define("token", {
@@ -40,7 +40,7 @@ module.exports = function(sequelize, DataTypes) {
       validate: { },
       hooks: { 
         beforeCreate: function(token, options) {
-          encryptToken(token);
+          hashToken(token);
         }
       },
       classMethods: {

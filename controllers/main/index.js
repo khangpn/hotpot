@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
+  if (res.locals.authenticated) return res.redirect('/accounts/' + res.locals.current_account.id);
   res.render("login");
 });
 
@@ -36,16 +37,17 @@ router.post('/login', function(req, res, next) {
       // Handle logging in
       function login() {
         var token = Token.generateToken();
+        var origin_name = token.name;
         token.account_id = account.id;
         token.save()
           .then(function(tk){
             if (data.remember === 'on') {
-              res.cookie('token', tk.name, {
+              res.cookie('token', origin_name, {
                 httpOnly: true,
                 maxAge: 1209600000
               });
             } else {
-              res.cookie('token', tk.name, {
+              res.cookie('token', origin_name, {
                 httpOnly: true
               });
             }
