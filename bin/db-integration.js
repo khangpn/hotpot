@@ -8,6 +8,7 @@ models.sequelize.sync().then(function() {
   var Role = models.role;
   var Security = models.security_level;
   var Project = models.project;
+  var Article = models.article;
 
   Account.create({
     name: 'khangnguyen',
@@ -94,7 +95,25 @@ models.sequelize.sync().then(function() {
     {
       name: 'hotpot',
       description: 'my thesis',
+      owner_id: 1,
       due_date: '2016-01-30'
+    }
+  )
+  .then(function(newAcc){
+    }, function(error){
+      console.log(error);
+    });
+
+  Article.create(
+    {
+      name: 'plan',
+      description: 'planning',
+      content: 'this is a plan',
+      writable: true,
+      readable: true,
+      account_id: 1,
+      project_id: 1,
+      security_id: 1
     }
   )
   .then(function(newAcc){
