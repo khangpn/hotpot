@@ -83,11 +83,27 @@ html
                 li
                   a(href="/roles/create")
                     | Create role
-          if authenticated
-            ul.nav.navbar-nav.navbar-right
-              li
-                a(href="/accounts/" + current_account.id)
+          ul.nav.navbar-nav.navbar-right
+            if authenticated
+              li.dropdown
+                a.dropdown-toggle(href="#",
+                  data-toggle="dropdown",
+                  role="button",
+                  aria-haspopup="true",
+                  aria-expanded="false")
                   ="Hello " + current_account.name
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a(href="/accounts/" + current_account.id)
+                      | Profile
+                  li
+                    a(href="/logout")
+                      | Log out
+            else
+              li
+                a(href="/login")
+                  | Log in
     div.container
       if notification
         div.row
