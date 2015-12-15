@@ -95,19 +95,36 @@ module.exports = function(sequelize, DataTypes) {
               allowNull: false
             }
           });
+          Account.hasMany(models.project, {
+          });
         }
       },
       instanceMethods: {
-        authenticate: function(auth, next) {
+        authenticate: function(auth, cb) {
           if (this.name !== auth.name){
-            return next(false);
+            return cb(false);
           }
 
           bcrypt.compare(auth.password, this.password, 
             function(err, result) {
-            if (err) return next(err);
-            return next(null, result);
+            if (err) return cb(err);
+            return cb(null, result);
           });
+        },
+        has_project: function(project_id, cb) {
+          this.getProjects({
+            where: {
+              id: project_id
+            }
+          }).then(function (projects) {
+              if (projects.length > 0) {
+                return cb(true);
+              }
+              cb(false);
+            }, function (error) {
+              cb(false);
+            }
+          );
         }
       }
     }
