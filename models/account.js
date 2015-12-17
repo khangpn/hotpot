@@ -94,6 +94,9 @@ module.exports = function(sequelize, DataTypes) {
             through: models.account_project,
             as: "projects"
           });
+          Account.hasMany(models.account_project, {
+            as: "projectProfiles"
+          });
           Account.hasMany(models.article, {
             onDelete: "CASCADE",
             foreignKey: {
