@@ -14,6 +14,7 @@ models.sequelize.sync().then(function() {
     name: 'khangnguyen',
     password: 'qweasdzxc',
     password_confirm: 'qweasdzxc',
+    is_admin: true,
     account_detail: {
       fullname: 'khang nguyen',
       email: 'khang@hotpot.com'
