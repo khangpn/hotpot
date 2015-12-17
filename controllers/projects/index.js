@@ -479,7 +479,6 @@ router.get('/:id/member/:account_id',
 // NOTE: owner and members can access
 router.get('/:id', 
   function(req, res, next) {
-    if (res.locals.isAdmin) return next();
     if (!res.locals.authenticated)
       return util.handle_unauthorized(next);
 
@@ -489,7 +488,7 @@ router.get('/:id',
       .then(function(project) {
           if (!project) 
             return next(new Error("Can't find the project with id: " + req.params.id));
-          if (project.owner_id == res.locals.current_account.id) {
+          if (res.locals.isAdmin || project.owner_id == res.locals.current_account.id) {
             res.locals.current_project = project;
             return next();
           }
