@@ -69,7 +69,8 @@ router.get('/edit/:id',
               function(project_profiles) {
                 if (project_profiles.length > 0) {
                   var project_profile = project_profiles[0];
-                  if (project_profile.security_level.level <
+                  if ( project_profile.security_level &&
+                    project_profile.security_level.level <=
                     article.security_level.level) {
                     res.locals.current_article = article;
                     return next();
@@ -89,6 +90,7 @@ router.get('/edit/:id',
   },
   function(req, res, next) {
     var article = res.locals.current_article;
+    var SecurityLevel = req.models.security_level;
     SecurityLevel.findAll()
       .then(function(security_levels){
         res.render('edit', {
@@ -127,7 +129,8 @@ router.post('/update',
               function(project_profiles) {
                 if (project_profiles.length > 0) {
                   var project_profile = project_profiles[0];
-                  if (project_profile.security_level.level <
+                  if ( project_profile.security_level &&
+                    project_profile.security_level.level <=
                     article.security_level.level) {
                     res.locals.current_article = article;
                     return next();
@@ -252,7 +255,7 @@ router.get('/project/:project_id/create',
     var project_profile= res.locals.current_profile ;
     SecurityLevel.findAll(
       { where: {
-          level: { $gt: project_profile.security_level.level }
+          level: { $gte: project_profile.security_level.level }
       } }
     ).then(function(security_levels){
         res.render("create", {
@@ -306,7 +309,7 @@ router.post('/project/:project_id/create',
         var SecurityLevel = req.models.security_level;
         SecurityLevel.findAll(
           { where: {
-              level: { $gt: project_profile.security_level.level }
+              level: { $gte: project_profile.security_level.level }
           } }
         ).then(function(security_levels){
             res.render("create", {
@@ -355,8 +358,8 @@ router.get('/:id',
                 if (project_profiles.length > 0) {
                   var project_profile = project_profiles[0];
                   if ( project_profile.security_level &&
-                    article.security_level.level < 
-                    project_profile.security_level.level) {
+                    project_profile.security_level.level >=
+                    article.security_level.level) {
                     res.locals.current_article = article;
                     return next();
                   }
