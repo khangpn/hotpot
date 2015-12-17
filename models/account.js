@@ -96,6 +96,7 @@ module.exports = function(sequelize, DataTypes) {
             }
           });
           Account.hasMany(models.project, {
+            as: "owned_projects"
           });
         }
       },
