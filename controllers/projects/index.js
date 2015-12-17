@@ -72,7 +72,7 @@ router.post('/add_member_role',
     var data = req.body;
     if (!data.project_id || !data.account_id) 
       return next(new Error('project_id and account_id cannot be empty'));
-    if (!data.role) 
+    if (!data.role_id) 
       return next(new Error('role cannot be empty'));
     next()
   },
@@ -97,12 +97,13 @@ router.post('/add_member_role',
               + account_id + " in project: " + project_id
           ));
         var member = members[0];
-        var role = data.role;
+        var role_id = data.role_id;
+        console.log(role_id);
 
-        Role.findById(role)
+        Role.findById(role_id)
         .then(function(role) {
             if (!role) 
-              return next(new Error("Can't find the role: " + role));
+              return next(new Error("Can't find the role: " + role_id));
             role.addAccount(member)
               .then(function() {
                 res.redirect('/projects/' + project_id + '/member/' + account_id );
@@ -420,7 +421,6 @@ router.post('/create',
 // NOTE: owner and members can access
 router.get('/:id/member/:account_id', 
   function(req, res, next) {
-    if (res.locals.isAdmin) return next();
     if (!res.locals.authenticated)
       return util.handle_unauthorized(next);
 
@@ -438,8 +438,7 @@ router.get('/:id/member/:account_id',
         req.models.project
       ],
       limit: 1
-    })
-    .then(function(members) {
+    }).then(function(members) {
         if (!members || members.length == 0) 
           return next(
             new Error(
@@ -447,7 +446,7 @@ router.get('/:id/member/:account_id',
               + account_id + " in project: " + project_id
           ));
         var member = members[0];
-        if (member.project.owner_id == res.locals.current_account.id) {
+        if (res.locals.isAdmin || member.project.owner_id == res.locals.current_account.id) {
           res.locals.current_member = member;
           return next();
         }
