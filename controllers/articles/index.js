@@ -173,7 +173,7 @@ router.post('/update',
   }
 );
 
-// TODO: check account's level, roles, project
+// TODO: check account's roles
 router.get('/project/:project_id',
   function(req, res, next) {
     if (!res.locals.authenticated) return util.handle_unauthorized(next);
@@ -242,8 +242,10 @@ router.get('/project/:project_id/create',
       function(project_profiles) {
         if (project_profiles.length > 0) {
           var project_profile = project_profiles[0];
-          res.locals.current_profile = project_profile;
-          return next();
+          if (project_profile.security_level) {
+            res.locals.current_profile = project_profile;
+            return next();
+          }
         }
         return util.handle_unauthorized(next);
       }, function(error) {
@@ -288,8 +290,10 @@ router.post('/project/:project_id/create',
       function(project_profiles) {
         if (project_profiles.length > 0) {
           var project_profile = project_profiles[0];
-          res.locals.current_profile = project_profile;
-          return next();
+          if (project_profile.security_level) {
+            res.locals.current_profile = project_profile;
+            return next();
+          }
         }
         return util.handle_unauthorized(next);
       }, function(error) {
