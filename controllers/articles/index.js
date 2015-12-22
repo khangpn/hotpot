@@ -270,6 +270,7 @@ router.get('/project/:project_id/create',
   }
 );
 
+// NOTE: the current_profile s_level should be lte to the article's in order to create it
 router.post('/project/:project_id/create',
   function(req, res, next) {
     if (!res.locals.authenticated) return util.handle_unauthorized(next);
@@ -290,7 +291,8 @@ router.post('/project/:project_id/create',
       function(project_profiles) {
         if (project_profiles.length > 0) {
           var project_profile = project_profiles[0];
-          if (project_profile.security_level) {
+          if (project_profile.security_level && 
+            project_profile.security_level.level <= data.level) {
             res.locals.current_profile = project_profile;
             return next();
           }
@@ -328,6 +330,7 @@ router.post('/project/:project_id/create',
   }
 );
 
+// NOTE: the current_profile s_level should be gte to the article's in order to view it
 router.get('/:id',
   function(req, res, next) {
     if (!res.locals.authenticated) return util.handle_unauthorized(next);
