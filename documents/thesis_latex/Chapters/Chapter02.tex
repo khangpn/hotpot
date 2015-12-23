@@ -6,96 +6,34 @@
 
 %----------------------------------------------------------------------------------------
 
-\lipsum[1]
+\section{Multi-level Security}
+
+MLS is a system design which allows multiple users with difference clearance levels can access at the same time.
+A successful MLS system should allow various users to access and share their data, in purpose, to suitable users. 
+In another word, MLS system will force users in the system to follow predefined rules in order to keep their data from being leaked out of the system, or being shared accidentally.
+On the other hand, MLS also segregate users and the organization's assets into specific groups.
+By that way, it can easily control the data flow inside the system, it can actively decide which pieces of data conform to a particular user.
+Moreover, MLS marks all pieces of data with one of predefined \emph{security level}.
+In the same group (\emph{category}), users and data are also divided into different level, corresponding to the importance of its content.
+The users, then, can gain access to data which full-fills a predefined rule.
+
+\emph{Category} and \emph{Security Level} together form various combinations which help us to secure our data access, and to be able to predict the system's data flow.
+Nowaday, there are many MLS models, each of them is a different set of predefined rules, and has different pros and cons.
+People should research about security models to select or adjust a suitable one for their system.
+
+\graffito{Information Security is an adjustment between security and convenience, there is no \emph{single solution for everyone}.}
 
 %----------------------------------------------------------------------------------------
 
-\section{A New Section}
+\section{Bell-LaPadula}
 
-\lipsum[2]
+Bell-LaPadula is a MLS model which was developed by Bell and LaPadula.
+The key point of this model could be summarized as 'no read up, no write down'.
+It means that users with lower security label cannot read data with higher security label.
+And so on, a higher security label user cannot write (create) data with lower security label.
+In consequence, the important data (or data with high security label) can only be viewed by users with higher or equal importance.
+And high security level user cannot leak important data to insufficient users, because they \emph{cannot write down}, while lower security users can create high confidential report to their boss.
 
-Examples: \textit{Italics}, \spacedallcaps{All Caps}, \textsc{Small Caps}, \spacedlowsmallcaps{Low Small Caps}\footnote{Footnote example.}.
 
-%------------------------------------------------
-
-\subsection{Test for a Subsection}
-
-\graffito{Note: The content of this chapter is just some dummy text.}
-\lipsum[3-5]
 
 %------------------------------------------------
-
-\subsection{Autem Timeam}
-
-\lipsum[6]
-
-%----------------------------------------------------------------------------------------
-
-\section{Another Section in This Chapter}
-
-\lipsum[7]
-
-Sia ma sine svedese americas. Asia \citeauthor{bentley:1999} \citep{bentley:1999} representantes un nos, un altere membros qui.\footnote{De web nostre historia angloromanic.} Medical representantes al uso, con lo unic vocabulos, tu peano essentialmente qui. Lo malo laborava anteriormente uso.
-
-\begin{description}
-\item[Description-Label Test:] \lipsum[8]
-\item[Label Test 2:] \lipsum[9]
-\end{description}
-
-\noindent This statement requires citation \citeauthor{cormen:2001} \citep{cormen:2001}.
-
-%------------------------------------------------
-
-\subsection{Personas Initialmente}
-
-\lipsum[10]
-
-\subsubsection{A Subsubsection}
-\lipsum[11]
-
-\paragraph{A Paragraph Example} \lipsum[12]
-
-\begin{aenumerate}
-\item Enumeration with small caps
-\item Second item
-\end{aenumerate}
-
-\noindent Another statement requiring citation \citeauthor{sommerville:1992} \citep{sommerville:1992} but this time with text after the citation.
-
-\begin{table}
-\myfloatalign
-\begin{tabularx}{\textwidth}{Xll} \toprule
-\tableheadline{labitur bonorum pri no} & \tableheadline{que vista}
-& \tableheadline{human} \\ \midrule
-fastidii ea ius & germano &  demonstratea \\
-suscipit instructior & titulo & personas \\
-\midrule
-quaestio philosophia & facto & demonstrated \citeauthor{knuth:1976} \\
-\bottomrule
-\end{tabularx}
-\caption[Autem timeam deleniti usu id]{Autem timeam deleniti usu id. \citeauthor{knuth:1976}}  
-\label{tab:example}
-\end{table}
-
-\enlargethispage{2cm}
-
-%------------------------------------------------
-
-\subsection{Figure Citations}
-Veni introduction es pro, qui finalmente demonstrate il. E tamben anglese programma uno. Sed le debitas demonstrate. Non russo existe o, facite linguistic registrate se nos. Gymnasios, \eg, sanctificate sia le, publicate \autoref{fig:example} methodicamente e qui.
-
-Lo sed apprende instruite. Que altere responder su, pan ma, \ie, signo studio. \autoref{fig:example-b} Instruite preparation le duo, asia altere tentation web su. Via unic facto rapide de, iste questiones methodicamente o uno, nos al.
-
-\begin{figure}[bth]
-\myfloatalign
-\subfloat[Asia personas duo.]
-{\includegraphics[width=.45\linewidth]{gfx/example_1}} \quad
-\subfloat[Pan ma signo.]
-{\label{fig:example-b}
-\includegraphics[width=.45\linewidth]{gfx/example_2}} \\
-\subfloat[Methodicamente o uno.]
-{\includegraphics[width=.45\linewidth]{gfx/example_3}} \quad
-\subfloat[Titulo debitas.]
-{\includegraphics[width=.45\linewidth]{gfx/example_4}}
-\caption[Tu duo titulo debitas latente]{Tu duo titulo debitas latente.}\label{fig:example}
-\end{figure}
