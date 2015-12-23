@@ -6,13 +6,17 @@
 
 %----------------------------------------------------------------------------------------
 
-MLS is a very popular term in security field, which means every subjects (\ie users) has different roles in a same system; so that corresponding to their role, the subject will have distinct security level to access to suitable data sources to perform their jobs.
+MLS is a very popular term in security field, which means every subjects (\ie users) has different roles in a same system;
+so that corresponding to their role, the subject will have distinct security level to access to suitable data sources to perform their jobs.
 It's very trivial in military systems and we will explain more detailed about it in later chapter.
-This is a very common scenario of most of IT-related projects where many roles (\eg\,developers, designers, project managers, customers etc.) work together sharing the same data source.
-While almost every existing project management tools focus on productivity, accessibility of the project; some of services \eg\,FreshDesk even provides further data protection (authentication, data integrity etc.); however, not many projects realize how well MLS satisfies the scenario of multi-roles project management, and it could be used as a skeleton for a PM tool to help us have a advanced sign about PM and innumerable assets for our projects which we will see later.
+Here is a very common scenario of most of IT-related projects where many roles (\eg\,developers, designers, project managers, customers etc.) work together sharing the same data source.
+While almost every existing project management tools focus on productivity, accessibility of the project;
+some of services \eg\,FreshDesk even provides further data protection (authentication, data integrity etc.);
+however, not many projects realize how well MLS satisfies the scenario of multi-roles project management, and it could be used as a skeleton for a PM tool to help us have a advanced sign about PM and innumerable assets for our projects which we will see later.
 
-The goal of this project is to build a PM tool which embeds MLS as the core security principal.
-From that point of view, we are going to see the possibility that MLS can be used in PM for typical size organizations.
+The goal of this project is to evaluate how complex to build up a MLS management system used in IT industry.
+As the result, we are going to see the difficulty, limitation and solutions of that approach.
+While the projet is in progress, we may find various paths to reach an achievement, and we have to analyze them in order to understand deeper about MLS and to pick out the best way to handle it.
 In the beginning of this document, we are going to see how MTS can fit into PM tool, brief explanation about the use-cases, and how we are going to cover them in our tool.
 \marginpar{Since it is 'hot' and I use it to 'cook' my thesis}At the moment, we will name this project \myProject.
 
@@ -42,7 +46,7 @@ Another advanced use-case is that, even in the same project, there may be some f
 \marginpar{MLS advantage: create a transparent working environemnt}So that, we can see how MTS is applicable in a PM tool, and it can also help us to create a transparent working environment where people only receive what are essential for them to finish their job without suffering from 'finding a leaf in the forrest'.
 
 \section{Project Approach}
-In \autoref{ch:background}, we will see in detail how MTS can implement this security feature.
+In \autoref{ch:background} , we will see in detail how MTS can implement this security feature.
 In this section, I will introduce briefly about how we are going to architect this program.
 
 First of all, such as other MTS systems, we use things called \texttt{labels} (or \texttt{tag}).
