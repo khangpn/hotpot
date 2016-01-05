@@ -236,11 +236,15 @@ router.get('/project/:project_id',
       });
   },
   function(req, res, next) {
-    var Article = req.models.article;
     var SecurityLevel = req.models.security_level;
+    var Article = req.models.article;
     var project_profile = res.locals.current_profile;
     var sequelize = req.models.sequelize;
-    var query_string = 'SELECT "article"."id", "article"."name", "article"."description", "article"."content", "article"."writable", "article"."readable", "article"."created_at", "article"."updated_at", "article"."account_id", "article"."project_id", "article"."security_level_id", "security_level"."id" AS "security_level.id", "security_level"."name" AS "security_level.name", "security_level"."level" AS "security_level.level", "security_level"."description" AS "security_level.description", "security_level"."created_at" AS "security_level.created_at", "security_level"."updated_at" AS "security_level.updated_at" FROM "article" AS "article" INNER JOIN "security_level" AS "security_level" ON "article"."security_level_id" = "security_level"."id" AND ("security_level"."level" <= :level OR "article"."account_id" = :account_id) WHERE ("article"."project_id" = :project_id AND ("article"."readable" = true OR "article"."account_id" = :account_id))';
+    var query_string = 'SELECT "article"."id", "article"."name", "article"."description", "article"."content", "article"."writable", "article"."readable", "article"."created_at", "article"."updated_at", "article"."account_id", "article"."project_id", "article"."security_level_id",' +
+    '"security_level"."id" AS "security_level.id", "security_level"."name" AS "security_level.name", "security_level"."level" AS "security_level.level", "security_level"."description" AS "security_level.description", "security_level"."created_at" AS "security_level.created_at", "security_level"."updated_at" AS "security_level.updated_at"' +
+    'FROM "article" AS "article"' +
+    'INNER JOIN "security_level" AS "security_level" ON "article"."security_level_id" = "security_level"."id" AND ("security_level"."level" <= :level OR "article"."account_id" = :account_id)' +
+    'WHERE ("article"."project_id" = :project_id AND ("article"."readable" = true OR "article"."account_id" = :account_id))';
     sequelize.query(query_string, {
       replacements: {
         level: project_profile.security_level.level,
@@ -249,6 +253,25 @@ router.get('/project/:project_id',
       },
       type: sequelize.QueryTypes.SELECT
     })
+    // NOTE: 'security_level.level' is called nested key and it is not supported by sequelize at the time implementing this
+    //Article.findAll({
+    //  where: {
+    //    $and: {
+    //      project_id: project_profile.project_id,
+    //      $or: [
+    //        {account_id: project_profile.account_id},
+    //        {$and: {
+    //          readable: true,
+    //          'security_level.level': {$lte: project_profile.security_level.level}
+    //        }}
+    //      ]
+    //    }
+    //  },
+    //  include: {
+    //    model: SecurityLevel,
+    //    require: true
+    //  }
+    //})
     .then(
       function(articles) {
         res.render("list", {articles: articles});
