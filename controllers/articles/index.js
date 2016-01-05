@@ -208,7 +208,6 @@ router.post('/update',
   }
 );
 
-// TODO: check account's roles
 // NOTE: only show the article whose level is lte to current user level
 router.get('/project/:project_id',
   function(req, res, next) {
@@ -240,25 +239,17 @@ router.get('/project/:project_id',
     var Article = req.models.article;
     var SecurityLevel = req.models.security_level;
     var project_profile = res.locals.current_profile;
-    // TODO: edit query to select either the article whose security_level is lte to user's
-    // OR the user is its owner
-    Article.findAll({
-      where: {
-        $and: {
-          project_id: project_profile.project_id,
-          $or: [
-            { readable: true },
-            { account_id: project_profile.account_id }
-          ]
-        }
+    var sequelize = req.models.sequelize;
+    var query_string = 'SELECT "article"."id", "article"."name", "article"."description", "article"."content", "article"."writable", "article"."readable", "article"."created_at", "article"."updated_at", "article"."account_id", "article"."project_id", "article"."security_level_id", "security_level"."id" AS "security_level.id", "security_level"."name" AS "security_level.name", "security_level"."level" AS "security_level.level", "security_level"."description" AS "security_level.description", "security_level"."created_at" AS "security_level.created_at", "security_level"."updated_at" AS "security_level.updated_at" FROM "article" AS "article" INNER JOIN "security_level" AS "security_level" ON "article"."security_level_id" = "security_level"."id" AND ("security_level"."level" <= :level OR "article"."account_id" = :account_id) WHERE ("article"."project_id" = :project_id AND ("article"."readable" = true OR "article"."account_id" = :account_id))';
+    sequelize.query(query_string, {
+      replacements: {
+        level: project_profile.security_level.level,
+        account_id: project_profile.account_id,
+        project_id: project_profile.project_id
       },
-      include: [{
-        model: SecurityLevel
-        where: {
-          level: { $lte: project_profile.security_level.level }
-        }
-      }]
-    }).then(
+      type: sequelize.QueryTypes.SELECT
+    })
+    .then(
       function(articles) {
         res.render("list", {articles: articles});
       }, function(error) {
@@ -385,6 +376,7 @@ router.post('/project/:project_id/create',
   }
 );
 
+// TODO: check account's roles
 // NOTE: the current_profile s_level should be gte to the article's in order to view it
 router.get('/:id',
   function(req, res, next) {
