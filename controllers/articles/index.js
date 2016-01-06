@@ -48,10 +48,16 @@ router.get('/edit/:id',
     var article_id = req.params.id;
     var Article = req.models.article;
     var SecurityLevel = req.models.security_level;
+    var Role = req.models.role;
     var Project = req.models.project;
     var current_account = res.locals.current_account;
     Article.findById(article_id, {
-      include: [SecurityLevel, Project]
+      include: [SecurityLevel, Project, 
+        {
+          model: Role,
+          as: 'roles'
+        }
+      ]
     })
       .then(function(article) {
           if (!article) return next(new Error("Can't find the article with id: " + req.params.id));
@@ -94,15 +100,21 @@ router.get('/edit/:id',
     var article = res.locals.current_article;
     var project_profile= res.locals.current_profile ;
     var SecurityLevel = req.models.security_level;
+    var Role = req.models.role;
     SecurityLevel.findAll(
       { where: {
           level: { $gte: project_profile.security_level.level }
       } }
     ).then(function(security_levels){
-        res.render('edit', {
-          article: article,
-          security_levels: security_levels
-        }); 
+      Role.findAll().then(function(roles){
+          res.render('edit', {
+            article: article,
+            roles: roles,
+            security_levels: security_levels
+          }); 
+        }, function(error){
+          return next(error);
+        });
       }, function(error){
         return next(error);
       });
@@ -114,13 +126,20 @@ router.post('/update',
     if (!res.locals.authenticated) return util.handle_unauthorized(next);
     if (!req.body) return next(new Error('Cannot get the req.body'));
     var data = req.body;
+    if (!data.roles || data.roles.length == 0) return next(new Error('Article should have at least one role'));
     var article_id = data.id;
     var Article = req.models.article;
+    var Role = req.models.role;
     var SecurityLevel = req.models.security_level;
     var Project = req.models.project;
     var current_account = res.locals.current_account;
     Article.findById(article_id, {
-      include: [SecurityLevel, Project]
+      include: [SecurityLevel, Project, 
+        {
+          model: Role,
+          as: 'roles'
+        }
+      ]
     })
       .then(function(article) {
           if (!article) return next(new Error("Can't find the article with id: " + req.params.id));
@@ -181,30 +200,45 @@ router.post('/update',
   },
   function(req, res, next) {
     var Article = req.models.article;
+    var Role = req.models.role;
     var SecurityLevel = req.models.security_level;
     var article = res.locals.current_article;
     var project_profile= res.locals.current_profile ;
     var data = req.body;
 
+    var onEditError = function(error) {
+      SecurityLevel.findAll(
+        { where: {
+            level: { $gte: project_profile.security_level.level }
+        } }
+      ).then(function(security_levels){
+          Role.findAll().then(function(roles){
+              //this is because the update failed will set
+              //all roles object to empty data value, while
+              // still remain the number of roles in the array
+              article.roles = article.previous('roles');
+              res.render('edit', {
+                article: article,
+                roles: roles,
+                security_levels: security_levels,
+                error: error
+              }); 
+            }, function(error){
+              return next(error);
+            });
+        }, function(error){
+          return next(error);
+        });
+    }
+
     delete data.id;
     article.update(data)
-      .then(function(account) {
-        res.redirect('/articles/' + article.id);
-      }, function (error) {
-        SecurityLevel.findAll(
-          { where: {
-              level: { $gte: project_profile.security_level.level }
-          } }
-        ).then(function(security_levels){
-            res.render('edit', {
-              article: article,
-              security_levels: security_levels,
-              error: error
-            }); 
-          }, function(error){
-            return next(error);
-          });
-      });
+      .then(function(article) {
+        article.setRoles(data.roles).then(
+          function(roles) {
+            res.redirect('/articles/' + article.id);
+        }, onEditError);
+      }, onEditError);
   }
 );
 
@@ -242,9 +276,13 @@ router.get('/project/:project_id',
     var sequelize = req.models.sequelize;
     var query_string = 'SELECT "article"."id", "article"."name", "article"."description", "article"."content", "article"."writable", "article"."readable", "article"."created_at", "article"."updated_at", "article"."account_id", "article"."project_id", "article"."security_level_id",' +
     '"security_level"."id" AS "security_level.id", "security_level"."name" AS "security_level.name", "security_level"."level" AS "security_level.level", "security_level"."description" AS "security_level.description", "security_level"."created_at" AS "security_level.created_at", "security_level"."updated_at" AS "security_level.updated_at"' +
-    'FROM "article" AS "article"' +
-    'INNER JOIN "security_level" AS "security_level" ON "article"."security_level_id" = "security_level"."id" AND ("security_level"."level" <= :level OR "article"."account_id" = :account_id)' +
-    'WHERE ("article"."project_id" = :project_id AND ("article"."readable" = true OR "article"."account_id" = :account_id))';
+    //', "role".id AS "role.id", "role".name AS "role.name", "role".description AS "role.description"' +
+    ' FROM "article" AS "article"' +
+    ' INNER JOIN "security_level" AS "security_level" ON "article"."security_level_id" = "security_level"."id" AND ("security_level"."level" <= :level OR "article"."account_id" = :account_id)' +
+    ' INNER JOIN "article_role" AS "article_role" ON "article"."id" = "article_role"."article_id"' +
+    ' INNER JOIN "role" AS "role" ON "article_role"."role_id" = "role"."id"' +
+    ' WHERE ("article"."project_id" = :project_id AND ("article"."readable" = true OR "article"."account_id" = :account_id))' +
+    ' GROUP BY "article"."id", "security_level.id", "article_role"."article_id"';
     sequelize.query(query_string, {
       replacements: {
         level: project_profile.security_level.level,
@@ -315,15 +353,21 @@ router.get('/project/:project_id/create',
   },
   function(req, res, next) {
     var SecurityLevel = req.models.security_level;
+    var Role = req.models.role;
     var project_profile= res.locals.current_profile ;
     SecurityLevel.findAll(
       { where: {
           level: { $gte: project_profile.security_level.level }
       } }
     ).then(function(security_levels){
-        res.render("create", {
-          project_id: req.params.project_id,
-          security_levels: security_levels
+      Role.findAll().then(function(roles){
+          res.render("create", {
+            project_id: req.params.project_id,
+            roles: roles,
+            security_levels: security_levels
+          }); 
+        }, function(error){
+          return next(error);
         });
       }, function(error){
         return next(error);
@@ -340,6 +384,7 @@ router.post('/project/:project_id/create',
     var Project = req.models.project;
     var current_account = res.locals.current_account;
     var data = req.body;
+    if (!data.roles || data.roles.length == 0) return next(new Error('Article should have at least one role'));
     var project_id = data.project_id;
 
     current_account.getProjectProfiles({
@@ -378,8 +423,11 @@ router.post('/project/:project_id/create',
     data.account_id = res.locals.current_account.id; 
 
     Article.create(data)
-      .then(function(newArticle){
-        res.redirect('/articles/' + newArticle.id);
+      .then(function(article){
+        article.setRoles(data.roles).then(
+          function(roles) {
+            res.redirect('/articles/' + article.id);
+        });
       }, function(error){
         var SecurityLevel = req.models.security_level;
         SecurityLevel.findAll(
@@ -387,11 +435,17 @@ router.post('/project/:project_id/create',
               level: { $gte: project_profile.security_level.level }
           } }
         ).then(function(security_levels){
-            res.render("create", {
-              project_id: data.project_id,
-              security_levels: security_levels,
-              error: error
-            });
+            var Role = req.models.role;
+            Role.findAll().then(function(roles){
+                res.render("create", {
+                  project_id: data.project_id,
+                  roles: roles,
+                  security_levels: security_levels,
+                  error: error
+                }); 
+              }, function(error){
+                return next(error);
+              });
           }, function(error){
             return next(error);
           });

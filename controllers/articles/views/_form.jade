@@ -62,8 +62,30 @@ form.form-horizontal(action=(!article || article.isNewRecord)
         name='security_level_id',
         id='Article_security_level')
         each level in security_levels
-          option(value=level.id)
+          option(
+            value=level.id,
+            selected=(article && article.security_level.id == level.id ?
+            'selected' : undefined)
+          ) 
             =level.name
+  div.form-group
+    label.col-sm-2.control-label(for='Article_role') Roles
+    div.col-sm-10
+      each role in roles
+        - var checked_status = undefined
+        if (article && article.roles)
+          each article_role in article.roles
+            if (article_role.id == role.id) 
+              - checked_status = 'checked'
+        div.checkbox
+          label 
+            input(type='checkbox',
+              name='roles[]',
+              value=role.id,
+              id='Article_role',
+              checked=checked_status
+            ) 
+            =role.name
   div.form-group
     div.col-sm-offset-2.col-sm-10
       input.btn.btn-default(type='submit' value='Submit')
