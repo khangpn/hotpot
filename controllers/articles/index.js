@@ -206,6 +206,9 @@ router.post('/update',
     var project_profile= res.locals.current_profile ;
     var data = req.body;
 
+    if (!data.readable)
+      data.readable = false;
+
     var onEditError = function(error) {
       SecurityLevel.findAll(
         { where: {
