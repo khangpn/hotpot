@@ -267,6 +267,8 @@ router.get('/project/:project_id',
       function(project_profiles) {
         if (project_profiles.length > 0) {
           var project_profile = project_profiles[0];
+          if (!project_profile.security_level)
+            return next(new Error('This account doesnot have security level for in project yet!'));
           res.locals.current_profile = project_profile;
           return next();
         }
