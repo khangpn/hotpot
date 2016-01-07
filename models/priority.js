@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
           }
         }
       },
-      priority: { 
+      level: { 
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
