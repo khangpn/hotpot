@@ -61,36 +61,39 @@ router.get('/edit/:id',
     })
       .then(function(article) {
           if (!article) return next(new Error("Can't find the article with id: " + req.params.id));
-          // if user is owner or the aritcle is open for writing
-          //if (article.writable || article.account_id == current_account.id) {
-          // only owner can edit
-          if (article.account_id == current_account.id) {
-            current_account.getProjectProfiles({
-              where: {
-                project_id: article.project.id
-              },
-              include: [SecurityLevel],
-              limit: 1
-            }).then(
-              function(project_profiles) {
-                if (project_profiles.length > 0) {
-                  var project_profile = project_profiles[0];
-                  // if user level is lower than article level
-                  if ( project_profile.security_level &&
-                    project_profile.security_level.level <=
-                    article.security_level.level) {
-                    res.locals.current_profile = project_profile;
-                    res.locals.current_article = article;
-                    return next();
-                  }
+          current_account.getProjectProfiles({
+            where: {
+              project_id: article.project.id
+            },
+            include: [SecurityLevel],
+            limit: 1
+          }).then(
+            function(project_profiles) {
+              if (project_profiles.length > 0) {
+                var project_profile = project_profiles[0];
+                // NOTE: if user is owner or the aritcle is open for writing and the account's level equals to article's
+                if (project_profile.security_level &&
+                  (
+                    (
+                      article.writable &&
+                      project_profile.security_level.level ==
+                      article.security_level.level
+                    ) || (
+                      article.account_id == current_account.id &&
+                      project_profile.security_level.level <=
+                      article.security_level.level
+                    )
+                  )
+                ) {
+                  res.locals.current_profile = project_profile;
+                  res.locals.current_article = article;
+                  return next();
                 }
-                return util.handle_unauthorized(next);
-              }, function(error) {
-                return next(error);
-              });
-          } else {
-            return util.handle_unauthorized(next);
-          }
+              }
+              return util.handle_unauthorized(next);
+            }, function(error) {
+              return next(error);
+            });
         }, 
         function(error) {
           return next(error);
@@ -143,56 +146,60 @@ router.post('/update',
     })
       .then(function(article) {
           if (!article) return next(new Error("Can't find the article with id: " + req.params.id));
-          // if user is owner or the aritcle is open for writing
-          //if (article.writable || article.account_id == current_account.id) {
-          // only owner can edit
-          if (article.account_id == current_account.id) {
-            current_account.getProjectProfiles({
-              where: {
-                project_id: article.project.id
-              },
-              include: [SecurityLevel],
-              limit: 1
-            }).then(
-              function(project_profiles) {
-                if (project_profiles.length > 0) {
-                  // if user level is lower than article level
-                  var project_profile = project_profiles[0];
-                  if ( project_profile.security_level &&
-                    project_profile.security_level.level <=
-                    article.security_level.level) {
-                    res.locals.current_profile = project_profile;
-                    res.locals.current_article = article;
-                    // the article security_level is changed
-                    if (data.security_id != article.security_level.id) {
-                      SecurityLevel.findById(data.security_level_id)
-                      .then(function(security_level) {
-                        if (!security_level) 
-                          return next(new Error("Can't find the security with id: " + data.security_level_id));
-                        if ( project_profile.security_level &&
-                          project_profile.security_level.level <=
-                          security_level.level) {
-                          return next();
-                        }
-                        return util.handle_unauthorized(next);
-                      }, function(error) {
-                        return next(error);
-                      });
-                    } else {
-                      return next();
-                    }
+          current_account.getProjectProfiles({
+            where: {
+              project_id: article.project.id
+            },
+            include: [SecurityLevel],
+            limit: 1
+          }).then(
+            function(project_profiles) {
+              if (project_profiles.length > 0) {
+                var project_profile = project_profiles[0];
+                // NOTE: if user is owner or the aritcle is open for writing and the account's level equals to article's
+                if (project_profile.security_level &&
+                  (
+                    (
+                      article.writable &&
+                      project_profile.security_level.level ==
+                      article.security_level.level
+                    ) || (
+                      article.account_id == current_account.id &&
+                      project_profile.security_level.level <=
+                      article.security_level.level
+                    )
+                  )
+                ) {
+                  res.locals.current_profile = project_profile;
+                  res.locals.current_article = article;
+                  // the article security_level is changed
+                  if (data.security_id != article.security_level.id) {
+                    SecurityLevel.findById(data.security_level_id)
+                    .then(function(security_level) {
+                      if (!security_level) 
+                        return next(new Error("Can't find the security with id: " + data.security_level_id));
+                      if ( project_profile.security_level &&
+                        project_profile.security_level.level <=
+                        security_level.level) {
+                        return next();
+                      }
+                      return util.handle_unauthorized(next);
+                    }, function(error) {
+                      return next(error);
+                    });
+                  // the article security_level is NOT changed
                   } else {
-                    return util.handle_unauthorized(next);
+                    return next();
                   }
                 } else {
                   return util.handle_unauthorized(next);
                 }
-              }, function(error) {
-                return next(error);
-              });
-          } else {
-            return util.handle_unauthorized(next);
-          }
+              } else {
+                return util.handle_unauthorized(next);
+              }
+            }, function(error) {
+              return next(error);
+            });
         }, 
         function(error) {
           return next(error);
