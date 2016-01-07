@@ -103,8 +103,18 @@ module.exports = function(sequelize, DataTypes) {
               allowNull: false
             }
           });
+          Account.hasMany(models.ticket, {
+            as: 'tasks',
+            onDelete: "CASCADE",
+            foreignKey: 'asignee_id'
+          });
+          Account.hasMany(models.ticket, {
+            as: 'opened_tickets',
+            onDelete: "CASCADE",
+            foreignKey: 'owner_id'
+          });
           Account.hasMany(models.project, {
-            as: "owned_projects"
+            as: "ownedProjects"
           });
         }
       },

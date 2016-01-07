@@ -54,6 +54,12 @@ module.exports = function(sequelize, DataTypes) {
               allowNull: false
             }
           });
+          Project.hasMany(models.ticket, {
+            onDelete: "CASCADE",
+            foreignKey: {
+              allowNull: false
+            }
+          });
         }
       }
     }

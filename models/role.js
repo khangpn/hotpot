@@ -36,6 +36,10 @@ module.exports = function(sequelize, DataTypes) {
             through: models.article_role,
             as: "articles"
           });
+          Role.belongsToMany(models.ticket, {
+            through: models.ticket_role,
+            as: "tickets"
+          });
         }
       }
     }

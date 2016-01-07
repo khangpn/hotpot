@@ -4,14 +4,14 @@
 * id, createdAt, updatedAt will be generated automatichally
 */
 module.exports = function(sequelize, DataTypes) {
-  var Level = sequelize.define("security_level", {
+  var Priority = sequelize.define("priority", {
       name: { 
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
           notEmpty: {
-            msg: "Level name is required"
+            msg: "Priority name is required"
           }
         }
       },
@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         validate: {
           notEmpty: {
-            msg: "Level is required"
+            msg: "Priority level is required"
           }
         }
       },
@@ -34,15 +34,7 @@ module.exports = function(sequelize, DataTypes) {
       freezeTableName: true,
       classMethods: {
         associate: function(models) {
-          Level.hasMany(models.account_project, {
-            as: 'accounts'
-          });
-          Level.hasMany(models.article, {
-            foreignKey: {
-              allowNull: false
-            }
-          });
-          Level.hasMany(models.ticket, {
+          Priority.hasMany(models.ticket, {
             foreignKey: {
               allowNull: false
             }
@@ -52,5 +44,5 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
 
-  return Level;
+  return Priority;
 };
