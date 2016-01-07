@@ -1,0 +1,111 @@
+form.form-horizontal(action=(!ticket || ticket.isNewRecord)
+? '/tickets/project/'+project_id+'/create' : '/tickets/update',
+  method='post')
+  if (!ticket || ticket.isNewRecord)
+    input.form-control(type='hidden',
+      name='project_id',
+      value=project_id) 
+  else
+    input.form-control(type='hidden',
+      name='project_id',
+      value=ticket.project_id) 
+  if ticket && !ticket.isNewRecord
+    input.form-control(type='hidden',
+      name='id',
+      value=ticket ? ticket.id : '') 
+  div.form-group
+    label.col-sm-2.control-label(for='Ticket_name') Name
+    div.col-sm-10
+      input.form-control(type='text',
+        name='name',
+        id='Ticket_name',
+        placeholder='Ticket name',
+        value=ticket ? ticket.name : '') 
+  div.form-group
+    label.col-sm-2.control-label(for='Ticket_description') Description
+    div.col-sm-10
+      textarea.form-control(name='description',
+        id='Ticket_description',
+        placeholder='Description')
+        =ticket ? ticket.description : ''
+  div.form-group
+    label.col-sm-2.control-label(for='Ticket_content') Content
+    div.col-sm-10
+      textarea.form-control(name='content',
+        id='Ticket_content',
+        placeholder='Content')
+        =ticket ? ticket.content : ''
+  div.form-group
+    label.col-sm-2.control-label(for='Ticket_due_date') Due date
+    div.col-sm-10
+      input.form-control(type='date',
+        name='due_date',
+        id='Ticket_due_date',
+        value=ticket ? ticket.due_date : '') 
+  div.form-group
+    div.col-sm-offset-2.col-sm-10
+      div.checkbox
+        label 
+          input(type='checkbox',
+            name='readable',
+            id='Ticket_readable',
+            checked=(!ticket || !ticket.readable ? 
+            undefined : 'checked')) 
+          |Readable
+  div.form-group
+    div.col-sm-offset-2.col-sm-10
+      div.checkbox
+        label
+          input(type='checkbox',
+            name='writable',
+            id='Ticket_readable',
+            checked=(!ticket || !ticket.writable ?
+            undefined : 'checked')) 
+          |Writable
+  div.form-group
+    label.col-sm-2.control-label(for='Ticket_priority') Priority
+    div.col-sm-10
+      select.form-control(
+        name='priority_id',
+        id='Ticket_priority')
+        each priority in priorities
+          option(
+            value=priority.id,
+            selected=(ticket && ticket.priority.id == priority.id ?
+            'selected' : undefined)
+          ) 
+            =priority.name
+  div.form-group
+    label.col-sm-2.control-label(for='Ticket_security_level') Security Level
+    div.col-sm-10
+      select.form-control(
+        name='security_level_id',
+        id='Ticket_security_level')
+        each level in security_levels
+          option(
+            value=level.id,
+            selected=(ticket && ticket.security_level.id == level.id ?
+            'selected' : undefined)
+          ) 
+            =level.name
+  div.form-group
+    label.col-sm-2.control-label(for='Ticket_role') Roles
+    div.col-sm-10
+      each role in roles
+        - var checked_status = undefined
+        if (ticket && ticket.roles)
+          each ticket_role in ticket.roles
+            if (ticket_role.id == role.id) 
+              - checked_status = 'checked'
+        div.checkbox
+          label 
+            input(type='checkbox',
+              name='roles[]',
+              value=role.id,
+              id='Ticket_role',
+              checked=checked_status
+            ) 
+            =role.name
+  div.form-group
+    div.col-sm-offset-2.col-sm-10
+      input.btn.btn-default(type='submit' value='Submit')

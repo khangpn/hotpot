@@ -1,0 +1,50 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Ticket Info
+    div.panel-body
+      div.row
+        label.col-md-2 Ticket name:
+        div.col-md-4
+          = ticket.name
+      div.row
+        label.col-md-2 Description:
+        div.col-md-4
+          = ticket.description
+      div.row
+        label.col-md-2 Content:
+        div.col-md-4
+          = ticket.content
+      div.row
+        label.col-md-2 Permission:
+        div.col-md-4
+          = ticket.readable ? 'readable ' : ''
+          = ticket.writable ? 'writable ' : ''
+      div.row
+        div.col-sm-offset-2.col-sm-1
+          a.btn.btn-primary(href="/tickets/edit/" + ticket.id,
+            role="button")
+            | Edit
+        div.col-sm-1
+          a.btn.btn-danger(href="/tickets/delete/" + ticket.id,
+            role="button")
+            | Delete
+//  div.panel.panel-default
+//    div.panel-heading
+//      h3.panel-title Ticket's Members
+//    div.panel-body
+//      // error output
+//      if error
+//        div.row
+//          div.alert.alert-danger(role="alert")
+//            ul
+//              - errors = error.errors;
+//              each val, index in errors
+//                li= val.message
+//      // creation form
+//      div.row
+//        div.col-md-6
+//          include ./_add_account.jade
+//      include ./_members_list.jade

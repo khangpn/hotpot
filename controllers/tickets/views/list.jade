@@ -1,0 +1,25 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Ticket Info
+    div.panel-body
+      div.table-responsive
+        table.table.table-hover
+          thead
+            tr
+              th Name
+              th Description
+              th Due Date
+              th Permission
+          tbody
+            for ticket in tickets
+              tr
+                td
+                  a(href='/tickets/' + ticket.id)=ticket.name
+                td=ticket.description
+                td=ticket.due_date.toString();
+                td
+                  =ticket.readable ? "readable " : ''
+                  =ticket.writable ? "writable" : ''

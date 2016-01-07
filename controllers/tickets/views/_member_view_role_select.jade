@@ -1,0 +1,18 @@
+form.form-inline(action='/projects/add_member_role', method='post', name='member_update')
+  input.form-control(type='hidden',
+    name='project_id',
+    id='Member_project_id',
+    value=project.id)
+  input.form-control(type='hidden',
+    name='account_id',
+    id='Member_account_id',
+    value=account.id)
+  div.form-group
+    div.col-sm-10
+      input.form-control(type='text',
+        name='role',
+        id='Member_role',
+        placeholder='Role ID')
+  div.form-group
+    div.col-sm-10
+      input.btn.btn-default(type='submit' value='Add')
