@@ -142,7 +142,7 @@ router.get('/:id',
                 res.render('view', {
                   level: level,
                   members: members}); 
-              }, function (errors) {
+              }, function (error) {
                 return next(error);
               }
             );
