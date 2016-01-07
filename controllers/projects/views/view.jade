@@ -23,6 +23,21 @@ block content
                 li
                   a(href="/articles/project/" + project.id + "/create/")
                     | Create article
+            li.dropdown
+              a.dropdown-toggle(href="#",
+                data-toggle="dropdown",
+                role="button",
+                aria-haspopup="true",
+                aria-expanded="false")
+                | Tickets
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href="/tickets/project/" + project.id)
+                    | Tickets list
+                li
+                  a(href="/tickets/project/" + project.id + "/create/")
+                    | Create ticket
       div.row
         label.col-md-2 Project name:
         div.col-md-4
