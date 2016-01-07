@@ -451,13 +451,13 @@ router.post('/project/:project_id/create',
   }
 );
 
-// TODO: check account's roles
 // NOTE: the current_profile s_level should be gte to the article's in order to view it
 router.get('/:id',
   function(req, res, next) {
     if (!res.locals.authenticated) return util.handle_unauthorized(next);
     var SecurityLevel = req.models.security_level;
     var Article = req.models.article;
+    var Role = req.models.role;
     var Project = req.models.project;
     var current_account = res.locals.current_account;
     var article_id = req.params.id;
@@ -467,7 +467,11 @@ router.get('/:id',
       include: [
         req.models.account, 
         req.models.security_level, 
-        req.models.project
+        req.models.project,
+        {
+          model: Role,
+          as: 'roles'
+        }
       ]
     }).then(function(article) {
           if (!article) return next(new Error("Can't find the article with id: " + req.params.id));
@@ -480,7 +484,12 @@ router.get('/:id',
               where: {
                 project_id: article.project_id
               },
-              include: [SecurityLevel, Project],
+              include: [SecurityLevel, Project,
+                {
+                  model:Role,
+                  as: 'roles'
+                }
+              ],
               limit: 1
             }).then(
               function(project_profiles) {
@@ -490,6 +499,7 @@ router.get('/:id',
                     project_profile.security_level.level >=
                     article.security_level.level) {
                     res.locals.current_article = article;
+                    res.locals.current_profile = project_profile;
                     return next();
                   }
                 }
@@ -507,16 +517,41 @@ router.get('/:id',
   },
   function (req, res, next) {
     var article = res.locals.current_article;
-    article.getRoles()
-      .then(function(roles) {
-        res.render('view', {
-          article: article,
-          roles: roles
-        }); 
-      }, 
-      function(error) {
-        return next(error);
-      });
+    var current_account = res.locals.current_account;
+    if (article.account.id == current_account.id) {
+      res.locals.current_article = article;
+      return next();
+    }
+
+    var project_profile = res.locals.current_profile;
+    var article_roles = article.roles;
+    var profile_roles = project_profile.roles;
+
+    var article_roles_array = [];
+    for (var i = 0; i < article_roles.length; i++) {
+      article_roles_array.push(article_roles[i].id);
+    }
+    article_roles_array.sort();
+
+    var profile_roles_array = [];
+    for (var i = 0; i < profile_roles.length; i++) {
+      profile_roles_array.push(profile_roles[i].id);
+    }
+    profile_roles_array.sort();
+
+    var result = util.array_inter(article_roles_array, 
+      profile_roles_array);
+
+    if (result.length == 0)
+      return util.handle_unauthorized(next);
+    return next();
+  },
+  function (req, res, next) {
+    var article = res.locals.current_article;
+    res.render('view', {
+      article: article,
+      roles: article.roles
+    }); 
   }
 );
 //--------------------------------------------------------
