@@ -108,7 +108,7 @@ models.sequelize.sync().then(function() {
           Priority.create(
             {
               name: 'normal',
-              level: 1,
+              priority: 1,
               description: 'do it'
             }
           )
@@ -119,7 +119,7 @@ models.sequelize.sync().then(function() {
           Priority.create(
             {
               name: 'high',
-              level: 2,
+              priority: 2,
               description: 'do it quick'
             }
           )
@@ -130,7 +130,7 @@ models.sequelize.sync().then(function() {
           Priority.create(
             {
               name: 'urgent',
-              level: 3,
+              priority: 3,
               description: 'run, run for your life'
             }
           )
