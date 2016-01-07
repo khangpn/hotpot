@@ -1,0 +1,23 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Project Info
+    div.panel-body
+      div.table-responsive
+        table.table.table-hover
+          thead
+            tr
+              th ID
+              th Priority name
+              th Priority
+              th Description
+          tbody
+            for priority in priorities
+              tr
+                td=priority.id
+                td
+                  a(href='/priorities/' + priority.id)=priority.name
+                td=priority.level
+                td=priority.description

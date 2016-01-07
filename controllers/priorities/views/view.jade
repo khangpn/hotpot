@@ -1,0 +1,33 @@
+extends ../../../views/layout
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Priority details
+    div.panel-body
+      div.row
+        label.col-md-1 Name:
+        div.col-md-1
+          = priority.name
+      div.row
+        label.col-md-1 Level:
+        div.col-md-1
+          = priority.level
+      div.row
+        label.col-md-1 Description:
+        div.col-md-1
+          = priority.description
+      div.row
+        div.col-sm-offset-2.col-sm-1
+          a.btn.btn-primary(href="/priorities/edit/" + priority.id,
+            priority="button")
+            | Edit
+        div.col-sm-1
+          a.btn.btn-danger(href="/priorities/delete/" + priority.id,
+            role="button")
+            | Delete
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title
+        =priority.name + " tickets"
+    div.panel-body
+      include ./_tickets_list.jade

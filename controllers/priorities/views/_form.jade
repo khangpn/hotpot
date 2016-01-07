@@ -1,0 +1,34 @@
+form.form-horizontal(action=(!priority || priority.isNewRecord) ? 
+  '/priorities/create' : '/priorities/update',
+  method='post')
+  if !priority || priority.isNewRecord
+    div.form-group
+      label.col-sm-2.control-label(for='priority_name') Priority name
+      div.col-sm-10
+        input.form-control(type='text',
+          name='name',
+          id='priority_name',
+          placeholder='Priority name e.g normal, high,...',
+          value=priority ? priority.name : '') 
+  else
+    input(type='hidden',
+      name='id',
+      value=priority.id)
+  div.form-group
+    label.col-sm-2.control-label(for='priority_level') Priority Level
+    div.col-sm-10
+      input.form-control(type='text',
+        name='level',
+        id='priority_level',
+        placeholder='Priority level e.g 1, 2, ...',
+        value=priority ? priority.level : '') 
+  div.form-group
+    label.col-sm-2.control-label(for='priority_description') Description
+    div.col-sm-10
+      textarea.form-control(name='description',
+        id='priority_description',
+        placeholder='Description')
+        =priority ? priority.description : ''
+  div.form-group
+    div.col-sm-offset-2.col-sm-10
+      input.btn.btn-default(type='submit' value='Submit')

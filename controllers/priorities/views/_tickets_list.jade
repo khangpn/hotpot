@@ -1,0 +1,18 @@
+if tickets
+  div.table-responsive
+    table.table.table-hover
+      thead
+        tr
+          th Index
+          th Ticket Name
+          th Project
+          th Creator
+      tbody
+        each ticket, index in tickets
+          - var account = ticket.account;
+          - var project = ticket.project;
+          tr
+            td=index + 1
+            td: a(href='/projects/' + project.id + '/ticket/' + ticket.id)=ticket.name
+            td: a(href='/projects/' + project.id)=project.name
+            td: a(href='/accounts/' + account.id)=account.name

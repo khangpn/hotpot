@@ -1,0 +1,17 @@
+extends ../../../views/layout
+
+block content
+  div.row
+    div.page-header
+      h1="Edit priority " + priority.name
+    // error output
+    if error
+      div.row
+        div.alert.alert-danger(role="alert")
+          ul
+            - errors = error.errors;
+            each val, index in errors
+              li= val.message
+    // creation form
+    div.col-md-9
+      include ./_form.jade
