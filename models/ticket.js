@@ -51,7 +51,7 @@ module.exports = function(sequelize, DataTypes) {
             }
           });
           Ticket.belongsTo(models.account, {
-            as: 'asignee',
+            as: 'assignee',
             onDelete: "CASCADE",
             foreignKey: {
               allowNull: false

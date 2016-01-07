@@ -106,7 +106,7 @@ module.exports = function(sequelize, DataTypes) {
           Account.hasMany(models.ticket, {
             as: 'tasks',
             onDelete: "CASCADE",
-            foreignKey: 'asignee_id'
+            foreignKey: 'assignee_id'
           });
           Account.hasMany(models.ticket, {
             as: 'opened_tickets',
