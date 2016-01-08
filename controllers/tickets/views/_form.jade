@@ -22,13 +22,6 @@ form.form-horizontal(action=(!ticket || ticket.isNewRecord)
         placeholder='Ticket name',
         value=ticket ? ticket.name : '') 
   div.form-group
-    label.col-sm-2.control-label(for='Ticket_description') Description
-    div.col-sm-10
-      textarea.form-control(name='description',
-        id='Ticket_description',
-        placeholder='Description')
-        =ticket ? ticket.description : ''
-  div.form-group
     label.col-sm-2.control-label(for='Ticket_content') Content
     div.col-sm-10
       textarea.form-control(name='content',

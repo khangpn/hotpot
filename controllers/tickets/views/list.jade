@@ -10,7 +10,8 @@ block content
           thead
             tr
               th Name
-              th Description
+              th Creator
+              th Assignee
               th Due Date
               th Permission
           tbody
@@ -18,8 +19,9 @@ block content
               tr
                 td
                   a(href='/tickets/' + ticket.id)=ticket.name
-                td=ticket.description
-                td=ticket.due_date.toString();
+                td=ticket['owner.name']
+                td=ticket['assignee.name']
+                td=ticket.due_date.toString()
                 td
                   =ticket.readable ? "readable " : ''
                   =ticket.writable ? "writable" : ''

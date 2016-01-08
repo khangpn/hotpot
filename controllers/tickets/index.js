@@ -14,7 +14,7 @@ router.get('/delete/:id',
     Ticket.findById(req.params.id)
       .then(function(ticket){
           if (!ticket) return next(new Error("Can't find the ticket with id: " + req.params.id));
-          if (!ticket.account_id !== res.locals.current_account.id) 
+          if (ticket.owner_id !== res.locals.current_account.id) 
             return util.handle_unauthorized(next);
           res.locals.current_ticket = ticket;
           next()
@@ -50,9 +50,10 @@ router.get('/edit/:id',
     var SecurityLevel = req.models.security_level;
     var Role = req.models.role;
     var Project = req.models.project;
+    var Priority = req.models.priority;
     var current_account = res.locals.current_account;
     Ticket.findById(ticket_id, {
-      include: [SecurityLevel, Project, 
+      include: [SecurityLevel, Project, Priority,
         {
           model: Role,
           as: 'roles'
@@ -71,7 +72,7 @@ router.get('/edit/:id',
             function(project_profiles) {
               if (project_profiles.length > 0) {
                 var project_profile = project_profiles[0];
-                // NOTE: if user is owner or the aritcle is open for writing and the account's level equals to ticket's
+                // NOTE: if user is owner or the ticket is open for writing and the account's level equals to ticket's
                 if (project_profile.security_level &&
                   (
                     (
@@ -79,7 +80,7 @@ router.get('/edit/:id',
                       project_profile.security_level.level ==
                       ticket.security_level.level
                     ) || (
-                      ticket.account_id == current_account.id &&
+                      ticket.owner_id == current_account.id &&
                       project_profile.security_level.level <=
                       ticket.security_level.level
                     )
@@ -141,9 +142,10 @@ router.post('/update',
     var Role = req.models.role;
     var SecurityLevel = req.models.security_level;
     var Project = req.models.project;
+    var Priority = req.models.priority;
     var current_account = res.locals.current_account;
     Ticket.findById(ticket_id, {
-      include: [SecurityLevel, Project, 
+      include: [SecurityLevel, Project, Priority,
         {
           model: Role,
           as: 'roles'
@@ -170,7 +172,7 @@ router.post('/update',
                       project_profile.security_level.level ==
                       ticket.security_level.level
                     ) || (
-                      ticket.account_id == current_account.id &&
+                      ticket.owner_id == current_account.id &&
                       project_profile.security_level.level <=
                       ticket.security_level.level
                     )
@@ -233,6 +235,7 @@ router.post('/update',
               //all roles object to empty data value, while
               // still remain the number of roles in the array
               ticket.roles = ticket.previous('roles');
+              ticket.priority = ticket.previous('priority');
               Priority.findAll().then(function(priorities){
                   res.render('edit', {
                     ticket: ticket,
@@ -312,20 +315,22 @@ router.get('/project/:project_id',
         account_roles_query += ',';
     }
     
-    var query_string = 'SELECT "ticket"."id", "ticket"."name", "ticket"."description", "ticket"."content", "ticket"."due_date", "ticket"."writable", "ticket"."readable", "ticket"."created_at", "ticket"."updated_at", "ticket"."account_id", "ticket"."project_id", "ticket"."security_level_id",' +
-    '"security_level"."id" AS "security_level.id", "security_level"."name" AS "security_level.name", "security_level"."level" AS "security_level.level", "security_level"."description" AS "security_level.description", "security_level"."created_at" AS "security_level.created_at", "security_level"."updated_at" AS "security_level.updated_at"' +
-    //', "role".id AS "role.id", "role".name AS "role.name", "role".description AS "role.description"' +
+    var query_string = 'SELECT "ticket"."id", "ticket"."name", "ticket"."content", "ticket"."due_date", "ticket"."writable", "ticket"."readable", "ticket"."created_at", "ticket"."updated_at", "ticket"."owner_id", "ticket"."assignee_id", "ticket"."project_id", "ticket"."security_level_id"' +
+    ', "owner"."id" AS "owner.id", "owner"."name" AS "owner.name"' +
+    ', "assignee"."id" AS "assignee.id", "assignee"."name" AS "assignee.name"' +
     ' FROM "ticket" AS "ticket"' +
-    ' INNER JOIN "security_level" AS "security_level" ON "ticket"."security_level_id" = "security_level"."id" AND ("security_level"."level" <= :level OR "ticket"."account_id" = :account_id)' +
+    ' INNER JOIN "security_level" AS "security_level" ON "ticket"."security_level_id" = "security_level"."id" AND ("security_level"."level" <= :level OR "ticket"."owner_id" = :owner_id)' +
     ' INNER JOIN "ticket_role" AS "ticket_role" ON "ticket"."id" = "ticket_role"."ticket_id"' +
     ' INNER JOIN "role" AS "role" ON "ticket_role"."role_id" = "role"."id"' +
-    ' WHERE ("ticket"."project_id" = :project_id AND (("ticket"."readable" = true AND "ticket_role"."role_id" IN (:account_roles_query)) OR "ticket"."account_id" = :account_id))' +
-    ' GROUP BY "ticket"."id", "security_level.id", "ticket_role"."ticket_id"';
+    ' INNER JOIN "account" AS "owner" ON "ticket"."owner_id" = "owner"."id"' +
+    ' INNER JOIN "account" AS "assignee" ON "ticket"."assignee_id" = "assignee"."id"' +
+    ' WHERE ("ticket"."project_id" = :project_id AND (("ticket"."readable" = true AND "ticket_role"."role_id" IN (:account_roles_query)) OR "ticket"."owner_id" = :owner_id))' +
+    ' GROUP BY "ticket"."id", "ticket_role"."ticket_id", "owner.id", "assignee.id"';
     //'';
     sequelize.query(query_string, {
       replacements: {
         level: project_profile.security_level.level,
-        account_id: project_profile.account_id,
+        owner_id: project_profile.account_id,
         account_roles_query: account_roles_query,
         project_id: project_profile.project_id
       },
