@@ -24,8 +24,8 @@ router.get('/delete/:id',
       });
   },
   function(req, res, next) {
+    var ticket = res.locals.current_ticket;
     var project_id = ticket.project_id;
-    var ticket = res.locals.ticket;
     ticket.destroy()
       .then(function(){
         res.redirect("/projects/" + project_id);
@@ -295,6 +295,8 @@ router.get('/project/:project_id',
           var project_profile = project_profiles[0];
           if (!project_profile.security_level)
             return next(new Error('This account doesnot have security level for in project yet!'));
+          if (project_profile.roles.length == 0)
+            return next(new Error('This account doesnot have any roles for in project yet!'));
           res.locals.current_profile = project_profile;
           return next();
         }
@@ -369,12 +371,12 @@ router.get('/project/:project_id/create',
       function(project_profiles) {
         if (project_profiles.length > 0) {
           var project_profile = project_profiles[0];
-          if (project_profile.security_level) {
-            res.locals.current_profile = project_profile;
-            return next();
-          }
+          if (!project_profile.security_level)
+            return next(new Error('This account doesnot have security level in this project yet!'));
+          res.locals.current_profile = project_profile;
+          return next();
         }
-        return util.handle_unauthorized(next, 'This user has no security level');
+        return util.handle_unauthorized(next, 'This account does not belong to this project');
       }, function(error) {
         return next(error);
       });
@@ -433,9 +435,11 @@ router.post('/project/:project_id/create',
           var project_profile = project_profiles[0];
           SecurityLevel.findById(data.security_level_id)
           .then(function(security_level) {
-            if (!security_level) return next(new Error("Can't find the security with id: " + data.security_level_id));
-            if (project_profile.security_level && 
-              project_profile.security_level.level <= security_level.level) {
+            if (!security_level) 
+              return next(new Error("Can't find the security with id: " + data.security_level_id));
+            if (!project_profile.security_level)
+              return next(new Error('This account doesnot have security level in this project yet!'));
+            if (project_profile.security_level.level <= security_level.level) {
               res.locals.current_profile = project_profile;
               return next();
             }
@@ -444,7 +448,7 @@ router.post('/project/:project_id/create',
             return next(error);
           });
         } else {
-          return util.handle_unauthorized(next);
+          return util.handle_unauthorized(next, 'This account does not belong to this project');
         }
       }, function(error) {
         return next(error);
