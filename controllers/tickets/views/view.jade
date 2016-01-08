@@ -39,20 +39,19 @@ block content
           a.btn.btn-danger(href="/tickets/delete/" + ticket.id,
             role="button")
             | Delete
-//  div.panel.panel-default
-//    div.panel-heading
-//      h3.panel-title Ticket's Members
-//    div.panel-body
-//      // error output
-//      if error
-//        div.row
-//          div.alert.alert-danger(role="alert")
-//            ul
-//              - errors = error.errors;
-//              each val, index in errors
-//                li= val.message
-//      // creation form
-//      div.row
-//        div.col-md-6
-//          include ./_add_account.jade
-//      include ./_members_list.jade
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Set Ticket's Assignee
+    div.panel-body
+      // error output
+      if error
+        div.row
+          div.alert.alert-danger(role="alert")
+            ul
+              - errors = error.errors;
+              each val, index in errors
+                li= val.message
+      // assigning form
+      div.row
+        div.col-md-6
+          include ./_set_assignee.jade

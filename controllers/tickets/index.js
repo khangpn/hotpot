@@ -39,8 +39,8 @@ router.get('/delete/:id',
 
 //------------------- Permitted section ----------------------
 /*
-* NOTE: Owner can edit his ticket as long as his level is
-lower than its.
+* NOTE: if user is owner or
+* the ticket is open for writing and the account's level equals to ticket's
 */
 router.get('/edit/:id',
   function(req, res, next) {
@@ -348,6 +348,112 @@ router.get('/project/:project_id',
       });
   }
 );
+
+/*
+* NOTE: if user is owner or
+* the ticket is open for writing and the account's level equals to ticket's
+*/
+router.post('/:ticket_id/assign',
+  function(req, res, next) {
+    if (!res.locals.authenticated) return util.handle_unauthorized(next);
+    var SecurityLevel = req.models.security_level;
+    var Ticket = req.models.ticket;
+    var Project = req.models.project;
+    var Account = req.models.account;
+    var Role = req.models.role;
+    var current_account = res.locals.current_account;
+    var ticket_id = req.params.ticket_id;
+    var data = req.body;
+    var assignee_id = data.assignee_id;
+
+    Ticket.findById(ticket_id, {
+      include: [
+        {
+          model: Account, 
+          as: 'owner'
+        },
+        {
+          model: Account, 
+          as: 'assignee'
+        },
+        SecurityLevel, 
+        Project,
+        {
+          model: Role,
+          as: 'roles'
+        }
+      ]
+    }).then(function(ticket) {
+        if (!ticket) return next(new Error("Can't find the ticket with id: " + req.params.id));
+        if (ticket.assignee.id == assignee_id) return res.redirect('/tickets/' + ticket.id);
+
+        current_account.getProjectProfiles({
+          where: {
+            project_id: ticket.project_id
+          },
+          include: [SecurityLevel, Project,
+            {
+              model: Role,
+              as: 'roles'
+            }
+          ],
+          limit: 1
+        }).then(
+          function(project_profiles) {
+            if (project_profiles.length > 0) {
+              var project_profile = project_profiles[0];
+              if (!project_profile.security_level)
+                return next(new Error('This account doesnot have security level in this project yet!'));
+
+              // NOTE: if user is owner or the ticket is open for writing and the account's level equals to ticket's
+              if (project_profile.security_level &&
+                (
+                  (
+                    ticket.writable &&
+                    project_profile.security_level.level ==
+                    ticket.security_level.level
+                  ) || (
+                    ticket.owner_id == current_account.id &&
+                    project_profile.security_level.level <=
+                    ticket.security_level.level
+                  )
+                )
+              ) {
+                res.locals.current_profile = project_profile;
+                res.locals.current_ticket = ticket;
+                return next();
+              }
+              return util.handle_unauthorized(next);
+            } else {
+              return util.handle_unauthorized(next, 'This account does not belong to this project');
+            }
+          }, function(error) {
+            return next(error);
+          });
+
+    }, function(error) {
+      return next(error);
+    });
+  },
+  function(req, res, next) {
+    var project_profile= res.locals.current_profile ;
+    var ticket = res.locals.current_ticket ;
+    var data = req.body;
+    var assignee_id = data.assignee_id;
+    var Account = req.models.account;
+
+    Account.findById(assignee_id).then(function(assignee) {
+        if (!assignee) return next(new Error("Can't find the account with id: " + req.params.id));
+        ticket.setAssignee(assignee).then(function(assignee) {
+          return res.redirect('/tickets/' + ticket.id);
+        }, function (error) {
+          return next(error);
+        });
+      }, function(error){
+        return next(error);
+      });
+  }
+);
 //--------------------------------------------------------
 
 //----------------- Authenticated section --------------------
@@ -518,8 +624,7 @@ router.get('/:id',
         },
         {
           model: req.models.account, 
-          as: 'assignee',
-          require: false
+          as: 'assignee'
         },
         req.models.security_level, 
         req.models.project,

@@ -1,0 +1,11 @@
+form.form-inline(
+  action='/tickets/' + ticket.id + '/assign',
+  method='post',
+  name='assignee_detail')
+  div.form-group
+    label.control-label(for='Assignee_id') Assignee ID
+    input.form-control(type='text',
+      name='assignee_id',
+      id='Assignee_id',
+      placeholder='Assignee ID')
+    input.btn.btn-default(type='submit' value='Set')
