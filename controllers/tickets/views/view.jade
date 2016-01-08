@@ -18,6 +18,18 @@ block content
         div.col-md-4
           = ticket.content
       div.row
+        label.col-md-2 Due date:
+        div.col-md-4
+          = ticket.due_date
+      div.row
+        label.col-md-2 Creator:
+        div.col-md-4
+          = ticket.owner.name
+      div.row
+        label.col-md-2 Assignee:
+        div.col-md-4
+          = ticket.assignee.name
+      div.row
         label.col-md-2 Permission:
         div.col-md-4
           = ticket.readable ? 'readable ' : ''
