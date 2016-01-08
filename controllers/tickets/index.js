@@ -221,8 +221,10 @@ router.post('/update',
     var project_profile= res.locals.current_profile ;
     var data = req.body;
 
-    if (!data.readable)
+    if (!data.readable || data.readable == false)
       data.readable = false;
+    if (!data.writable || data.writable == false)
+      data.writable = false;
 
     var onEditError = function(error) {
       SecurityLevel.findAll(
