@@ -21,6 +21,9 @@ if members
               td
             td
               // roles should use lazy loading to load later
+              - var roles = member.roles
+              each role, i in roles
+                div: a(href='/roles/' + role.id)=role.name
             td: a.btn.btn-default(href="/projects/"
               +project.id+"/remove_account/"+account.id,
               role="button") Delete

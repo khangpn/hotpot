@@ -509,7 +509,14 @@ router.get('/:id',
         project_id: project.id
       },
       include: [
-        req.models.account, 
+        {
+          model: req.models.account, 
+          as: 'account'
+        },
+        {
+          model: req.models.role,
+          as: 'roles'
+        },
         req.models.security_level, 
         req.models.project
       ]
