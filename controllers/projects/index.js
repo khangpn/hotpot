@@ -406,10 +406,12 @@ router.post('/create',
   function(req, res, next) {
     var data = req.body;
     var Project = req.models.project;
+    var current_account = res.locals.current_account;
 
     Project.create(data)
-      .then(function(newProject){
-        res.redirect('/projects/' + newProject.id);
+      .then(function(project){
+        current_account.addOwnedProject(project);
+        return res.redirect('/projects/' + project.id);
       }, function(error){
         return res.render("create", {
           error: error
