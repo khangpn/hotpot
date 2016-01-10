@@ -328,14 +328,19 @@ router.get('/project/:project_id',
     ' INNER JOIN "role" AS "role" ON "ticket_role"."role_id" = "role"."id"' +
     ' INNER JOIN "account" AS "owner" ON "ticket"."owner_id" = "owner"."id"' +
     ' INNER JOIN "account" AS "assignee" ON "ticket"."assignee_id" = "assignee"."id"' +
-    ' WHERE ("ticket"."project_id" = :project_id AND (("ticket"."readable" = true AND "ticket_role"."role_id" IN (:account_roles_query)) OR "ticket"."owner_id" = :owner_id))' +
+    /* 
+    * TODO: The account_roles_query should be replaced by replacement, but Sequelize does not support escapeValues yet.
+    * Check this to see their progress https://github.com/sequelize/sequelize/issues/3769
+    */
+    //' WHERE ("ticket"."project_id" = :project_id AND (("ticket"."readable" = true AND "ticket_role"."role_id" IN (:account_roles_query)) OR "ticket"."owner_id" = :owner_id))' +
+    ' WHERE ("ticket"."project_id" = :project_id AND (("ticket"."readable" = true AND "ticket_role"."role_id" IN (' + account_roles_query+ ')) OR "ticket"."owner_id" = :owner_id))' +
     ' GROUP BY "ticket"."id", "ticket_role"."ticket_id", "owner.id", "assignee.id"';
     //'';
     sequelize.query(query_string, {
       replacements: {
         level: project_profile.security_level.level,
         owner_id: project_profile.account_id,
-        account_roles_query: account_roles_query,
+        //account_roles_query: account_roles_query,
         project_id: project_profile.project_id
       },
       type: sequelize.QueryTypes.SELECT
