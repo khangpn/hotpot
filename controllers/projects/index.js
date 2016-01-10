@@ -411,6 +411,7 @@ router.post('/create',
     Project.create(data)
       .then(function(project){
         current_account.addOwnedProject(project);
+        current_account.addProject(project);
         return res.redirect('/projects/' + project.id);
       }, function(error){
         return res.render("create", {
