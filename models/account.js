@@ -114,7 +114,8 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: 'owner_id'
           });
           Account.hasMany(models.project, {
-            as: "ownedProjects"
+            as: "ownedProjects",
+            foreignKey: 'owner_id'
           });
         }
       },
