@@ -2,7 +2,7 @@ if error
   div.row
     div.alert.alert-danger(role="alert")
       ul
-        if error instanceof Array
+        if error.errors
           - errors = error.errors;
           each val, index in errors
             li= val.message
