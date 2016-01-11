@@ -35,7 +35,7 @@ block content
         label.col-md-2 Description:
         div.col-md-4
           = article.description
-      if article.is_directory
+      if !article.is_directory
         div.row
           label.col-md-2 Content:
           div.col-md-4
@@ -45,6 +45,10 @@ block content
         div.col-md-4
           = article.readable ? 'readable ' : ''
           = article.writable ? 'writable ' : ''
+      div.row
+        label.col-md-2 Creator:
+        div.col-md-4
+          a(href='/accounts/' + article.account.id)=article.account.name
       div.row
         div.col-sm-offset-2.col-sm-1
           a.btn.btn-primary(href="/articles/edit/" + article.id,

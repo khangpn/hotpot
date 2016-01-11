@@ -765,6 +765,7 @@ router.get('/:id',
     var directory = article;
     directory.getArticles({
       include: [
+        req.models.account, 
         req.models.security_level, 
         {
           model: req.models.role,

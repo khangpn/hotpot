@@ -7,22 +7,24 @@ if articles
           th Article Name
           th Security Level
           th Roles
+          th Creator
           th 
       tbody
-        each article, index in articles
-          - var security_level = article.security_level;
+        each child_article, index in articles
+          - var security_level = child_article.security_level;
           tr
             td=index + 1
-            td: a(href='/articles/' + article.id)=article.name
+            td: a(href='/articles/' + child_article.id)=child_article.name
             if security_level
               td=security_level.name
             else
               td
             td
               // roles should use lazy loading to load later
-              - var roles = article.roles
+              - var roles = child_article.roles
               each role, i in roles
                 div=role.name
+            td: a(href='/accounts/' + child_article.account.id)=child_article.account.name
             td: a.btn.btn-default(href="/articles/delete/"
-              + article.id,
+              + child_article.id,
               role="button") Delete
