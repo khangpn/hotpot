@@ -54,20 +54,9 @@ block content
           a.btn.btn-danger(href="/articles/delete/" + article.id,
             role="button")
             | Delete
-//  div.panel.panel-default
-//    div.panel-heading
-//      h3.panel-title Article's Members
-//    div.panel-body
-//      // error output
-//      if error
-//        div.row
-//          div.alert.alert-danger(role="alert")
-//            ul
-//              - errors = error.errors;
-//              each val, index in errors
-//                li= val.message
-//      // creation form
-//      div.row
-//        div.col-md-6
-//          include ./_add_account.jade
-//      include ./_members_list.jade
+  if article.is_directory
+    div.panel.panel-default
+      div.panel-heading
+        h3.panel-title Directory's articles
+      div.panel-body
+        include ./_articles_list.jade

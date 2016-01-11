@@ -11,7 +11,14 @@ router.get('/delete/:id',
     if (!res.locals.authenticated) return util.handle_unauthorized(next);
     var article_id = req.params.id;
     var Article = req.models.article;
-    Article.findById(req.params.id)
+    Article.findById(req.params.id, {
+      include: [
+        { 
+          model: req.models.article,
+          as: "directory"
+        }
+      ]
+    })
       .then(function(article){
           if (!article) return next(new Error("Can't find the article with id: " + req.params.id));
           if (article.account_id !== res.locals.current_account.id) 
@@ -28,8 +35,13 @@ router.get('/delete/:id',
     var project_id = article.project_id;
     article.destroy()
       .then(function(){
+        console.log(article);
+        if (article.directory) {
+          res.redirect("/articles/" + article.directory.id);
+        } else {
         res.redirect("/projects/" + project_id);
-        }, 
+        }
+      }, 
         function(error){
           return next(error);
       });
@@ -480,7 +492,7 @@ router.get('/project/:project_id',
         account_roles_query += ', ';
     }
     
-    var query_string = 'SELECT "article"."id", "article"."name", "article"."description", "article"."content", "article"."writable", "article"."readable", "article"."created_at", "article"."updated_at", "article"."account_id", "article"."project_id", "article"."security_level_id",' +
+    var query_string = 'SELECT "article"."id", "article"."name", "article"."description", "article"."content", "article"."writable", "article"."readable", "article"."created_at", "article"."updated_at", "article"."account_id", "article"."project_id", "article"."security_level_id", "article"."directory_id",' +
     '"security_level"."id" AS "security_level.id", "security_level"."name" AS "security_level.name", "security_level"."level" AS "security_level.level", "security_level"."description" AS "security_level.description", "security_level"."created_at" AS "security_level.created_at", "security_level"."updated_at" AS "security_level.updated_at"' +
     //', "role".id AS "role.id", "role".name AS "role.name", "role".description AS "role.description"' +
     ' FROM "article" AS "article"' +
@@ -493,7 +505,8 @@ router.get('/project/:project_id',
     */
     //' WHERE ("article"."project_id" = :project_id AND (("article"."readable" = true AND "article_role"."role_id" IN (:account_roles_query)) OR "article"."account_id" = :account_id))' +
     ' WHERE ("article"."project_id" = :project_id AND (("article"."readable" = true AND "article_role"."role_id" IN (' +
-    account_roles_query + ')) OR "article"."account_id" = :account_id))' +
+    account_roles_query + ')) OR "article"."account_id" = :account_id)' +
+    ' AND ("article"."directory_id" IS NULL))' +
     ' GROUP BY "article"."id", "security_level.id", "article_role"."article_id"';
     //'';
     sequelize.query(query_string, {
@@ -746,10 +759,32 @@ router.get('/:id',
       return util.handle_unauthorized(next);
     return next();
   },
+  function get_directory_articles(req, res, next) {
+    var article = res.locals.current_article;
+    if (!article.is_directory) return next();
+    var directory = article;
+    directory.getArticles({
+      include: [
+        req.models.security_level, 
+        {
+          model: req.models.role,
+          as: 'roles'
+        }
+      ]
+    }).then(
+      function(articles) {
+        res.locals.directory_articles = articles;
+        return next();
+      }, function(errors) {
+        return next(errors);
+      }
+    );
+  },
   function (req, res, next) {
     var article = res.locals.current_article;
     res.render('view', {
       article: article,
+      articles: res.locals.directory_articles,
       roles: article.roles
     }); 
   }
