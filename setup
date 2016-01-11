@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Run this in Guest OS
+NODE_ENV=development DEBUG=hotpot node bin/db-integration.js
+
