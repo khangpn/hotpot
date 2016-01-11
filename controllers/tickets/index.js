@@ -100,6 +100,26 @@ router.get('/edit/:id',
           return next(error);
       });
   },
+  function generate_breadcrums(req, res, next) {
+    var ticket = res.locals.current_ticket;
+    var breadcrums = [
+      {
+        name: ticket.project.name,
+        link: "/projects/" + ticket.project.id
+      },
+      {
+        name: "Tickets List ",
+        link: "/tickets/project/" + ticket.project.id
+      },
+      {
+        name: ticket.name,
+        link: "/tickets/" + ticket.id
+      }
+    ];
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var ticket = res.locals.current_ticket;
     var project_profile= res.locals.current_profile ;
@@ -114,6 +134,7 @@ router.get('/edit/:id',
       Role.findAll().then(function(roles){
         Priority.findAll().then(function(priorities){
             res.render("edit", {
+              breadcrums: res.locals.current_breadcrums,
               ticket: ticket,
               roles: roles,
               priorities: priorities,
@@ -213,6 +234,26 @@ router.post('/update',
           return next(error);
       });
   },
+  function generate_breadcrums(req, res, next) {
+    var ticket = res.locals.current_ticket;
+    var breadcrums = [
+      {
+        name: ticket.project.name,
+        link: "/projects/" + ticket.project.id
+      },
+      {
+        name: "Tickets List ",
+        link: "/tickets/project/" + ticket.project.id
+      },
+      {
+        name: ticket.name,
+        link: "/tickets/" + ticket.id
+      }
+    ];
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var Priority = req.models.priority;
     var Role = req.models.role;
@@ -240,6 +281,7 @@ router.post('/update',
               ticket.priority = ticket.previous('priority');
               Priority.findAll().then(function(priorities){
                   res.render('edit', {
+                    breadcrums: res.locals.current_breadcrums,
                     ticket: ticket,
                     roles: roles,
                     priorities: priorities,
@@ -305,6 +347,18 @@ router.get('/project/:project_id',
         return next(error);
       });
   },
+  function generate_breadcrums(req, res, next) {
+    var project_profile = res.locals.current_profile;
+    var breadcrums = [
+      {
+        name: project_profile.project.name,
+        link: "/projects/" + project_profile.project.id
+      }
+    ];
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var SecurityLevel = req.models.security_level;
     var Ticket = req.models.ticket;
@@ -347,7 +401,10 @@ router.get('/project/:project_id',
     })
     .then(
       function(tickets) {
-        res.render("list", {tickets: tickets});
+        res.render("list", {
+          breadcrums: res.locals.current_breadcrums,
+          tickets: tickets
+        });
       }, function(error) {
         return next(error);
       });
@@ -370,6 +427,7 @@ router.post('/:ticket_id/assign',
     var ticket_id = req.params.ticket_id;
     var data = req.body;
     var assignee_id = data.assignee_id;
+    if (!assignee_id || assignee_id == "") return next(new Error('The assignee ID is missing'));
 
     Ticket.findById(ticket_id, {
       include: [
@@ -492,6 +550,18 @@ router.get('/project/:project_id/create',
         return next(error);
       });
   },
+  function generate_breadcrums(req, res, next) {
+    var project_profile = res.locals.current_profile;
+    var breadcrums = [
+      {
+        name: project_profile.project.name,
+        link: "/projects/" + project_profile.project.id
+      }
+    ];
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var SecurityLevel = req.models.security_level;
     var Role = req.models.role;
@@ -505,6 +575,7 @@ router.get('/project/:project_id/create',
       Role.findAll().then(function(roles){
         Priority.findAll().then(function(priorities){
             res.render("create", {
+              breadcrums: res.locals.current_breadcrums,
               project_id: req.params.project_id,
               roles: roles,
               priorities: priorities,
@@ -565,6 +636,18 @@ router.post('/project/:project_id/create',
         return next(error);
       });
   },
+  function generate_breadcrums(req, res, next) {
+    var project_profile = res.locals.current_profile;
+    var breadcrums = [
+      {
+        name: project_profile.project.name,
+        link: "/projects/" + project_profile.project.id
+      }
+    ];
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var Ticket = req.models.ticket;
     var Priority = req.models.priority;
@@ -590,6 +673,7 @@ router.post('/project/:project_id/create',
             Role.findAll().then(function(roles){
                 Priority.findAll().then(function(priorities){
                     res.render("create", {
+                      breadcrums: res.locals.current_breadcrums,
                       project_id: data.project_id,
                       roles: roles,
                       priorities: priorities,
@@ -680,6 +764,22 @@ router.get('/:id',
           return next(error);
       });
   },
+  function generate_breadcrums(req, res, next) {
+    var ticket = res.locals.current_ticket;
+    var breadcrums = [
+      {
+        name: ticket.project.name,
+        link: "/projects/" + ticket.project.id
+      },
+      {
+        name: "Tickets List",
+        link: "/tickets/project/" + ticket.project.id
+      }
+    ];
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function (req, res, next) {
     var ticket = res.locals.current_ticket;
     var current_account = res.locals.current_account;
@@ -714,6 +814,7 @@ router.get('/:id',
   function (req, res, next) {
     var ticket = res.locals.current_ticket;
     res.render('view', {
+      breadcrums: res.locals.current_breadcrums,
       ticket: ticket,
       roles: ticket.roles
     }); 
