@@ -5,13 +5,7 @@ block content
     div.page-header
       h1 Create account
     // error output
-    if error
-      div.row
-        div.alert.alert-danger(role="alert")
-          ul
-            - errors = error.errors;
-            each val, index in errors
-              li= val.message
+    include ../../../views/_error_list.jade
     // creation form
     div.col-md-9
       include ./_form.jade

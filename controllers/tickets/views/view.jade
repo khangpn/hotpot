@@ -48,9 +48,12 @@ block content
         div.row
           div.alert.alert-danger(role="alert")
             ul
-              - errors = error.errors;
-              each val, index in errors
-                li= val.message
+              if error instanceof Array
+                - errors = error.errors;
+                each val, index in errors
+                  li= val.message
+              else
+                li= error.message
       // assigning form
       div.row
         div.col-md-6

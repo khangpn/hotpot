@@ -2,13 +2,7 @@ extends ../../../views/layout
 
 block content
   // error output
-  if error
-    div.row
-      div.alert.alert-danger(role="alert")
-        ul
-          - errors = error.errors;
-          each val, index in errors
-            li= val.message
+  include ../../../views/_error_list.jade
   div.panel.panel-default
     div.panel-heading
       h3.panel-title Profile
