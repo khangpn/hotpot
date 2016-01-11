@@ -60,6 +60,10 @@ var verify_edit_permission = function(req, res, next) {
   Article.findById(article_id, {
     include: [SecurityLevel, Project, 
       {
+        model: Article,
+        as: 'directory'
+      },
+      {
         model: Role,
         as: 'roles'
       }
@@ -118,6 +122,34 @@ router.get('/edit/:id',
     next();
   },
   verify_edit_permission,
+  function generate_breadcrums(req, res, next) {
+    var article = res.locals.current_article;
+    var breadcrums = [
+      {
+        name: article.project.name,
+        link: "/projects/" + article.project.id
+      },
+      {
+        name: "Articles List ",
+        link: "/articles/project/" + article.project.id
+      }
+    ];
+    
+    if (article.directory) {
+      breadcrums.push({
+        name: article.directory.name,
+        link: "/articles/" + article.directory.id
+      });
+    }
+
+    breadcrums.push({
+      name: article.name,
+      link: "/articles/" + article.id
+    });
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var article = res.locals.current_article;
     var project_profile= res.locals.current_profile ;
@@ -130,6 +162,7 @@ router.get('/edit/:id',
     ).then(function(security_levels){
       Role.findAll().then(function(roles){
           res.render('edit', {
+            breadcrums: res.locals.current_breadcrums,
             article: article,
             roles: roles,
             security_levels: security_levels
@@ -179,6 +212,34 @@ router.post('/update',
       return next();
     }
   },
+  function generate_breadcrums(req, res, next) {
+    var article = res.locals.current_article;
+    var breadcrums = [
+      {
+        name: article.project.name,
+        link: "/projects/" + article.project.id
+      },
+      {
+        name: "Articles List ",
+        link: "/articles/project/" + article.project.id
+      }
+    ];
+    
+    if (article.directory) {
+      breadcrums.push({
+        name: article.directory.name,
+        link: "/articles/" + article.directory.id
+      });
+    }
+
+    breadcrums.push({
+      name: article.name,
+      link: "/articles/" + article.id
+    });
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var Article = req.models.article;
     var Role = req.models.role;
@@ -206,6 +267,7 @@ router.post('/update',
               // still remain the number of roles in the array
               article.roles = article.previous('roles');
               res.render('edit', {
+                breadcrums: res.locals.current_breadcrums,
                 article: article,
                 roles: roles,
                 security_levels: security_levels,
@@ -252,6 +314,10 @@ var verify_directory_security_create = function(req, res, next) {
 
   Article.findById(directory_id, {
     include: [SecurityLevel, Project, Account,
+      {
+        model: Article,
+        as: 'directory'
+      },
       {
         model: Role,
         as: 'roles'
@@ -359,6 +425,34 @@ router.get('/directory/:directory_id/create',
   },
   verify_directory_security_create,
   verify_directory_roles_create,
+  function generate_breadcrums(req, res, next) {
+    var article = res.locals.current_directory;
+    var breadcrums = [
+      {
+        name: article.project.name,
+        link: "/projects/" + article.project.id
+      },
+      {
+        name: "Articles List ",
+        link: "/articles/project/" + article.project.id
+      }
+    ];
+    
+    if (article.directory) {
+      breadcrums.push({
+        name: article.directory.name,
+        link: "/articles/" + article.directory.id
+      });
+    }
+
+    breadcrums.push({
+      name: article.name,
+      link: "/articles/" + article.id
+    });
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var SecurityLevel = req.models.security_level;
     var Role = req.models.role;
@@ -375,6 +469,7 @@ router.get('/directory/:directory_id/create',
       } }
     ).then(function(security_levels){
         res.render("create", {
+          breadcrums: res.locals.current_breadcrums,
           directory: directory,
           roles: directory.roles,
           security_levels: security_levels
@@ -399,6 +494,34 @@ router.post('/directory/:directory_id/create',
   },
   verify_directory_security_create,
   verify_directory_roles_create,
+  function generate_breadcrums(req, res, next) {
+    var article = res.locals.current_article;
+    var breadcrums = [
+      {
+        name: article.project.name,
+        link: "/projects/" + article.project.id
+      },
+      {
+        name: "Articles List ",
+        link: "/articles/project/" + article.project.id
+      }
+    ];
+    
+    if (article.directory) {
+      breadcrums.push({
+        name: article.directory.name,
+        link: "/articles/" + article.directory.id
+      });
+    }
+
+    breadcrums.push({
+      name: article.name,
+      link: "/articles/" + article.id
+    });
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var Article = req.models.article;
     var project_profile= res.locals.current_profile ;
@@ -421,6 +544,7 @@ router.post('/directory/:directory_id/create',
       } }
       ).then(function(security_levels){
           res.render("create", {
+            breadcrums: res.locals.current_breadcrums,
             project_id: data.project_id,
             roles: directory.roles,
             security_levels: security_levels,
@@ -478,6 +602,18 @@ router.get('/project/:project_id',
         return next(error);
       });
   },
+  function generate_breadcrums(req, res, next) {
+    var project_profile = res.locals.current_profile;
+    var breadcrums = [
+      {
+        name: project_profile.project.name,
+        link: "/projects/" + project_profile.project.id
+      }
+    ];
+    
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var SecurityLevel = req.models.security_level;
     var Article = req.models.article;
@@ -521,7 +657,10 @@ router.get('/project/:project_id',
     })
     .then(
       function(articles) {
-        res.render("list", {articles: articles});
+        res.render("list", {
+          breadcrums: res.locals.current_breadcrums,
+          articles: articles
+        });
       }, function(error) {
         return next(error);
       });
@@ -560,6 +699,18 @@ router.get('/project/:project_id/create',
         return next(error);
       });
   },
+  function generate_breadcrums(req, res, next) {
+    var project_profile = res.locals.current_profile;
+    var breadcrums = [
+      {
+        name: project_profile.project.name,
+        link: "/projects/" + project_profile.project.id
+      }
+    ];
+    
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var SecurityLevel = req.models.security_level;
     var Role = req.models.role;
@@ -570,7 +721,10 @@ router.get('/project/:project_id/create',
       } }
     ).then(function(security_levels){
       Role.findAll().then(function(roles){
+          var breadcrums = res.locals.current_breadcrums;
+
           res.render("create", {
+            breadcrums: breadcrums,
             project_id: req.params.project_id,
             roles: roles,
             security_levels: security_levels
@@ -627,6 +781,18 @@ router.post('/project/:project_id/create',
         return next(error);
       });
   },
+  function generate_breadcrums(req, res, next) {
+    var project_profile = res.locals.current_profile;
+    var breadcrums = [
+      {
+        name: project_profile.project.name,
+        link: "/projects/" + project_profile.project.id
+      }
+    ];
+    
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function(req, res, next) {
     var Article = req.models.article;
     var project_profile= res.locals.current_profile ;
@@ -649,6 +815,7 @@ router.post('/project/:project_id/create',
             var Role = req.models.role;
             Role.findAll().then(function(roles){
                 res.render("create", {
+                  breadcrums: res.locals.current_breadcrums,
                   project_id: data.project_id,
                   roles: roles,
                   security_levels: security_levels,
@@ -681,6 +848,10 @@ router.get('/:id',
         req.models.account, 
         req.models.security_level, 
         req.models.project,
+        {
+          model: Article,
+          as: 'directory'
+        },
         {
           model: Role,
           as: 'roles'
@@ -781,9 +952,34 @@ router.get('/:id',
       }
     );
   },
+  function generate_breadcrums(req, res, next) {
+    var article = res.locals.current_article;
+    var breadcrums = [
+      {
+        name: article.project.name,
+        link: "/projects/" + article.project.id
+      },
+      {
+        name: "Articles List ",
+        link: "/articles/project/" + article.project.id
+      }
+    ];
+    
+    if (article.directory) {
+      breadcrums.push({
+        name: article.directory.name,
+        link: "/articles/" + article.directory.id
+      });
+    }
+
+    res.locals.current_breadcrums = breadcrums;
+    next();
+  },
   function (req, res, next) {
     var article = res.locals.current_article;
+
     res.render('view', {
+      breadcrums: res.locals.current_breadcrums,
       article: article,
       articles: res.locals.directory_articles,
       roles: article.roles

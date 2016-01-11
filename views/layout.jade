@@ -124,4 +124,9 @@ html
           div.alert(class=notification.type,
             role="alert")
             =notification.content
+      if breadcrums
+        div.row
+          ol.breadcrumb
+            each bc, index in breadcrums
+              li: a(href=bc.link)=bc.name
       block content
