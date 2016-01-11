@@ -17,16 +17,16 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.TEXT,
       },
       content: { 
-        type: DataTypes.TEXT,
-        allowNull: false,
-        validate: {
-          notEmpty: function(value) {
-            if (!this.is_directory) {
-              if (!value)
-                throw new Error("Article content is required");
-            }
-          }
-        }
+        type: DataTypes.TEXT
+        //allowNull: false,
+        //validate: {
+        //  notEmpty: function(value) {
+        //    if (!this.is_directory) {
+        //      if (!value)
+        //        throw new Error("Article content is required");
+        //    }
+        //  }
+        //}
       },
       is_directory: { 
         type: DataTypes.BOOLEAN,
@@ -69,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
           });
           Article.hasMany(models.article, {
             as: "articles",
-            onDelete: "CASCADE",
+            //onDelete: "CASCADE", //delete child articles
             foreignKey: 'directory_id'
           });
           Article.belongsTo(models.article, {
