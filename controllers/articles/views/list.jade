@@ -11,6 +11,7 @@ block content
             tr
               th Name
               th Description
+              th Is Directory
               th Permission
           tbody
             for article in articles
@@ -18,6 +19,7 @@ block content
                 td
                   a(href='/articles/' + article.id)=article.name
                 td=article.description
+                td=article.is_directory ? 'true' : 'false'
                 td
                   =article.readable ? "readable " : ''
                   =article.writable ? "writable" : ''

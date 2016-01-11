@@ -426,28 +426,28 @@ router.get('/directory/:directory_id/create',
   verify_directory_security_create,
   verify_directory_roles_create,
   function generate_breadcrums(req, res, next) {
-    var article = res.locals.current_directory;
+    var directory = res.locals.current_directory;
     var breadcrums = [
       {
-        name: article.project.name,
-        link: "/projects/" + article.project.id
+        name: directory.project.name,
+        link: "/projects/" + directory.project.id
       },
       {
-        name: "Articles List ",
-        link: "/articles/project/" + article.project.id
+        name: "directorys List ",
+        link: "/directorys/project/" + directory.project.id
       }
     ];
     
-    if (article.directory) {
+    if (directory.directory) {
       breadcrums.push({
-        name: article.directory.name,
-        link: "/articles/" + article.directory.id
+        name: directory.directory.name,
+        link: "/directorys/" + directory.directory.id
       });
     }
 
     breadcrums.push({
-      name: article.name,
-      link: "/articles/" + article.id
+      name: directory.name,
+      link: "/directorys/" + directory.id
     });
 
     res.locals.current_breadcrums = breadcrums;
@@ -495,28 +495,28 @@ router.post('/directory/:directory_id/create',
   verify_directory_security_create,
   verify_directory_roles_create,
   function generate_breadcrums(req, res, next) {
-    var article = res.locals.current_article;
+    var directory = res.locals.current_directory;
     var breadcrums = [
       {
-        name: article.project.name,
-        link: "/projects/" + article.project.id
+        name: directory.project.name,
+        link: "/projects/" + directory.project.id
       },
       {
-        name: "Articles List ",
-        link: "/articles/project/" + article.project.id
+        name: "directorys List ",
+        link: "/directorys/project/" + directory.project.id
       }
     ];
     
-    if (article.directory) {
+    if (directory.directory) {
       breadcrums.push({
-        name: article.directory.name,
-        link: "/articles/" + article.directory.id
+        name: directory.directory.name,
+        link: "/directorys/" + directory.directory.id
       });
     }
 
     breadcrums.push({
-      name: article.name,
-      link: "/articles/" + article.id
+      name: directory.name,
+      link: "/directorys/" + directory.id
     });
 
     res.locals.current_breadcrums = breadcrums;
@@ -628,8 +628,8 @@ router.get('/project/:project_id',
         account_roles_query += ', ';
     }
     
-    var query_string = 'SELECT "article"."id", "article"."name", "article"."description", "article"."content", "article"."writable", "article"."readable", "article"."created_at", "article"."updated_at", "article"."account_id", "article"."project_id", "article"."security_level_id", "article"."directory_id",' +
-    '"security_level"."id" AS "security_level.id", "security_level"."name" AS "security_level.name", "security_level"."level" AS "security_level.level", "security_level"."description" AS "security_level.description", "security_level"."created_at" AS "security_level.created_at", "security_level"."updated_at" AS "security_level.updated_at"' +
+    var query_string = 'SELECT "article"."id", "article"."name", "article"."description", "article"."content", "article"."writable", "article"."readable", "article"."created_at", "article"."updated_at", "article"."account_id", "article"."project_id", "article"."security_level_id", "article"."directory_id", "article"."is_directory"' +
+    ', "security_level"."id" AS "security_level.id", "security_level"."name" AS "security_level.name", "security_level"."level" AS "security_level.level", "security_level"."description" AS "security_level.description", "security_level"."created_at" AS "security_level.created_at", "security_level"."updated_at" AS "security_level.updated_at"' +
     //', "role".id AS "role.id", "role".name AS "role.name", "role".description AS "role.description"' +
     ' FROM "article" AS "article"' +
     ' INNER JOIN "security_level" AS "security_level" ON "article"."security_level_id" = "security_level"."id" AND ("security_level"."level" <= :level OR "article"."account_id" = :account_id)' +
