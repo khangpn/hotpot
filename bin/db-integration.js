@@ -27,21 +27,12 @@ models.sequelize.sync().then(function() {
       // ========================== Create Role
       Role.create(
         {
-          name: 'programmer',
-          description: 'he codes for food'
-        }
-      )
-      .then(function(newAcc){
-        }, function(error){
-          console.log(error);
-        });
-      Role.create(
-        {
           name: 'designer',
           description: 'she draw on walls'
         }
       )
-      .then(function(newAcc){
+      .then(function(role){
+          return null;
         }, function(error){
           console.log(error);
         });
@@ -51,7 +42,8 @@ models.sequelize.sync().then(function() {
           description: 'he pushes you to the cliff then smiles'
         }
       )
-      .then(function(newAcc){
+      .then(function(role){
+          return null;
         }, function(error){
           console.log(error);
         });
@@ -75,6 +67,7 @@ models.sequelize.sync().then(function() {
           }
         )
         .then(function(security_level){
+            return null;
           }, function(error){
             console.log(error);
           });
@@ -86,20 +79,32 @@ models.sequelize.sync().then(function() {
           }
         )
         .then(function(security_level){
-          // ========================== Create Article
-          Article.create(
+          Role.create(
             {
-              name: 'plan',
-              description: 'planning',
-              content: 'this is a plan',
-              writable: true,
-              readable: true,
-              account_id: account.id,
-              project_id: project.id,
-              security_id: security_level.id
+              name: 'programmer',
+              description: 'he codes for food'
             }
           )
-          .then(function(article){
+          .then(function(role){
+              // ========================== Create Article
+              Article.create(
+                {
+                  name: 'plan',
+                  description: 'planning',
+                  content: 'this is a plan',
+                  writable: true,
+                  readable: true,
+                  account_id: account.id,
+                  project_id: project.id,
+                  security_level_id: security_level.id
+                }
+              )
+              .then(function(article){
+                article.addRole(role);
+                return null;
+                }, function(error){
+                  console.log(error);
+                });
             }, function(error){
               console.log(error);
             });
@@ -113,6 +118,7 @@ models.sequelize.sync().then(function() {
             }
           )
           .then(function(security_level){
+              return null;
             }, function(error){
               console.log(error);
             });
@@ -124,6 +130,7 @@ models.sequelize.sync().then(function() {
             }
           )
           .then(function(security_level){
+              return null;
             }, function(error){
               console.log(error);
             });
@@ -135,6 +142,7 @@ models.sequelize.sync().then(function() {
             }
           )
           .then(function(security_level){
+              return null;
             }, function(error){
               console.log(error);
             });
@@ -150,6 +158,7 @@ models.sequelize.sync().then(function() {
           }
         )
         .then(function(security_level){
+            return null;
           }, function(error){
             console.log(error);
           });
