@@ -9,40 +9,33 @@ block content
         label.col-md-1 Username:
         div.col-md-11
           = account.name
-      div.row
-        label.col-md-1 Password:
-        div.col-md-11
-          //= account.password
-          a.btn.btn-primary(href="/accounts/update_password/" + account.id,
-            role="button")
-            | Update Password
-      if account.security_level
+      if account.account_detail
+        - var detail = account.account_detail
         div.row
-          label.col-md-1 Security Level:
+          label.col-md-1 Fullname:
           div.col-md-11
-            = account.security_level.name
-      if roles
+            = detail.fullname
         div.row
-          label.col-md-1 Roles:
-          each role, index in roles
-            div.col-md-11
-              = role.name + ' '
-      if projects
-        div.row
-          label.col-md-1 Projects:
+          label.col-md-1 Email:
           div.col-md-11
-          each project, index in projects
-            a(href="/projects/" + project.id)
-              = project.name + ', '
-      div.row
-        div.col-sm-offset-1.col-sm-1
-          a.btn.btn-danger(href="/accounts/delete/" + account.id,
-            role="button")
-            | Delete Account
-      hr
-      // error output
-      include ../../../views/_error_list.jade
-      // creation form
-      div.row
-        div.col-md-6
-          include ./_details_form.jade
+            = detail.email
+      if is_owner
+        div.row
+          div.col-sm-3
+            a(href="/accounts/update_password/" + account.id,
+              role="button")
+              | Update Password
+          div.col-sm-2
+            a(href="/accounts/updateDetail",
+              role="button")
+              | Edit Profile
+        div.row
+          div.col-sm-1
+            a.btn.btn-danger(href="/accounts/delete/" + account.id,
+              role="button")
+              | Delete Account
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Project Profiles
+    div.panel-body
+      include ./_projects_list.jade

@@ -1,0 +1,28 @@
+extends ../../../views/layout
+
+block content
+  div.panel.panel-default
+    div.panel-heading
+      h3.panel-title Profile
+    div.panel-body
+      - var detail = account.account_detail;
+      form.form-horizontal(action='/accounts/updateDetail', method='post', name='account_detail')
+        div.form-group
+          label.col-sm-2.control-label(for='AccountDetail_fullname') Fullname
+          div.col-sm-10
+            input.form-control(type='text',
+              name='fullname',
+              id='AccountDetail_fullname',
+              placeholder='Fullname',
+              value=detail ? detail.fullname : '') 
+        div.form-group
+          label.col-sm-2.control-label(for='AccountDetail_email') Email
+          div.col-sm-10
+            input.form-control(type='text', 
+              name='email', 
+              id='AccountDetail_email',
+              placeholder='Email',
+              value=detail ? detail.email : '')
+        div.form-group
+          div.col-sm-offset-2.col-sm-10
+            input.btn.btn-default(type='submit' value='Submit')

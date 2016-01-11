@@ -1,0 +1,28 @@
+if project_profiles
+  div.table-responsive
+    table.table.table-hover
+      thead
+        tr
+          th Index
+          th Project Name
+          th Security Level
+          th Roles
+          th 
+      tbody
+        each profile, index in project_profiles
+          - var project = profile.project;
+          - var security_level = profile.security_level;
+          tr
+            td=index + 1
+            td: a(href='/projects/' + project.id)=project.name
+            if security_level
+              td: a(href='/security_levels/' + security_level.id)=security_level.name
+            else
+              td
+            td
+              - var roles = profile.roles
+              each role, i in roles
+                div: a(href='/roles/' + role.id)=role.name
+            td: a.btn.btn-default(href="/projects/"
+              +project.id+"/remove_account/"+account.id,
+              role="button") Delete
