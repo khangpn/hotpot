@@ -20,10 +20,18 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
-          notEmpty: {
-            msg: "Article content is required"
+          notEmpty: function(value) {
+            if (!this.is_directory) {
+              if (!value)
+                throw new Error("Article content is required");
+            }
           }
         }
+      },
+      is_directory: { 
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       },
       writable: { 
         type: DataTypes.BOOLEAN,
@@ -58,6 +66,19 @@ module.exports = function(sequelize, DataTypes) {
             as: "roles"
           });
           Article.belongsTo(models.security_level, {
+          });
+          Article.hasMany(models.article, {
+            as: "articles",
+            onDelete: "CASCADE",
+            foreignKey: 'directory_id'
+          });
+          Article.belongsTo(models.article, {
+            as: "directory",
+            onDelete: "CASCADE",
+            foreignKey: {
+              value: 'directory_id',
+              allowNull: true
+            }
           });
         }
       }
