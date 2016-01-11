@@ -14,4 +14,7 @@ block content
               li= val.message
     // creation form
     div.col-md-9
-      include ./_form.jade
+      if directory
+        include ./_directory_form.jade
+      else
+        include ./_form.jade

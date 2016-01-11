@@ -3,8 +3,30 @@ extends ../../../views/layout
 block content
   div.panel.panel-default
     div.panel-heading
-      h3.panel-title Article Info
+      if article.is_directory
+        h3.panel-title Directory Info
+      else
+        h3.panel-title Article Info
     div.panel-body
+      if article.is_directory
+        div.row
+          div.collapse.navbar-collapse#bs-example-navbar-collapse-1
+            ul.nav.navbar-nav
+              li.dropdown
+                a.dropdown-toggle(href="#",
+                  data-toggle="dropdown",
+                  role="button",
+                  aria-haspopup="true",
+                  aria-expanded="false")
+                  | Articles
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a(href="/articles/directory/" + article.id)
+                      | Articles list
+                  li
+                    a(href="/articles/directory/" + article.id + "/create/")
+                      | Create article
       div.row
         label.col-md-2 Article name:
         div.col-md-4
@@ -13,10 +35,11 @@ block content
         label.col-md-2 Description:
         div.col-md-4
           = article.description
-      div.row
-        label.col-md-2 Content:
-        div.col-md-4
-          = article.content
+      if article.is_directory
+        div.row
+          label.col-md-2 Content:
+          div.col-md-4
+            = article.content
       div.row
         label.col-md-2 Permission:
         div.col-md-4

@@ -1,18 +1,8 @@
-form.form-horizontal(action=(!article || article.isNewRecord)
-? '/articles/project/'+project_id+'/create' : '/articles/update',
-  method='post')
-  if (!article || article.isNewRecord)
+form.form-horizontal(action='/articles/directory/'+directory.id+'/create', method='post')
+  if (directory)
     input.form-control(type='hidden',
-      name='project_id',
-      value=project_id) 
-  else
-    input.form-control(type='hidden',
-      name='project_id',
-      value=article.project_id) 
-  if article && !article.isNewRecord
-    input.form-control(type='hidden',
-      name='id',
-      value=article ? article.id : '') 
+      name='directory_id',
+      value=directory.id) 
   div.form-group
     label.col-sm-2.control-label(for='Article_name') Name
     div.col-sm-10
@@ -35,16 +25,17 @@ form.form-horizontal(action=(!article || article.isNewRecord)
         id='Article_content',
         placeholder='Content')
         =article ? article.content : ''
-  div.form-group
-    div.col-sm-offset-2.col-sm-10
-      div.checkbox
-        label 
-          input(type='checkbox',
-            name='is_directory',
-            id='Article_is_directory',
-            checked=(!article || !article.is_directory ? 
-            undefined : 'checked')) 
-          |Is Directory
+  //NOTE: not support nested directory
+  //div.form-group
+  //  div.col-sm-offset-2.col-sm-10
+  //    div.checkbox
+  //      label 
+  //        input(type='checkbox',
+  //          name='is_directory',
+  //          id='Article_is_directory',
+  //          checked=(!article || !article.is_directory ? 
+  //          undefined : 'checked')) 
+  //        |Is Directory
   div.form-group
     div.col-sm-offset-2.col-sm-10
       div.checkbox
