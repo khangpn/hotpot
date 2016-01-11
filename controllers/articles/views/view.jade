@@ -12,21 +12,8 @@ block content
         div.row
           div.collapse.navbar-collapse#bs-example-navbar-collapse-1
             ul.nav.navbar-nav
-              li.dropdown
-                a.dropdown-toggle(href="#",
-                  data-toggle="dropdown",
-                  role="button",
-                  aria-haspopup="true",
-                  aria-expanded="false")
-                  | Articles
-                  span.caret
-                ul.dropdown-menu
-                  li
-                    a(href="/articles/directory/" + article.id)
-                      | Articles list
-                  li
-                    a(href="/articles/directory/" + article.id + "/create/")
-                      | Create article
+              li
+                a(href="/articles/directory/" + article.id + "/create/")| Create article
       div.row
         label.col-md-2 Article name:
         div.col-md-4

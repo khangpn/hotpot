@@ -186,7 +186,7 @@ router.post('/update',
     next();
   },
   verify_edit_permission,
-  function verify_changed_sl(req, res, next) {
+  function verify_changed_security_level(req, res, next) {
     var SecurityLevel = req.models.security_level;
     var article = res.locals.current_article;
     var project_profile= res.locals.current_profile ;
@@ -248,8 +248,14 @@ router.post('/update',
     var project_profile= res.locals.current_profile ;
     var data = req.body;
 
-    if (!data.is_directory || data.is_directory == false)
-      data.is_directory = false;
+    //NOTE: At the moment, do not support articles moving,
+    //and direct assigning directory,
+    //so just delete data.directory_id if available
+    delete req.body.directory_id;
+
+    //if (!data.is_directory || data.is_directory == false)
+    //  data.is_directory = false;
+    delete data.is_directory; //Not able to switch between directory and article
     if (!data.readable || data.readable == false)
       data.readable = false;
     if (!data.writable || data.writable == false)
@@ -262,9 +268,10 @@ router.post('/update',
         } }
       ).then(function(security_levels){
           Role.findAll().then(function(roles){
-              //this is because the update failed will set
+              //this is because failed updating will set
               //all roles object to empty data value, while
               // still remain the number of roles in the array
+              //console.log(article); //to see more
               article.roles = article.previous('roles');
               res.render('edit', {
                 breadcrums: res.locals.current_breadcrums,
@@ -291,14 +298,17 @@ router.post('/update',
           }, onEditError);
         }
 
-        if (!article.is_directory) {
-          article.setArticles([]).then (
-            function(articles) {
-              set_roles(article, data.roles);
-          }, onEditError);
-        } else {
-          set_roles(article, data.roles);
-        }
+        // Because not supporting switching to directory and other way arround
+        // so this is not neccessary at the moment
+        //if (!article.is_directory) {
+        //  article.setArticles([]).then (
+        //    function(articles) {
+        //      set_roles(article, data.roles);
+        //  }, onEditError);
+        //} else {
+        //  set_roles(article, data.roles);
+        //}
+        set_roles(article, data.roles);
       }, onEditError);
   }
 );

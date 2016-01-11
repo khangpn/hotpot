@@ -69,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
           });
           Article.hasMany(models.article, {
             as: "articles",
-            //onDelete: "CASCADE", //delete child articles
+            onDelete: "CASCADE", //delete child articles
             foreignKey: 'directory_id'
           });
           Article.belongsTo(models.article, {

@@ -35,16 +35,17 @@ form.form-horizontal(action=(!article || article.isNewRecord)
         id='Article_content',
         placeholder='Content')
         =article ? article.content : ''
-  div.form-group
-    div.col-sm-offset-2.col-sm-10
-      div.checkbox
-        label 
-          input(type='checkbox',
-            name='is_directory',
-            id='Article_is_directory',
-            checked=(!article || !article.is_directory ? 
-            undefined : 'checked')) 
-          |Is Directory
+  if !article
+    div.form-group
+      div.col-sm-offset-2.col-sm-10
+        div.checkbox
+          label 
+            input(type='checkbox',
+              name='is_directory',
+              id='Article_is_directory',
+              checked=(!article || !article.is_directory ? 
+              undefined : 'checked')) 
+            |Is Directory
   div.form-group
     div.col-sm-offset-2.col-sm-10
       div.checkbox
