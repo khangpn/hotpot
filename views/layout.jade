@@ -21,82 +21,84 @@ html
           a.navbar-brand(href="/")
             | HotPot
         div.collapse.navbar-collapse#bs-example-navbar-collapse-1
-          ul.nav.navbar-nav
-            li.dropdown
-              a.dropdown-toggle(href="#",
-                data-toggle="dropdown",
-                role="button",
-                aria-haspopup="true",
-                aria-expanded="false")
-                | Projects
-                span.caret
-              ul.dropdown-menu
-                li
-                  a(href="/projects")
-                    | Projects list
-                li
-                  a(href="/projects/create")
-                    | Create project
-            li.dropdown
-              a.dropdown-toggle(href="#",
-                data-toggle="dropdown",
-                role="button",
-                aria-haspopup="true",
-                aria-expanded="false")
-                | Accounts
-                span.caret
-              ul.dropdown-menu
-                li
-                  a(href="/accounts")
-                    | Accounts list
-                li
-                  a(href="/accounts/create")
-                    | Create account
-            li.dropdown
-              a.dropdown-toggle(href="#",
-                data-toggle="dropdown",
-                role="button",
-                aria-haspopup="true",
-                aria-expanded="false")
-                | Security Levels
-                span.caret
-              ul.dropdown-menu
-                li
-                  a(href="/security_levels")
-                    | Levels list
-                li
-                  a(href="/security_levels/create")
-                    | Create level
-            li.dropdown
-              a.dropdown-toggle(href="#",
-                data-toggle="dropdown",
-                role="button",
-                aria-haspopup="true",
-                aria-expanded="false")
-                | Roles
-                span.caret
-              ul.dropdown-menu
-                li
-                  a(href="/roles")
-                    | Roles list
-                li
-                  a(href="/roles/create")
-                    | Create role
-            li.dropdown
-              a.dropdown-toggle(href="#",
-                data-toggle="dropdown",
-                role="button",
-                aria-haspopup="true",
-                aria-expanded="false")
-                | Priorities
-                span.caret
-              ul.dropdown-menu
-                li
-                  a(href="/priorities")
-                    | Priorities list
-                li
-                  a(href="/priorities/create")
-                    | Create priority
+          if authenticated
+            ul.nav.navbar-nav
+              li.dropdown
+                a.dropdown-toggle(href="#",
+                  data-toggle="dropdown",
+                  role="button",
+                  aria-haspopup="true",
+                  aria-expanded="false")
+                  | Projects
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a(href="/projects")
+                      | Projects list
+                  li
+                    a(href="/projects/create")
+                      | Create project
+              li.dropdown
+                a.dropdown-toggle(href="#",
+                  data-toggle="dropdown",
+                  role="button",
+                  aria-haspopup="true",
+                  aria-expanded="false")
+                  | Accounts
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a(href="/accounts")
+                      | Accounts list
+                  li
+                    a(href="/accounts/create")
+                      | Create account
+              if isAdmin
+                li.dropdown
+                  a.dropdown-toggle(href="#",
+                    data-toggle="dropdown",
+                    role="button",
+                    aria-haspopup="true",
+                    aria-expanded="false")
+                    | Security Levels
+                    span.caret
+                  ul.dropdown-menu
+                    li
+                      a(href="/security_levels")
+                        | Levels list
+                    li
+                      a(href="/security_levels/create")
+                        | Create level
+                li.dropdown
+                  a.dropdown-toggle(href="#",
+                    data-toggle="dropdown",
+                    role="button",
+                    aria-haspopup="true",
+                    aria-expanded="false")
+                    | Roles
+                    span.caret
+                  ul.dropdown-menu
+                    li
+                      a(href="/roles")
+                        | Roles list
+                    li
+                      a(href="/roles/create")
+                        | Create role
+                li.dropdown
+                  a.dropdown-toggle(href="#",
+                    data-toggle="dropdown",
+                    role="button",
+                    aria-haspopup="true",
+                    aria-expanded="false")
+                    | Priorities
+                    span.caret
+                  ul.dropdown-menu
+                    li
+                      a(href="/priorities")
+                        | Priorities list
+                    li
+                      a(href="/priorities/create")
+                        | Create priority
           ul.nav.navbar-nav.navbar-right
             if authenticated
               li.dropdown
