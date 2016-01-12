@@ -134,7 +134,6 @@ router.get('/edit/:id',
       Role.findAll().then(function(roles){
         Priority.findAll().then(function(priorities){
             res.render("edit", {
-              breadcrums: res.locals.current_breadcrums,
               ticket: ticket,
               roles: roles,
               priorities: priorities,
@@ -281,7 +280,6 @@ router.post('/update',
               ticket.priority = ticket.previous('priority');
               Priority.findAll().then(function(priorities){
                   res.render('edit', {
-                    breadcrums: res.locals.current_breadcrums,
                     ticket: ticket,
                     roles: roles,
                     priorities: priorities,
@@ -402,7 +400,6 @@ router.get('/project/:project_id',
     .then(
       function(tickets) {
         res.render("list", {
-          breadcrums: res.locals.current_breadcrums,
           tickets: tickets
         });
       }, function(error) {
@@ -575,7 +572,6 @@ router.get('/project/:project_id/create',
       Role.findAll().then(function(roles){
         Priority.findAll().then(function(priorities){
             res.render("create", {
-              breadcrums: res.locals.current_breadcrums,
               project_id: req.params.project_id,
               roles: roles,
               priorities: priorities,
@@ -673,7 +669,6 @@ router.post('/project/:project_id/create',
             Role.findAll().then(function(roles){
                 Priority.findAll().then(function(priorities){
                     res.render("create", {
-                      breadcrums: res.locals.current_breadcrums,
                       project_id: data.project_id,
                       roles: roles,
                       priorities: priorities,
@@ -814,7 +809,6 @@ router.get('/:id',
   function (req, res, next) {
     var ticket = res.locals.current_ticket;
     res.render('view', {
-      breadcrums: res.locals.current_breadcrums,
       ticket: ticket,
       roles: ticket.roles
     }); 
