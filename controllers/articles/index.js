@@ -147,7 +147,7 @@ router.get('/edit/:id',
       link: "/articles/" + article.id
     });
 
-    res.locals.current_breadcrums = breadcrums;
+    res.locals.breadcrums = breadcrums;
     next();
   },
   function(req, res, next) {
@@ -162,7 +162,6 @@ router.get('/edit/:id',
     ).then(function(security_levels){
       Role.findAll().then(function(roles){
           res.render('edit', {
-            breadcrums: res.locals.current_breadcrums,
             article: article,
             roles: roles,
             security_levels: security_levels
@@ -237,7 +236,7 @@ router.post('/update',
       link: "/articles/" + article.id
     });
 
-    res.locals.current_breadcrums = breadcrums;
+    res.locals.breadcrums = breadcrums;
     next();
   },
   function(req, res, next) {
@@ -274,7 +273,6 @@ router.post('/update',
               //console.log(article); //to see more
               article.roles = article.previous('roles');
               res.render('edit', {
-                breadcrums: res.locals.current_breadcrums,
                 article: article,
                 roles: roles,
                 security_levels: security_levels,
@@ -460,7 +458,7 @@ router.get('/directory/:directory_id/create',
       link: "/directorys/" + directory.id
     });
 
-    res.locals.current_breadcrums = breadcrums;
+    res.locals.breadcrums = breadcrums;
     next();
   },
   function(req, res, next) {
@@ -479,7 +477,6 @@ router.get('/directory/:directory_id/create',
       } }
     ).then(function(security_levels){
         res.render("create", {
-          breadcrums: res.locals.current_breadcrums,
           directory: directory,
           roles: directory.roles,
           security_levels: security_levels
@@ -529,7 +526,7 @@ router.post('/directory/:directory_id/create',
       link: "/directorys/" + directory.id
     });
 
-    res.locals.current_breadcrums = breadcrums;
+    res.locals.breadcrums = breadcrums;
     next();
   },
   function(req, res, next) {
@@ -554,7 +551,6 @@ router.post('/directory/:directory_id/create',
       } }
       ).then(function(security_levels){
           res.render("create", {
-            breadcrums: res.locals.current_breadcrums,
             project_id: data.project_id,
             roles: directory.roles,
             security_levels: security_levels,
@@ -621,7 +617,7 @@ router.get('/project/:project_id',
       }
     ];
     
-    res.locals.current_breadcrums = breadcrums;
+    res.locals.breadcrums = breadcrums;
     next();
   },
   function(req, res, next) {
@@ -668,7 +664,6 @@ router.get('/project/:project_id',
     .then(
       function(articles) {
         res.render("list", {
-          breadcrums: res.locals.current_breadcrums,
           articles: articles
         });
       }, function(error) {
@@ -718,7 +713,7 @@ router.get('/project/:project_id/create',
       }
     ];
     
-    res.locals.current_breadcrums = breadcrums;
+    res.locals.breadcrums = breadcrums;
     next();
   },
   function(req, res, next) {
@@ -731,10 +726,7 @@ router.get('/project/:project_id/create',
       } }
     ).then(function(security_levels){
       Role.findAll().then(function(roles){
-          var breadcrums = res.locals.current_breadcrums;
-
           res.render("create", {
-            breadcrums: breadcrums,
             project_id: req.params.project_id,
             roles: roles,
             security_levels: security_levels
@@ -800,7 +792,7 @@ router.post('/project/:project_id/create',
       }
     ];
     
-    res.locals.current_breadcrums = breadcrums;
+    res.locals.breadcrums = breadcrums;
     next();
   },
   function(req, res, next) {
@@ -825,7 +817,6 @@ router.post('/project/:project_id/create',
             var Role = req.models.role;
             Role.findAll().then(function(roles){
                 res.render("create", {
-                  breadcrums: res.locals.current_breadcrums,
                   project_id: data.project_id,
                   roles: roles,
                   security_levels: security_levels,
@@ -851,7 +842,6 @@ router.get('/:id',
     var Project = req.models.project;
     var current_account = res.locals.current_account;
     var article_id = req.params.id;
-    var account = res.locals.current_account;
 
     Article.findById(article_id, {
       include: [
@@ -870,7 +860,7 @@ router.get('/:id',
     }).then(function(article) {
           if (!article) return next(new Error("Can't find the article with id: " + req.params.id));
           if (article.account.id == current_account.id) {
-            res.locals.current_article = article;
+            req.current_article = article;
             return next();
           }
           if (article.readable) {
@@ -892,8 +882,8 @@ router.get('/:id',
                   if ( project_profile.security_level &&
                     project_profile.security_level.level >=
                     article.security_level.level) {
-                    res.locals.current_article = article;
-                    res.locals.current_profile = project_profile;
+                    req.current_article = article;
+                    req.current_profile = project_profile;
                     return next();
                   }
                 }
@@ -910,14 +900,14 @@ router.get('/:id',
       });
   },
   function (req, res, next) {
-    var article = res.locals.current_article;
+    var article = req.current_article;
     var current_account = res.locals.current_account;
     if (article.account.id == current_account.id) {
-      res.locals.current_article = article;
+      req.current_article = article;
       return next();
     }
 
-    var project_profile = res.locals.current_profile;
+    var project_profile = req.current_profile;
     var article_roles = article.roles;
     var profile_roles = project_profile.roles;
 
@@ -941,7 +931,7 @@ router.get('/:id',
     return next();
   },
   function get_directory_articles(req, res, next) {
-    var article = res.locals.current_article;
+    var article = req.current_article;
     if (!article.is_directory) return next();
     var directory = article;
     directory.getArticles({
@@ -955,7 +945,7 @@ router.get('/:id',
       ]
     }).then(
       function(articles) {
-        res.locals.directory_articles = articles;
+        req.directory_articles = articles;
         return next();
       }, function(errors) {
         return next(errors);
@@ -963,7 +953,7 @@ router.get('/:id',
     );
   },
   function generate_breadcrums(req, res, next) {
-    var article = res.locals.current_article;
+    var article = req.current_article;
     var breadcrums = [
       {
         name: article.project.name,
@@ -982,16 +972,15 @@ router.get('/:id',
       });
     }
 
-    res.locals.current_breadcrums = breadcrums;
+    res.locals.breadcrums = breadcrums;
     next();
   },
   function (req, res, next) {
-    var article = res.locals.current_article;
+    var article = req.current_article;
 
     res.render('view', {
-      breadcrums: res.locals.current_breadcrums,
       article: article,
-      articles: res.locals.directory_articles,
+      articles: req.directory_articles,
       roles: article.roles
     }); 
   }
