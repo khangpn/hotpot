@@ -35,7 +35,6 @@ router.get('/delete/:id',
     var project_id = article.project_id;
     article.destroy()
       .then(function(){
-        console.log(article);
         if (article.directory) {
           res.redirect("/articles/" + article.directory.id);
         } else {
@@ -863,72 +862,141 @@ router.get('/:id',
             req.current_article = article;
             return next();
           }
-          if (article.readable) {
-            current_account.getProjectProfiles({
-              where: {
-                project_id: article.project_id
-              },
-              include: [SecurityLevel, Project,
-                {
-                  model:Role,
-                  as: 'roles'
-                }
-              ],
-              limit: 1
-            }).then(
-              function(project_profiles) {
-                if (project_profiles.length > 0) {
-                  var project_profile = project_profiles[0];
-                  if ( project_profile.security_level &&
-                    project_profile.security_level.level >=
-                    article.security_level.level) {
-                    req.current_article = article;
-                    req.current_profile = project_profile;
-                    return next();
+
+          var Sequelize = req.models.Sequelize;
+          var Promise = Sequelize.Promise;
+          var false_promise = new Promise (function(resolve) {
+            resolve(false);
+          });
+
+          var verify_security_level = function(article) {
+            if (article.readable) {
+              return current_account.getProjectProfiles({
+                where: {
+                  project_id: article.project_id
+                },
+                include: [SecurityLevel, Project,
+                  {
+                    model:Role,
+                    as: 'roles'
                   }
-                }
-                return util.handle_unauthorized(next);
-              }, function(error) {
-                return next(error);
-              });
-          } else {
-            return util.handle_unauthorized(next);
+                ],
+                limit: 1
+              }).then(
+                function(project_profiles) {
+                  if (project_profiles.length > 0) {
+                    var project_profile = project_profiles[0];
+                    if ( project_profile.security_level &&
+                      project_profile.security_level.level >=
+                      article.security_level.level) {
+                      req.current_article = article;
+                      req.current_profile = project_profile;
+                      return verify_role(article);
+                    } else {
+                      return false_promise;
+                    }
+                  } else {
+                    return false_promise;
+                  }
+                }, function(error) {
+                  return next(error);
+                });
+            } else {
+              return false_promise;
+            }
           }
+
+          var verify_role = function(article) {
+            var current_account = res.locals.current_account;
+            if (article.account_id == current_account.id) {
+              return true;
+            }
+
+            var project_profile = req.current_profile;
+            var article_roles = article.roles;
+            var profile_roles = project_profile.roles;
+
+            var article_roles_array = [];
+            for (var i = 0; i < article_roles.length; i++) {
+              article_roles_array.push(article_roles[i].id);
+            }
+            article_roles_array.sort();
+
+            var profile_roles_array = [];
+            for (var i = 0; i < profile_roles.length; i++) {
+              profile_roles_array.push(profile_roles[i].id);
+            }
+            profile_roles_array.sort();
+
+            var result = util.array_inter(article_roles_array, 
+              profile_roles_array);
+
+            if (result.length == 0) {
+              return false;
+            } else {
+              return true;
+            }
+          }
+
+          var verify = function(article) {
+            //NOTE: if there is directory, check against its security and roles first
+            if (article.directory_id) {
+              return article.getDirectory({
+                include: [
+                  req.models.account, 
+                  req.models.security_level, 
+                  req.models.project,
+                  {
+                    model: Article,
+                    as: 'directory'
+                  },
+                  {
+                    model: Role,
+                    as: 'roles'
+                  }
+                ]
+              }).then(
+                function(directory) {
+                  return verify(directory).then(
+                    function(result){
+                      //var result = verify(directory);
+                      if(result) {
+                        return verify_security_level(article).then(
+                          function(result){
+                            if(result) {
+                              return true;
+                            }
+                            return false;
+                          });
+                      } 
+                      return false;
+                    });
+                }, function(error) {
+                  return next(error);
+                });
+            } else {
+              return verify_security_level(article).then(
+                function(result) {
+                  if (result) {
+                    return true;
+                  }
+                  return false;
+                });
+            }
+          }
+
+          return verify(article).then(
+            function(result){
+              if(result) {
+                return next();
+              }
+              return util.handle_unauthorized(next);
+            }
+          );
         }, 
         function(error) {
           return next(error);
       });
-  },
-  function (req, res, next) {
-    var article = req.current_article;
-    var current_account = res.locals.current_account;
-    if (article.account.id == current_account.id) {
-      req.current_article = article;
-      return next();
-    }
-
-    var project_profile = req.current_profile;
-    var article_roles = article.roles;
-    var profile_roles = project_profile.roles;
-
-    var article_roles_array = [];
-    for (var i = 0; i < article_roles.length; i++) {
-      article_roles_array.push(article_roles[i].id);
-    }
-    article_roles_array.sort();
-
-    var profile_roles_array = [];
-    for (var i = 0; i < profile_roles.length; i++) {
-      profile_roles_array.push(profile_roles[i].id);
-    }
-    profile_roles_array.sort();
-
-    var result = util.array_inter(article_roles_array, 
-      profile_roles_array);
-
-    if (result.length == 0)
-      return util.handle_unauthorized(next);
-    return next();
   },
   function get_directory_articles(req, res, next) {
     var article = req.current_article;
