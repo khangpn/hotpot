@@ -1,4 +1,4 @@
-% Chapter 1
+﻿% Chapter 1
 
 \chapter{Introduction} % Chapter title
 
@@ -9,14 +9,15 @@
 MLS is a very popular term in security field, which means every subjects (\ie users) has different roles in a same system;
 so that corresponding to their role, the subject will have distinct security level to access to suitable data sources to perform their jobs.
 It's very trivial in military systems and we will explain more detailed about it in later chapter.
-Here is a very common scenario of most of IT-related projects where many roles (\eg\,developers, designers, project managers, customers etc.) work together sharing the same data source.
-While almost every existing project management tools focus on productivity, accessibility of the project;
-some of services \eg\,FreshDesk even provides further data protection (authentication, data integrity etc.);
-however, not many projects realize how well MLS satisfies the scenario of multi-roles project management, and it could be used as a skeleton for a PM tool to help us have a advanced sign about PM and innumerable assets for our projects which we will see later.
+
+Thinking about IT-related organizations, we can see there are many scenarios of working in an interacting systems, where many users with various roles (\eg\,developers, designers, project managers, customers etc.) work together sharing same data sources, which is very common to serious military security problems.
+While most of every existing project management tools available in the market focus on productivity, accessibility of the project, some of services \eg\,FreshDesk even provides further data protection (authentication, data integrity etc.);
+however, not many projects realize how important to protect users' data internally. In fact, many of data leaking cases are because of people from the organization. MLS can cover strenuously those multi-roles issues. It could be used as a skeleton for a PM tool to help us to have an advanced view about PM and innumerable assets around it which we will discuss later.
 
 The goal of this project is to evaluate how complex to build up a MLS management system used in IT industry.
-As the result, we are going to see the difficulty, limitation and solutions of that approach.
-While the projet is in progress, we may find various paths to reach an achievement, and we have to analyze them in order to understand deeper about MLS and to pick out the best way to handle it.
+As the result, we are going to see the difficulty, limitation and solutions of building an MLS system and try to learn from that.
+In the working progress, we may find various paths to reach an achievement, and we will analyze them in order to understand deeper about MLS to pick out the best handling way.
+
 In the beginning of this document, we are going to see how MTS can fit into PM tool, brief explanation about the use-cases, and how we are going to cover them in our tool.
 \marginpar{Since it is 'hot' and I use it to 'cook' my thesis}At the moment, we will name this project \myProject.
 
@@ -38,7 +39,7 @@ This is what we normally see in most of PM tools feature list.
 Though, many of them don't have access control on those datasources.
 Other subjects with not-related-roles can still look at the others' data as long as they are public (if the tool supports privacy mode for data sharing).
 
-Now, let's us push this example to another level. In the \emph{Sprint review}, there are some comments and valuation of the project manager for \emph{developers} and \emph{designers} teams, or some of customer's feedbacks at the 'company' level.
+Now, let's me push this example to another level. In the \emph{Sprint review}, there are some comments and valuation of the project manager for \emph{developers} and \emph{designers} teams, or some of customer's feedbacks at the 'company' level.
 These pieces of information has nothing to do with the rest of the team, except the \emph{Project Manager} (\ie the appropriate person who need to due with them).
 The key point of this is that all of information concerned to the project should be kept in one place for convenience in tracking and making future plans.
 \marginpar{MLS advantage: protect data from multiple level access}At the same time, we want to isolate them from currious eyes (\ie improper level subjects)which interacting with the same system.
@@ -66,3 +67,7 @@ And so does every data source.
 They are nested together, using \emph{Bell--LaPadula} model,
 to allow subjects to share and receive relevant data while restricting them from leaking data to extraneous ones,
 and help people to save time to look for what they want.
+
+Now, we have seen some use-cases of our project. 
+They will be included as upcoming features, together with further security rules. 
+In next chapter, we are going review about the history of MLS to understand more about how it solved real world problems and see how the others implemented it in their solutions.
