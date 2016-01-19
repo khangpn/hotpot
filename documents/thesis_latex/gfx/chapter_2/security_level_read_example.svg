@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="security_level_example.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path5436"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path4148"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-9"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4148-4"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-1"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4148-40"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-7"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5436-8"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-1-9"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4148-40-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-2"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5436-80"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-1-5"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4148-40-5"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.78501258"
+     inkscape:cx="375.25917"
+     inkscape:cy="502.05412"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-bbox="false"
+     inkscape:snap-global="true"
+     inkscape:snap-to-guides="true"
+     inkscape:snap-grids="true"
+     inkscape:snap-page="false"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.2677)">
+    <rect
+       style="fill:#ff0000;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
+       id="rect2991"
+       width="354.10193"
+       height="89.808441"
+       x="114.63011"
+       y="401.00153"
+       ry="21.810623"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:44.0911293px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="291.13586"
+       y="439.00787"
+       id="text2995"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2997"
+         x="291.13586"
+         y="439.00787"
+         style="font-size:19.75786591px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans">Object A</tspan><tspan
+         sodipodi:role="line"
+         x="291.13586"
+         y="463.7052"
+         id="tspan4587"
+         style="font-size:19.75786591px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans">Clearance: Top Secret</tspan></text>
+    <rect
+       style="fill:#00a0ff;fill-opacity:1;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
+       id="rect2991-3"
+       width="354.10193"
+       height="89.808441"
+       x="114.63011"
+       y="548.33746"
+       ry="21.810623"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:44.0911293px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="291.13586"
+       y="588.25879"
+       id="text2995-6"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         x="291.13586"
+         y="588.25879"
+         id="tspan3810"
+         style="font-size:19.75786591px;text-align:center;text-anchor:middle">Object B</tspan><tspan
+         sodipodi:role="line"
+         x="291.13586"
+         y="612.95612"
+         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         id="tspan4591">Clearance: Secret</tspan></text>
+    <rect
+       style="fill:#21a100;fill-opacity:1;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
+       id="rect2991-1"
+       width="354.10193"
+       height="89.808441"
+       x="114.63011"
+       y="851.17676"
+       ry="21.810623"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:44.0911293px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="290.57156"
+       y="891.09808"
+       id="text2995-0"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2997-7"
+         x="290.57156"
+         y="891.09808"
+         style="font-size:19.75786591px;text-align:center;text-anchor:middle">Object D</tspan><tspan
+         sodipodi:role="line"
+         x="290.57156"
+         y="915.79541"
+         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         id="tspan4599">Clearance: Unclassified</tspan></text>
+    <rect
+       style="fill:#ffdd00;fill-opacity:1;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
+       id="rect2991-11"
+       width="354.10193"
+       height="89.808441"
+       x="114.63011"
+       y="702.04474"
+       ry="21.810623"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:44.0911293px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="290.57153"
+       y="741.96606"
+       id="text2995-7"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         x="290.57153"
+         y="741.96606"
+         id="tspan5542"
+         style="font-size:19.75786591px;text-align:center;text-anchor:middle">Object C</tspan><tspan
+         sodipodi:role="line"
+         x="290.57153"
+         y="766.66339"
+         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         id="tspan4601">Clearance: Confidential</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:0.49771693;stroke:#000000;stroke-width:4.18688869;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect4708"
+       width="267.81314"
+       height="581.59204"
+       x="680.03162"
+       y="378.99554"
+       ry="34.438351"
+       rx="33.120487"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="813.58905"
+       y="654.24323"
+       id="text5236"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan5238"
+         x="813.58905"
+         y="654.24323"
+         style="font-size:22px;text-align:center;text-anchor:middle">Subject A</tspan><tspan
+         sodipodi:role="line"
+         x="813.58905"
+         y="681.74323"
+         id="tspan5240"
+         style="font-size:22px;text-align:center;text-anchor:middle">Clearance: Secret</tspan></text>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;stroke-miterlimit:4;stroke-dasharray:4, 1;stroke-dashoffset:0"
+       d="m 470.05616,140.2825 206.36612,-1.27386"
+       id="path5430"
+       inkscape:connector-curvature="0"
+       transform="translate(0,308.2677)"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Lend-1)"
+       d="m 467.50843,282.95538 208.91385,0"
+       id="path6258"
+       inkscape:connector-curvature="0"
+       transform="translate(0,308.2677)"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Lend-1)"
+       d="m 468.7823,747.90847 208.91385,0"
+       id="path6258-5"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Lend-1)"
+       d="m 467.50844,895.6768 208.91385,0"
+       id="path6258-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="536.29712"
+       y="582.30603"
+       id="text7857"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan7859"
+         x="536.29712"
+         y="582.30603">read</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="536.98151"
+       y="739.54987"
+       id="text7857-0"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan7859-8"
+         x="536.98151"
+         y="739.54987">read</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="538.25531"
+       y="888.5921"
+       id="text7857-01"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/security_level_example.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan7859-5"
+         x="538.25531"
+         y="888.5921">read</tspan></text>
+  </g>
+</svg>
