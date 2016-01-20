@@ -1,65 +1,146 @@
-% Chapter 3
+﻿% Chapter 3
 
 \chapter{HotPot Project} % Chapter title
 
-\label{ch:hopot_project} % For referencing the chapter elsewhere, use \autoref{ch:mathtest}
+\label{ch:hopot_project} % For referencing the chapter elsewhere, use \autoref{ch:hotpot_project}
+
+%----------------------------------------------------------------------------------------
+
+In \autoref{ch:background}, we learned that MLS is a very practical solution for multi-level access control.
+It is very suitable to PMT because of the essence of PMT is sharing and collaborating among groups of people of different concerns and priorities.
+As introduced in \autoref{ch:introduction:use_cases}, \myProject is a PMT implementing BLP model to ensure data security by forcing subjects to follow a set of predefined rules in order to gain access permission to objects.
+In this chapter, I am going to explain in details the features of the project; how is it different from the other PMT; how does it approach the security demands.
+By that way, we can understand precisely the goal of the project.
 
 %----------------------------------------------------------------------------------------
 
 \section{Concepts}
+\label{ch:hopot_project:concepts}
 
-Introducing about the project
+By the time of writing this thesis, in the market, there are already plenty of PMTs with a huge number of features.
+Some of popular names are Redmine, Workfront, FreshDesk, Genius Project etc...
+Every tools has their own key features.
+Go through their features list, we can see that most of features mainly focus on management and analyzing purposes.
+They aim to provide customers most convenient tool with rich features and best user experience.
+In term of security, most of the projects support SSL data encryption and apply vairous techniques to ensure data integrity.
+Those traits can protect data on communicating progress, or keep it away from external exploits.
+However, in order to protect internal assets from being accessed by authenticated users, most of them only support CAP which allow read/write permissions on an asset.
+In fact, many of data leaking cases were reported done by authenticated but unauthorized users.
+MLS perfectly matches into this scenario that it enforces all internal subjects to follow accessing policies, regardless of their priorities or the object's CAP.
+In another word, every objects in the system will served exactly to groups of subjects who satisfy their admission requirements.
+As the result, MLS is a eminently strong solution for lacking of MAC.
+And that is also the main goal of \myProject that tries to implement BLP model to PMT.
+
+\myProject is a PMT with essential features of managing projects.
+At this stage, because of the purpose of this thesis, I only primarily focus on security practices of BLP in PMT.
+And the management features are only enough to illustrate a general working PMT.
 
 %------------------------------------------------
 
-\subsection{Project Management Tool}
+\subsection{Project Management Features}
+\label{ch:hopot_project:concepts:pm_features} 
 
-Explain what is PMT? what should it have? What do we have?
+PMT is a platform in which users can plan their projects, create and track project tasks, project progress, team members' assignments etc...
+In the market, many PMTs have outstanding user experience features.
+They consist of performance analyzing and evaluation tool, both personally and organizationally.
+Some even embed discussion forum, subversion control monitoring etc...
+However in \myProject, I only focus on some essential features of a PMT in order to demonstrate the security features such as:
+
+\begin{itemize}
+\item Create and manage (edit, delete) accounts. There are two types of account: normal account and admin, we will go into details about these types in the next \autoref{ch:hopot_project:project_components:account}
+\begin{itemize} 
+\item Editting account's personal information (\eg full name, email, address, contact etc...). 
+After logging in, users can update their own information.
+\end{itemize}
+
+\item Create and manage (edit, delete) projects.
+\begin{itemize} 
+\item Assigning members to projects. 
+\item Setting project members' security labels (\eg \emph{security level}, \emph{roles}).
+\end{itemize}
+
+\item Create and manage (edit, delete) articles.
+\begin{itemize} 
+\item Creating directory.
+\item Setting articles and directories' security labels (\eg \emph{security level}, \emph{roles}).
+\end{itemize}
+
+\item Create and manage (edit, delete) tickets.
+\begin{itemize} 
+\item Tickets assigning.
+\item Setting tickets' security labels (\eg \emph{security level}, \emph{roles}).
+\end{itemize}
+
+\item Create and manage (edit, delete) security components. \footnote{They are the core of the security policies}
+\begin{itemize} 
+\item Roles.
+\item Security Levels.
+\end{itemize}
+
+\end{itemize}
+
+In the next \autoref{ch:hopot_project:concepts:security_features}, we will learn about the projects' \emph{security policies}.
+It will help us to answer questions related to management features such as who can perform these functions? How security policies will affect their performance? etc...
 
 %------------------------------------------------
 
 \subsection{Security Features}
+\label{ch:hopot_project:concepts:security_features}
 
-How do we handle security?
+This chapter focus on answering one big question \emph{How do we handle security?}
+It will explain in details the \emph{security policies} of the project.
+So that, We can understand how users can use this system? What rules they have to follow? And how the restriction can protect data by users with multi-level security?
+
+Because of using MLS, first of all, we have to list all of the system's components, then categories them as either \emph{subject} or \emph{object}.
+\emph{Subjects} are components which actively interact in the system \eg\ processes, users etc\dots
+So, in our project, they are \emph{accounts} (or users, team members\dots) and another special type of account is \emph{administrators} (or admins for short).
+On the other hand, \emph{objects} are passive components which are \emph{articles}, \emph{tickets}, and \emph{projects} in our case.
 
 %----------------------------------------------------------------------------------------
 
 \section{Project Components}
+\label{ch:hopot_project:project_components}
 
 How we build the project? what we focus on? What security principle should the follow?
 
 %------------------------------------------------
 
 \subsection{Account and Admin}
+\label{ch:hopot_project:project_components:account}
 
 Explain account
 
 %------------------------------------------------
 
 \subsection{Project}
+\label{ch:hopot_project:project_components:project}
 
 Content
 
 %------------------------------------------------
 
 \subsection{Security Level (Clearance)}
+\label{ch:hopot_project:project_components:security_level}
 
 Content
 
 %------------------------------------------------
 
 \subsection{Role (Classification)}
+\label{ch:hopot_project:role}
 
 Content
 
 %------------------------------------------------
 
 \subsection{Article and Directory}
+\label{ch:hopot_project:article}
 
 Content
 
 %------------------------------------------------
 
 \subsection{Ticket}
+\label{ch:hopot_project:ticket}
 
 Content
