@@ -84,12 +84,67 @@ People should research about security models to select or adjust a suitable one 
 \label{ch:background:bell}
 
 Bell-LaPadula is a MLS model which was developed by Bell and LaPadula.
-The key point of this model could be summarized as 'no read up, no write down'.
+As we explain about MLS in \autoref{ch:backgroud:mls}, MLS combines usages of two kinds of label: \emph{clearance} (or \emph{security level}) and \emph{classification} (or \emph{role}).
+Hence, BLP model endorse those components, and defines a set of rules for them to collaborate in the system.
+The most important principle of BLP can be summarized as \emph{no read up, no write down}.
 It means that users with lower security label cannot read data with higher security label.
 And so on, a higher security label user cannot write (create) data with lower security label.
-In consequence, the important data (or data with high security label) can only be viewed by users with higher or equal importance.
-And high security level user cannot leak important data to insufficient users, because they \emph{cannot write down}, while lower security users can create high confidential report to their boss.
+Let's call $S1$ subject's security level, and $S2$ is object's, where 
+$$S1,S2 \in \{top secret, secret, confidential, unclassified\}$$ 
+and 
+$$top secret > secret > confidential > unclassified$$
+So the subject can read the object only if $S1 \geq S2$.
+And it can write to the object only if $S1 \leq S2$.
 
+As the result, the important data (data with high security label) can only be viewed by users with higher or the same importance.
+And high security level user cannot leak important data to insufficient users, because they \emph{cannot write down}, while lower security users can create high confidential report to their supervisor. 
+\autoref{fig:blp_security_level_rules} shows the principles of handling request from a subject to the other objects regarding only to their security levels.
 
+%\begin{figure}[bth]                                                                                                                                                  
+%\myfloatalign
+%\includegraphics[width=1.0\linewidth]{gfx/chapter_2/blp_security_level_rules}
+%\caption[BLP: Security Level rules]{BLP: Security Level read/write  %rules}\label{fig:blp_security_level_rules}
+%\end{figure}
 
-%------------------------------------------------
+In addition to security level labels, as mentioned above, BLP can also be designed in combination with \emph{classification} labels to create a stronger restriction to object accesses.
+Under the circumstances, the subject's classification labels should be a subset of the object's to be able gain the access permission.
+If we call the subject's roles a set $R1$ and the object's $R2$, where
+
+$$R1, R2 \in \{project manager, programmer, designer\}$$ 
+
+The subject can gain access permission to R2 only if $R1 \subseteq R2$.
+\autoref{fig:blp_security_level_roles_rules} shows the principles of handling request from a subject to the other objects regarding only to their security levels.
+
+%\begin{figure}[bth]                                                                                                                                                  
+%\myfloatalign
+%\includegraphics[width=1.0\linewidth]{gfx/chapter_2/blp_security_level_roles_rules}
+%\caption[BLP: A set of Security Level and Roles rules]{BLP: A set of Security %Level and Roles rules}\label{fig:blp_security_level_roles_rules}
+%\end{figure}
+
+Finally, a user can use \emph{Discretionary Access Control} (DAC) set the permission to an object.
+\cite{centos:2008} cited that MLS access rules are always combined with \emph{conventional access permissions} (or file permission).
+It means that if a user with security label \emph{Secret} uses DAC to block access to an object by the other uses, this also block access by by users with security level of \emph{Top Secret}.
+Additionally, \cite{bancinco:2015} presented that
+\begin{quote}
+SELinux MLS policy rules are checked after DAC rules. A higher security clearance does not automatically give permission to arbitrarily browse a file system.
+\end{quote}
+Hence, \autoref{fig:blp_security_level_roles_rules} will be a mostly complete picture describing about BLP model after we put every components together.
+
+In conclusion, MLS and BLP model in specification are suitable for many of real world organization models. It can isolate objects and protect them from multi-level accesses.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[BLP: Security Level rules]
+{\label{fig:blp_security_level_rules}
+\includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_security_level_rules}} \quad
+
+\subfloat[BLP: A set of Security Level and Roles rules]
+{\label{fig:blp_security_level_roles_rules}
+\includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_security_level_roles_rules}} \\
+
+\subfloat[BLP: all components illustration]
+{\label{fig:blp_example}
+\includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_example}} \\
+
+\caption[BLP illustration]{Illustrate how BLP components relate to each others}\label{fig:blp_illustration}
+\end{figure} 
