@@ -54,7 +54,7 @@ Let's consider this example.
 In one organization, at the same security level, there will be many people with different roles who may need contrasting data.
 Allowing everyone with the same security level access to the other roles' data is considered redundant.
 It causes confusion to the other users about which data is related to them and they can use.
-Furthermore, in some point of view, it poses security threads to leak out secret data of a department to the others and vice sera.
+Furthermore, in some point of view, it poses security threads to leak out secret data of a department to the others and vice versa.
 As the result, MLS need to segregates users and the organization's assets into specific groups of roles \eg\ Project Manager, Designer, Programmer etc...
 It is called \emph{classification}.
 Unlike clearance, every subjects can have more than one classification.
@@ -128,7 +128,7 @@ Additionally, \cite{bancinco:2015} presented that
 \begin{quote}
 SELinux MLS policy rules are checked after DAC rules. A higher security clearance does not automatically give permission to arbitrarily browse a file system.
 \end{quote}
-Hence, \autoref{fig:blp_security_level_roles_rules} will be a mostly complete picture describing about BLP model after we put every components together.
+Hence, \autoref{fig:blp_full} will be a mostly complete picture describing about BLP model after we put every components together.
 
 In conclusion, MLS and BLP model, in specification, are suitable for many of real world organization models. It can isolate objects by labeling and protect them in multi-level environment.
 
@@ -143,7 +143,7 @@ In conclusion, MLS and BLP model, in specification, are suitable for many of rea
 \includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_security_level_roles_rules}} \\
 
 \subfloat[BLP: all components illustration]
-{\label{fig:blp_example}
+{\label{fig:blp_full}
 \includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_example}} \\
 
 \caption[BLP illustration]{Illustrate how BLP components form access control}\label{fig:blp_illustration}
