@@ -58,24 +58,28 @@ After logging in, users can update their own information.
 \item Assigning members to projects. 
 \item Setting project members' security labels (\eg \emph{security level}, \emph{roles}).
 \end{itemize}
+\item List all projects.
+\item List project's members.
 
 \item Create and manage (edit, delete) articles.
 \begin{itemize} 
 \item Creating directory.
 \item Setting articles and directories' security labels (\eg \emph{security level}, \emph{roles}).
 \end{itemize}
+\item List project's articles: the result of the articles list will be different from users. Because each account will have different set of security labels.
 
 \item Create and manage (edit, delete) tickets.
 \begin{itemize} 
 \item Tickets assigning.
 \item Setting tickets' security labels (\eg \emph{security level}, \emph{roles}).
 \end{itemize}
+\item List project's tickets: this list is similar to articles list.
 
 \item Create and manage (edit, delete) security components. \footnote{They are the core of the security policies}
 \begin{itemize} 
 \item Roles.
 \item Security Levels.
-\end{itemize}
+\end{itemize}.
 
 \end{itemize}
 
@@ -95,21 +99,129 @@ Because of using MLS, first of all, we have to list all of the system's componen
 \emph{Subjects} are components which actively interact in the system \eg\ processes, users etc\dots
 So, in our project, they are \emph{accounts} (or users, team members\dots) and another special type of account is \emph{administrators} (or admins for short).
 On the other hand, \emph{objects} are passive components which are \emph{articles}, \emph{tickets}, and \emph{projects} in our case.
+Rather than that, there are three elements that form the security policies for subjects and objects. They are \emph{security levels}, \emph{roles}, and \emph{read/write permissions}.
+Every subjects and objects will have one security level label and at least one role. Besides that, all the objects will have one more CAP feature, so they can restrict the subjects' behaviors such as read or write.
+In the system, there can be many projects developed at the same time.
+Everyone, every subjects, can have different roles, and priorities in different projects.
+Consequently, in order to ensure the system consistency, every subject in different projects will have different \emph{project profiles}.
+Each profile consists of a different set of security labels, corresponding to the subject's characters in the project. %draw sth to illustrate this
 
+In \myProject, there are main actions a subject can perform on an object: \emph{create, view, list, edit, delete}.
+Some of them such as \emph{view, list} are considered as reading behavior, so that it requires \emph{read permission} on the objects for the subjects to perform.
+In a different manner, \emph{create, edit and delete} require \emph{write permission} on the object for the subject to perform.
+\marginpar{\emph{Edit} action need both read and write permission.}
+However, considering about \emph{edit} action, we can see that in order for a subject to edit an object's contents, he must be able to read it first.
+So \emph{edit} is a special case where it requires the object's both \emph{read} and \emph{write} permission.
+\marginpar{\emph{Delete} action can only be done by the object's owner.}
+Also \emph{delete} is also a sensitive action.
+It is a \emph{write action}.
+Yet, in term of data integrity, \emph{delete} action should only be executed by the object's owner \ie subject which created it.
+Let's consider this scenario, a secret article should be created to report a fault of a team member to the managers.
+If a manager with secrete label doesn't like that report, he can delete it.
+Nevertheless, \emph{create} is also a distinctive action.
+It also depends on other logical rules for the subject to perform.
+For example, only team member can create articles and tickets of that project.
+We will discuss about these kinds of special actions and logical rules in the upcoming \autoref{ch:hopot_project:project_components}.
+According to BLP security policies explained in \autoref{ch:background:bell}, every subjects must own a set of security labels which full-fills the security policies again the target object's.
+So in order to perform \emph{read action}, the subject's security level label should be higher or equals to the object's;
+the subject's set of role labels must be a subset of the object's;
+and the object must be readable \ie read permission is on.
+On the other hand, the \emph{write action} requires the subject's security level label is lower or equals to the object's;
+the subject's set of role labels must be a subset of the object's too;
+and the object is set to writable mode.
+
+On developing the project, I sometimes had to due with trade-off of strong security and convenient user experience.
+Solving object's owner's security policies is one of the trade-off I had to make.
+Let's consider a scenario.
+A subject, with secret security label, creates an object \eg article with top secret label. 
+After that, he needs to \emph{edit} the article, \eg add more information, but the security policies will prevent him from doing that because, as we explained above, he need to have the same security level with the artilce to \emph{edit} it.
+This will be very inconvenient in case he has to edit the article many times.
+On the contrary, if we allow the owner to read his objects regardless of their security level, it may be vulnerable to data leak.
+Since, if a top secret subject decides to edit the object to add some sensitive data into it, the owner can still read them.
+\marginpar{\emph{Trade-off}: a subject have all permissions on his own objects.}
+However, thinking about the user experience and because the project aims to serve civil organizations of medium scale, I think it's better to let owners have all permissions on their own objects.
+It also helps to solve the problem of \emph{delete} action that we discussed before.
+\marginpar{\emph{Future plan}: logging system is needed to track all actions in the system, especially these kind of compromising actions that need the subjects' awareness.}
+Because this is a compromise, so that we need a good practice to fix it.
+It could be a system unrelated rule, that high security level subjects should not edit objects of lower security level subject, instead he should create a copy of it then add his additional information into the copy, unless he is only leaving comments on the object.
+
+Furthermore, besides the BLP model policies, some logical rules are applied for some actions in the system.
+These rules also have to follow the predefined security policies.
+They are just like another layer of the access control to the actions.
+For example, creating new subjects (accounts); managing relations among objects; creating new objects related to another objects etc\dots
+Those logical rules will be discussed in the next \autoref{ch:hopot_project:project_components}.
 %----------------------------------------------------------------------------------------
 
-\section{Project Components}
+\section{Project Components and Use Cases}
 \label{ch:hopot_project:project_components}
 
 How we build the project? what we focus on? What security principle should the follow?
+
+This chapter will explain about security behaviors of every components of the project.
+We will learn about all the main features of the system, as well as how they are expected to behave against security policies.
+Here, we also discuss about the logical polices that could be considered another layer of the access control.
+Finally, we will explain most of the use cases of the project.
+These use cases will be demonstrated illustratively later in \autoref{ch:result:user_guide}.
 
 %------------------------------------------------
 
 \subsection{Account and Admin}
 \label{ch:hopot_project:project_components:account}
 
-Explain account
+Account is the main subject in our system.
+There are two types of account: \emph{user account} and \emph{admin account}.
+These two types of account have the same properties in database, however, due to their responsibilities ,they will have different behavior in the system.
 
+A user account is the account type for most of everyone in the organization.
+It consists of enough information of an employee \eg username, password, contact \dots
+Below are lists of all actions the account can perform on other objects in the system. These actions will be explained in more detailed when will discuss about the other components in this chapter.
+
+\begin{table}
+\myfloatalign
+\begin{tabularx}{\textwidth}{l|X} 
+\toprule
+\tableheadline{Actions} & \tableheadline{Description}\\ 
+\midrule
+\emph{View} & 
+Every account can view the other's details. 
+This is because of the simplicity and convenience of the project.
+In fact, there is no vital data in this area that can be exploited.\\
+\midrule
+\emph{Edit} & 
+ONLY the \emph{account's owner} can update his own account's details. \\
+\bottomrule
+\end{tabularx}
+\caption[Account's actions on account details.]{Account's actions on account details.}  
+\label{tab:account_on_detail}
+\end{table}
+
+\begin{table}
+\myfloatalign
+\begin{tabularx}{\textwidth}{l|X} 
+\toprule
+\tableheadline{Actions} & \tableheadline{Description}\\ 
+\midrule
+\emph{Create} & 
+Every account can create a new project. The creator account, then, will be set as the project's owner, and added to the project as a project member.\\
+\midrule
+\emph{View} & 
+Every account can view the project information. 
+However, the visitor cannot see the list of articles and tickets of the project.\\
+\midrule
+\emph{Edit} & 
+ONLY the \emph{project owner} can update the project's information. \\
+\midrule
+\emph{Add member} & 
+ONLY the \emph{project owner} can add the other accounts to his project. \footnote{Every accounts added to a project will have one \emph{project profile} where store all of the account's security labels in that project} \\
+\midrule
+\emph{Delete} & 
+Every account can view the project information. 
+ONLY the \emph{project owner} can delete the project. \\
+\bottomrule
+\end{tabularx}
+\caption[Account's actions on projects.]{Account's actions on projects.}  
+\label{tab:account_on_project}
+\end{table}
 %------------------------------------------------
 
 \subsection{Project}
