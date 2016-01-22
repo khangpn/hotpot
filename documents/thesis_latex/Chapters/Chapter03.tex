@@ -130,6 +130,8 @@ On the other hand, the \emph{write action} requires the subject's security level
 the subject's set of role labels must be a subset of the object's too;
 and the object is set to writable mode.
 
+% NOTE: add illustraion for the security decision.
+
 On developing the project, I sometimes had to due with trade-off of strong security and convenient user experience.
 Solving object's owner's security policies is one of the trade-off I had to make.
 Let's consider a scenario.
@@ -165,7 +167,7 @@ These use cases will be demonstrated illustratively later in \autoref{ch:result:
 
 %------------------------------------------------
 
-\subsection{Account and Admin}
+\subsection{Account and Administrator}
 \label{ch:hopot_project:project_components:account}
 
 Account is the main subject in our system.
@@ -176,11 +178,16 @@ A user account is the account type for most of everyone in the organization.
 It consists of enough information of an employee \eg username, password, contact \dots
 Below are lists of all actions the account can perform on other objects in the system. These actions will be explained in more detailed when will discuss about the other components in this chapter.
 
-\begin{table}
+\afterpage{
+%account
+\begin{table}[!htbp]
 \myfloatalign
-\begin{tabularx}{\textwidth}{l|X} 
+\begin{tabularx}{\textwidth}{lX} 
 \toprule
 \tableheadline{Actions} & \tableheadline{Description}\\ 
+\midrule
+\emph{Create} & 
+ONLY administrator can create new account.\\
 \midrule
 \emph{View} & 
 Every account can view the other's details. 
@@ -190,14 +197,18 @@ In fact, there is no vital data in this area that can be exploited.\\
 \emph{Edit} & 
 ONLY the \emph{account's owner} can update his own account's details. \\
 \bottomrule
+\midrule
+\emph{Delete} & 
+Administrator and the account owner can delete the account.\\
 \end{tabularx}
 \caption[Account's actions on account details.]{Account's actions on account details.}  
 \label{tab:account_on_detail}
 \end{table}
 
-\begin{table}
+%project
+\begin{table}[!htbp]
 \myfloatalign
-\begin{tabularx}{\textwidth}{l|X} 
+\begin{tabularx}{\textwidth}{lX} 
 \toprule
 \tableheadline{Actions} & \tableheadline{Description}\\ 
 \midrule
@@ -214,45 +225,167 @@ ONLY the \emph{project owner} can update the project's information. \\
 \emph{Add member} & 
 ONLY the \emph{project owner} can add the other accounts to his project. \footnote{Every accounts added to a project will have one \emph{project profile} where store all of the account's security labels in that project} \\
 \midrule
+\emph{Edit member permission} & 
+ONLY administrators can perform this action. \\
+\midrule
 \emph{Delete} & 
-Every account can view the project information. 
-ONLY the \emph{project owner} can delete the project. \\
+ONLY the \emph{project's owner} can delete the project. \\
 \bottomrule
 \end{tabularx}
 \caption[Account's actions on projects.]{Account's actions on projects.}  
 \label{tab:account_on_project}
 \end{table}
+
+%article
+\begin{table}[!htbp]
+\myfloatalign
+\begin{tabularx}{\textwidth}{lX} 
+\toprule
+\tableheadline{Actions} & \tableheadline{Description}\\ 
+\midrule
+\emph{Create} & 
+Every project member can create new articles of that project. The creator account, then, will be set as the article's owner. This action must follow the security policies in \autoref{ch:hopot_project:concepts:security_features}.\\
+\midrule
+\emph{List} & 
+Every project member can see the list of project's articles.
+The list only shows articles related to the member's security labels, that follow the security policies in \autoref{ch:hopot_project:concepts:security_features}.\\
+\midrule
+\emph{View} & 
+Every project member can view the project's articles.
+This action must follow the security policies in \autoref{ch:hopot_project:concepts:security_features}.\\
+\midrule
+\emph{Edit} & 
+Every project member can edit the project's articles. 
+This action must follow the security policies in \autoref{ch:hopot_project:concepts:security_features}.\\
+\midrule
+\emph{Add article to directory} & 
+Every project member can add articles to a the project's article directory 
+\footnote{\emph{Article} and \emph{directory} relation will be discuss in \autoref{ch:hopot_project:article}}.
+Adding an article to a directory is considered as editing the directory so that this action must follow the security policies in \autoref{ch:hopot_project:concepts:security_features} against on directory.\\
+\midrule
+\emph{Delete} & 
+ONLY the \emph{article's owner} can delete it. \\
+\bottomrule
+\end{tabularx}
+\caption[Account's actions on articles.]{Account's actions on articles.}  
+\label{tab:account_on_article}
+\end{table}
+
+%ticket
+\begin{table}[!htbp]
+\myfloatalign
+\begin{tabularx}{\textwidth}{lX} 
+\toprule
+\tableheadline{Actions} & \tableheadline{Description}\\ 
+\midrule
+\emph{Create} & 
+Every project member can create new tickets of that project. The creator account, then, will be set as the ticket's owner. This action must follow the security policies in \autoref{ch:hopot_project:concepts:security_features}.\\
+\midrule
+\emph{List} & 
+Every project member can see the list of project's tickets.
+The list only shows tickets related to the member's security labels, that follow the security policies in \autoref{ch:hopot_project:concepts:security_features}.\\
+\midrule
+\emph{View} & 
+Every project member can view the project's tickets.
+This action must follow the security policies in \autoref{ch:hopot_project:concepts:security_features}.\\
+\midrule
+\emph{Edit} & 
+Every project member can edit the project's tickets. 
+This action must follow the security policies in \autoref{ch:hopot_project:concepts:security_features}.\\
+\midrule
+\emph{Assign ticket} & 
+This action is similar to \emph{edit} action.\\
+\midrule
+\emph{Delete} & 
+ONLY the \emph{ticket's owner} can delete it. \\
+\bottomrule
+
+\end{tabularx}
+\caption[Account's actions on tickets.]{Account's actions on tickets.}  
+\label{tab:account_on_ticket}
+\end{table}
+}
+
+Besides that, there are some actions on security related components like \emph{security labels}, \emph{role} that can only be performed by \emph{administrator accounts}. Administrators have all permissions on these special components. Besides that, they are the only ones who can edit other accounts' security labels.
+\cleardoublepage %fix the tables' appearance problems
+
 %------------------------------------------------
 
 \subsection{Project}
 \label{ch:hopot_project:project_components:project}
 
-Content
+Project is not actually neither subject nor object of the system.
+In the manner of management, it's just a grouping element to group related objects \eg accounts, articles and tickets.
+
+According to \autoref{tab:account_on_detail}, all accounts can create new project.
+Then, the project's owner can add other accounts to the project as team members.
+Each of the team members will have one \emph{project profile} which store all needed information for the system to apply the security policies on the member's actions \eg \emph{security level}, roles.
+By that design, every accounts will have different priorities in different projects, which provide a flexible management in the organization.
+Moreover, only the owner can edit and delete the project.
+
+Each projects has its own lists of articles and tickets.
+Only the project's team members can access them \eg create, edit, list, view delete.
 
 %------------------------------------------------
 
 \subsection{Security Level (Clearance)}
 \label{ch:hopot_project:project_components:security_level}
 
-Content
+\emph{Security Level} is one of the security components.
+It represent the \emph{clearance} property of objects and subjects.
+Only an administrator can access to perfom actions on this component.
+The \emph{security level label} has a \emph{level} property to indicate its priority.
+The higher number the level, the more important the owner is.
+For example, \emph{Secret} label has the \emph{level} value of 3, and \emph{Top Secret} has the value of 4.
+The name of the security level label as well as its priority level can completely be decided by the system's administrators.
+In another word, the administrators can modify the system's appearance as his will. 
+The security level label will relate to an account via his project profiles. Every account's project profiles will have a different one.
 
 %------------------------------------------------
 
 \subsection{Role (Classification)}
 \label{ch:hopot_project:role}
 
-Content
+Like \emph {Security Level}, \emph{Role} is also a security component of the system.
+It indicate subjects, objects' categories \ie \emph{classification}.
+As we discussed in previous \autoref{ch:background:bell}, one subject or object can have various role labels.
+And a subject's roles have to be a subset of the object's in order for the subject to access it.
+Similar to \emph{Security Level}, \emph{Roles} also relate to an account via hist project profiles. 
+In another word, one subject may have different roles in different project.
+Indeed, it's a great common scenario in organizations.
+
 
 %------------------------------------------------
 
 \subsection{Article and Directory}
 \label{ch:hopot_project:article}
 
-Content
+\emph{Article} is one of two main objects of the system.
+Article could be any kinds of document.
+It could be a report, technical notes, project related documentation etc\dots
+Every article belongs to a particular project.
+Any team member in the project can create new articles.
+While every other team members have to full-fills the security policies described in \autoref{ch:background:bell} in order to access an article, the article's owner has all permission on it.
+And, only the owner can delete his articles.
+
+In some cases, many articles, which relate to each other and share similar security policies, should be grouped together.
+It helps us to manage articles better, and provides a flexible hierachy for sharing articles.
+In that manner, \emph{Directory} is designed to deliver that feature.
+In fact, \emph{directory} is an \emph{article}.
+It means that it has all article's properties, and follows all article's security policies, except that a directory can have the other articles as its children.
+The children articles created inside a directory should have equal or higher \emph{security level} than the directory.
+So that, team members can \emph{create} new article inside the directory without getting restricted by security polices.
+Rather than that, the children should have a set of roles which is a subset of the directory's roles.
+It will generate a common sense for team members when they want to find some articles inside a directory, they can check the directory's roles to know the children's categories.
+Finally, because \emph{directory} is an \emph{article}, so it also have read and write permission on it.
 
 %------------------------------------------------
 
 \subsection{Ticket}
 \label{ch:hopot_project:ticket}
 
-Content
+Just like \emph{Article}, \emph{Ticket} is also a kind of subject of the system.
+It also need to follow security policies defined in \autoref{ch:background:bell}, and it belongs to projects too.
+Every tickets will have an owner (or creator) and an assignee property.
+Assigning an assignee to a ticket is also considered as an \emph{edit action}, so that the subject who performs it also need full-fills the edit policies.
+Moreover, the assignee's security policies should satisfy the ticket's.
