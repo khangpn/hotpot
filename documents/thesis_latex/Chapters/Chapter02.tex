@@ -1,4 +1,4 @@
-﻿% Chapter 2
+% Chapter 2
 
 \chapter{Background} % Chapter title
 
@@ -100,11 +100,12 @@ As the result, the important data (data with high security label) can only be vi
 And high security level user cannot leak important data to insufficient users, because they \emph{cannot write down}, while lower security users can create high confidential report to their supervisor. 
 \autoref{fig:blp_security_level_rules} shows the principles of handling request from a subject to the other objects regarding only to their security levels.
 
-%\begin{figure}[bth]                                                                                                                                                  
-%\myfloatalign
-%\includegraphics[width=1.0\linewidth]{gfx/chapter_2/blp_security_level_rules}
-%\caption[BLP: Security Level rules]{BLP: Security Level read/write  %rules}\label{fig:blp_security_level_rules}
-%\end{figure}
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_2/blp_security_level_rules}
+\caption[BLP: Security Level rules]{BLP: Security Level read/write rules}
+\label{fig:blp_security_level_rules}
+\end{figure}
 
 In addition to security level labels, as mentioned above, BLP can also be designed in combination with \emph{classification} labels to create a stronger restriction to object accesses.
 Under the circumstances, the subject's classification labels should be a subset of the object's to be able gain the access permission.
@@ -115,11 +116,12 @@ $$R1, R2 \in \{project manager, programmer, designer\}$$
 The subject can gain access permission to R2 only if $R1 \subseteq R2$.
 \autoref{fig:blp_security_level_roles_rules} shows the principles of handling request from a subject to the other objects regarding only to their security levels.
 
-%\begin{figure}[bth]                                                                                                                                                  
-%\myfloatalign
-%\includegraphics[width=1.0\linewidth]{gfx/chapter_2/blp_security_level_roles_rules}
-%\caption[BLP: A set of Security Level and Roles rules]{BLP: A set of Security %Level and Roles rules}\label{fig:blp_security_level_roles_rules}
-%\end{figure}
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_2/blp_security_level_roles_rules}
+\caption[BLP: A set of Security Level and Roles rules]{BLP: A set of Security Level and Roles rules}
+\label{fig:blp_security_level_roles_rules}
+\end{figure}
 
 Finally, a user can use \emph{Discretionary Access Control} (DAC) set the permission to an object.
 \cite{centos:2008} cited that MLS access rules are always combined with \emph{conventional access permissions} (or file permission).
@@ -130,21 +132,29 @@ SELinux MLS policy rules are checked after DAC rules. A higher security clearanc
 \end{quote}
 Hence, \autoref{fig:blp_full} will be a mostly complete picture describing about BLP model after we put every components together.
 
-In conclusion, MLS and BLP model, in specification, are suitable for many of real world organization models. It can isolate objects by labeling and protect them in multi-level environment.
-
 \begin{figure}[bth]
 \myfloatalign
-\subfloat[BLP: Security Level rules]
-{\label{fig:blp_security_level_rules}
-\includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_security_level_rules}} \quad
+\includegraphics[width=1.0\linewidth]{gfx/chapter_2/blp_example}
+\caption[BLP: all components illustration]{BLP: all components illustration}
+\label{fig:blp_full}
+\end{figure}
 
-\subfloat[BLP: A set of Security Level and Roles rules]
-{\label{fig:blp_security_level_roles_rules}
-\includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_security_level_roles_rules}} \\
+In conclusion, MLS and BLP model, in specification, are suitable for many of real world organization models.
+It can isolate objects by labeling and protect them in multi-level environment.
 
-\subfloat[BLP: all components illustration]
-{\label{fig:blp_full}
-\includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_example}} \\
-
-\caption[BLP illustration]{Illustrate how BLP components form access control}\label{fig:blp_illustration}
-\end{figure} 
+%\begin{figure}[bth]
+%\myfloatalign
+%\subfloat[BLP: Security Level rules]
+%{\label{fig:blp_security_level_rules}
+%\includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_security_level_rules}} \quad
+%
+%\subfloat[BLP: A set of Security Level and Roles rules]
+%{\label{fig:blp_security_level_roles_rules}
+%\includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_security_level_roles_rules}} \\
+%
+%\subfloat[BLP: all components illustration]
+%{\label{fig:blp_full}
+%\includegraphics[width=.9\linewidth]{gfx/chapter_2/blp_example}} \\
+%
+%\caption[BLP illustration]{Illustrate how BLP components form access control}\label{fig:blp_illustration}
+%\end{figure} 
