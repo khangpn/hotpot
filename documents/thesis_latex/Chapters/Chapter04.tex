@@ -2,7 +2,8 @@
 
 \chapter{Implementation} % Chapter title
 
-\label{ch:implementation} % For referencing the chapter elsewhere, use \autoref{ch:name} 
+\label{ch:implementation} 
+% For referencing the chapter elsewhere, use \autoref{ch:name} 
 
 %---------------------------------------------------------------------------------------- 
 
@@ -24,6 +25,7 @@ It consists of the project's agenda, technical requirements, the program archite
 %----------------------------------------------------------------------------------------
 
 \section{Project agenda}
+\label{ch:implementation:project_agenda}
 
 \autoref{fig:hotpot_gantchart} is my very first Gant chart of developing time of my project.
 Later, although there has been couples of small changes in the time line, however, basically the project finished as scheduled.
@@ -83,6 +85,7 @@ Every iterations has one or two days different from the planed schedule, however
 %----------------------------------------------------------------------------------------
 
 \section{Technical information}
+\label{ch:implementation:technical_information} 
 
 In this section, I am going to introduce about the technologies used in this project, as well as the reason why I chose them at the first place.
 The list below are technologies used in the project's developing environment:
@@ -102,7 +105,9 @@ Sequelizejs, on the other hand, is a famous and stable DAO library for Nodejs.
 \item[Database] \emph{PostgreSQL} is my best choice of SQL Database.
 It supports various data types and useful features.
 Moreover, it has many libraries to be used in numerous programming language.
-\item[Text Editors] \emph{Vim} for coding and \latex for composing thesis papers.
+\item[Subversion control] \emph{Git} as the tool and \emph{GitHub} as the repository.
+\item[Text Editors] \emph{Vim} for coding and \latex for composing thesis papers. I use \emph{Classicthesis Typographic Thesis} of \emph{André Miede} (http://www.miede.de).
+
 \end{description}
 
 In fact, after finishing developing, I deployed a sample of my project on a cloud machine.
@@ -111,10 +116,78 @@ I can find every things needed on CentOS just like on Ubuntu.
 
 %----------------------------------------------------------------------------------------
 
+\section{Source Code Management}
+\label{ch:implementation:source_code_mangement}  
+
+All of my project's source codes are stored on GitHub at this URL: \href{https://github.com/khangpn/hotpot}{https://github.com/khangpn/hotpot}.
+You can fork all of my project's source codes and documentation from this repository: \emph{git@github.com:khangpn/hotpot.git}.
+Below is my source code structure.
+
+\begin{description}
+
+\item[bin/] Contain commands for setting up and start the project.
+\item[bin/db-intergration.js] Setup the project database skeleton, then add some testing information.
+\item[bin/www] The \emph{Expressjs}'s initial command for starting the project.
+
+\item[config/] Contain project's configurations \eg database connection.
+\item[config/database.js] Database connection configurations file.
+
+\item[controllers/] Directory contains all the controllers of the project.
+It consists of all the logic of the system \eg security policies, business logic\dots
+Every subdirectory in \emph{controllers/} represents a \emph{RESTful API object}.
+\item[controllers/<object\_name>] Every \emph{<object\_name>} is a directory represents for an object of RESTful API \eg \emph{controllers/accounts} represent for all actions performed on \emph{account} property of the system with the URL format as \emph{hotpot.com/accounts/<action\_name>}. 
+\emph{controllers/main} controller is a special one, it handle actions which don't relate to any objects of the system.
+\item[controllers/<object\_name>/index.js] The javascript file contains all the \emph{routes} of \emph{<object\_name>} \ie all \emph{actions} of \emph{<object\_name>}.
+These routes also consists of security policies and business logics of the \emph{<object\_name>}.
+\item[controllers/<object\_name>/views] This directory contains all the views of the corresponding controller.
+It's used for rendering response HTML.
+
+\item[documents/] 
+Directory contains all documentation of the project \eg thesis papers, project diary, project plans\dots
+\item[documents/diary] Directory contains all the project's diaries.
+They are my daily notes and reports including problems, solutions and learnings of the day.
+\item[documents/thesis\_latex] Directory contains the thesis papers.
+
+\item[lib/] Directory contains my own libraries and utilities used in this project.
+\item[lib/setup-controller.js] This file is used to include all the controllers from \emph{controllers} to \emph{Expressjs instance} to handle the system's actions.
+\item[lib/setup-model.js] This file includes \emph{models/index.js} to \emph{Expressjs instance's req object} for later uses.
+\item[lib/util.js] This file includes some common functions used in the whole project.
+\item[lib/validate-token.js] This is an \emph{Expressjs middleware} which is used to authenticate the request session by checking the request's emph{token} parameter.
+
+\item[models/] Directory contains all the data models of the project.
+These models are DAOs.
+They include properties, relations, and behaviors (\eg validations, instance/class functions) of the model.
+All of models' defination will be introduced in \autoref{ch:implementation:models}.
+\item[models/index.js] is a special file.
+It's not a model but a model loader.
+It utilize \emph{Sequelizejs} to setup all models and include the \emph{model classes} into \emph{Expressjs' req} object for later use.
+
+\item[public/] Directory contains all the public assets of the project which can be used in any views \eg javascript, css\dots
+\item[public/bootstrap] Directory contains \emph{Twitter Boostrap} libraries.
+\item[public/css] Directory contains the project's CSS files.
+\item[public/css] Directory contains the project's front-end Javascript files.
+
+\item[views/] Directory contains all common views used in the projects.
+\item[views/error.jade] a view page to display error information.
+\item[views/index.jade] the project's homepage.
+\item[views/layout.jade] the project's layout for all views.
+
+\item[app.js] the project's main script \ie the file includes everything needed and start the project.
+\item[db.sh] the script to access the database.
+\item[package.json] NPM configuration file which contain list of dependencies Nodejs libraries used in the project.
+They can be setup by the command \lstinline|npm install| at the first place.
+\item[setup] the script invokes the other \emph{bin/} script to setup the database, this should be run after setting up \emph{Postgresql} and editing \emph{config/database.json}.
+\item[start] the script invokes the other \emph{bin/} script to start the project, run this after finishing setting up the environment.
+
+\end{description}
+
+%----------------------------------------------------------------------------------------
+
 \section{Models}
+\label{ch:implementation:models}
 
 This section is a summary of my project's design.
-I utilized MVC design in this project.
+I utilized MVC design model in this project.
 All the logical controls will go to \emph{controllers}, which handle all the security policies as previously described in \autoref{ch:background:bell}.
 So that, in this thesis document, I only focus explaining about the project's models and their relationship so that we can understand about the system's architecture.
 
@@ -125,7 +198,9 @@ We will learn about their properties, relations which will be illustrated as dat
 
 \subsection{Account}
 
-Explain account
+\emph{Account} model corresponds to \emph{account subject} in the system.
+It only consists of authentication and identity information of an account.
+
 
 %------------------------------------------------
 
