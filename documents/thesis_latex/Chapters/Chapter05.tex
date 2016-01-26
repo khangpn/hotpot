@@ -1,11 +1,102 @@
-% Chapter X
+% Chapter 5
 
-\chapter{Result} % Chapter title
+\chapter{Project Outcome} % Chapter title
 
-\label{ch:result} % For referencing the chapter elsewhere, use \autoref{ch:name} 
+\label{ch:outcome} 
+% For referencing the chapter elsewhere, use \autoref{ch:outcome} 
 
 %----------------------------------------------------------------------------------------
-explain how to use the system
+
+The project ended up with a web-based project management system.
+The system consists of basic managing features which cover most common scenarios in PMT.
+Besides that, the system also follows a set of MLS policies described in \autoref{ch:background:bell}.
+This chapter includes an installation guide to setup the project from fresh; 
+the system's user guide which describes its features and their usage demonstrations.
+And at the end, I will discuss about my learning from the project's developing progress.
+
+%----------------------------------------------------------------------------------------
+
+\section{Installation Guide}
+\label{ch:result:installation_guide}
+
+\autoref{ch:implementation:technical_information} listed the technical requirements for this project.
+In this guide, we will learn about the project's setup from scratch, step by step.
+
+Assume that you already have a machine running CentOS 7 with these packages have already been installed: \emph{git, postgresql, nodejs with npm}.
+I am using \emph{Digital Ocean} as VPS provider.
+I create a \emph{Digital Ocean's droplet} with this specification: \emph{512MB Ram 20GB SSD Disk CentOS 7.1 x64}.
+A postgresql database should be created and named as \emph{hotpot} whose owner is \emph{hotpot} and the password at your own choice.
+
+First of all we need to clone the project's source code from GitHub using the command.
+\begin{lstlisting}[breaklines=false,frame=lt]
+$ git clone git@github.com:khangpn/hotpot.git
+\end{lstlisting}
+
+Next, we need to install all the project's dependencies by going into the project's root directory and execute \emph{npm} install command
+\begin{lstlisting}[breaklines=false,frame=lt]
+$/hotpot/ npm install
+\end{lstlisting}
+This command may take a while to install all required packages.
+
+After checking the database accessibility, we need to configure its connection in \emph{config\/database.js}. 
+Open that file by your favorite text editor, my choice is \emph{vim}. 
+\begin{lstlisting}[breaklines=false,frame=lt]
+$/hotpot/ vim config/database.js
+\end{lstlisting}
+
+Below is an example of the database configuration, if you named the database, its user and password are \emph{hotpot} and the database is running on local machine, then your configuration file should be similar to this.
+\begin{lstlisting}[breaklines=false,frame=lt]
+var settings = {                                                                                                                                                     
+  development: { 
+    database : "hotpot",
+    username : "hotpot",
+    password : "hotpot",
+    options  : { 
+      dialect : "postgresql",
+      host     : "127.0.0.1"   
+    }
+  },
+  production: { 
+    database : "hotpot",
+    username : "hotpot",
+    password : "hotpot",
+    options  : { 
+      dialect : "postgresql",  
+      host     : "127.0.0.1"   
+    }
+  }
+};
+  
+module.exports = settings;
+\end{lstlisting}
+
+Next, lets open file \emph{setup} and change its \emph{NODE\_ENV} to \emph{development} or \emph{production} depending on your purpose.
+\emph{Development} environemnt will print out the system's logs on our server and return errors' full stack trace to client, while  \emph{production} will omit it.
+\begin{lstlisting}[breaklines=false,frame=lt]
+// file hotpot/setup
+NODE_ENV=development DEBUG=hotpot node bin/db-integration.js
+\end{lstlisting}
+
+Also edit file \emph{start} to change its \emph{NODE\_ENV}
+\begin{lstlisting}[breaklines=false,frame=lt]
+// file hotpot/start
+NODE_ENV=development DEBUG=hotpot npm start
+\end{lstlisting}
+We can also add \emph{PORT} variable to the script to specify the project's running port. By default, it runs on port \emph{3000}
+\begin{lstlisting}[breaklines=false,frame=lt]
+// file hotpot/start
+NODE_ENV=development PORT=4000 DEBUG=hotpot npm start
+\end{lstlisting}
+
+Next, we have to initialize the project's database schema using the \emph{setup} script.
+\begin{lstlisting}[breaklines=false,frame=lt]
+$/hotpot/ ./setup
+\end{lstlisting}
+This setup may take a while. And finally we can start the project using the \emph{start} script.
+\begin{lstlisting}[breaklines=false,frame=lt]
+$/hotpot/ ./start
+\end{lstlisting}
+
 %----------------------------------------------------------------------------------------
 
 \section{User Guide}
