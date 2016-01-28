@@ -1,9 +1,31 @@
-% Chapter X
+% Chapter 7
 
 \chapter{Conclusion} % Chapter title
 
-\label{ch:conclusion} % For referencing the chapter elsewhere, use \autoref{ch:name} 
+\label{ch:conclusion} 
+% For referencing the chapter elsewhere, use \autoref{ch:conclusion} 
 
 %----------------------------------------------------------------------------------------
-How I evaluate the project myself.
-Give the conclusion how possible the MLS can be implemented
+MLS is a very broad security subject.
+It has various designs and implementations.
+Each of its varieties focuses on particular aspects.
+In this project, we are using \emph{BLP} model.
+As the result, \emph{BLP} seems suitable for \emph{PMTs}.
+In general, the project has finished all the predefined requirements about PM and MLS.
+Its result is a web-based PMT, that uses \emph{BLP} a the security backbone.
+In \autoref{ch:result:user_guide}, we have gone through features of the system.
+They all function well and follow strictly the set of predefined security policies regardless of the \emph{subjects}' priorities, \ie\ there is no partial object with master permission over other \emph{objects} or \emph{subjects}.
+The security polices ensure that every components in the system will behave as their permissions, no exception.
+So, thinking about the benefits of \emph{MLS}, it helps to prevent the data leak inside the organization, and to reduce efforts needed in controlling the system's data flow.
+The security control of the system is segregated to administrators.
+They are special role that only take care of security permission control, rather than that they also have to follow the set of predefined rules just exactly like any other \emph{subjects}.
+
+Consequently, we can see that \emph{MLS}, and especially \emph{BLP}, is matched to needs of PM.
+In PM environment, every employees in the organization will have various roles and priorities.
+Then, they should only be allowed to access to assets related to their jobs, and their security level.
+In another word, we normally have to due with different \emph{classifications}, \emph{clearances} and their combinations in any common organizations.
+\emph{BLP} design makes them possible to build such system, and logically full-fill the security requirements.
+
+In conclusion, the project shows that it's possible to implement a \emph{MLS} system which can be used in any sizes organizations.
+We don't only benefit from its protection, but it also raise people's awareness about security matters.
+And last, it may open a new path for secured \emph{PM} operation.
