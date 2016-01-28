@@ -1,9 +1,59 @@
-% Chapter X
+% Chapter 6
 
 \chapter{Future plan} % Chapter title
 
 \label{ch:future_plan} % For referencing the chapter elsewhere, use \autoref{ch:name} 
 
 %----------------------------------------------------------------------------------------
-What will there be in the future?
+Although this project just serves the purpose of writing the thesis, it, in my own opinion, is very potential to become a professional PMT.
+In the manner of a PMT, there are still a great number of features that could be implemented in the future.
+As the purpose of the project is to demonstrate the MLS features, the project's PM features are only enough to cover essential functions to perform managing tasks.
+Most of the future features can focus on improving user experiences, performance, and data analyzing.
+
+In order to improve user experiences and performance, the \emph{user personal page} should include more functions such as:
+\begin{description}
+\item[The user's tickets list] only show tickets which are assigned to the user and sorted as priority and deadline.
+\item[Timer] every tasks should have a timer to track the consumed time it takes to finish the task.
+It could also be used to track the user's working time in a day.
+\item[Ticket diffuser] looking up the tickets is sometimes stressful, especially when there are so many of them.
+The diffuser will return one ticket at the time based on its priority, due time, and project's due time\dots
+\end{description}
+
+Secondly, \emph{ticket} is also a very important element of the system.
+So far, it still lacks of some important functions which can be added in the future:
+\begin{description}
+\item[Ticket status] the ticket should have various status \eg new, in progress, done, feedback\dots
+\item[Sub tickets] like articles in a directory, a ticket may describe a task which requires additional tasks to be done, or it can be divided into smaller tasks to distribute to different team members.
+\end{description}
+
+In addition, at the moment, \emph{article} only consists of simple information and features, some of improvement could be applied are:
+\begin{description}
+\item[Rich content editor] \emph{article}'s contents may various contents like text with styles, images, attachments etc\dots
+\item[Comments] in some case (\eg security policies), the viewer can't edit the article's contents, he can leave the comments on the article.
+This can also be used to discuss about a particular article.
+\end{description}
+
+Besides that, analyzing tools are also crucial elements in PMTs.
+It helps managers have an overview about projects in the organization, as well as checking employees' productivity.
+Some of essential analyzing functions are:
+\begin{description}
+\item[Project's tasks] Every project has a time line of its progress.
+The time line will show the number of tasks which are either new, in progress, or done.
+It can be filtered as daily, weekly, or monthly.
+\emph[Project's features] a time line show the completed features.
+\end{description}
+Similar to projects, users should have analyzing tools to sum up their performance in a certain time \eg \emph{tickets report}, \emph{working time report}\dots
+
+Furthermore, some other system's tools could also be useful, such as:
+\begin{description}
+\item[Event notification] system's events such as newly assigned tickets, messages from other users etc\dots can be notified to the user immediately.
+\item[Git laboratory] display the project's source code repository illustratively.
+\end{description}
+
+On the other hand, in term of security, the requests between clients and servers should be encrypted using \emph{SSL}.
+
+These features will enhance the system's performance, make it handy, hence increase its user experience.
+After the boost, this project could completely become a leading PMT in the market.
+Finally, we can shift this project to mobile application. 
+The application will call the same \emph{API} except that it wouldn't return HTML but the corresponding pieces of data.
 %----------------------------------------------------------------------------------------
