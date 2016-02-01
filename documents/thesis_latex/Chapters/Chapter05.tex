@@ -102,7 +102,377 @@ $/hotpot/ ./start
 \section{User Guide}
 \label{ch:result:user_guide}
 
-used technologies. system requirement, test cases and their results to show how system works.
+As the demonstration for this project, I have deployed \myProject at the address \href{http://178.62.253.47:3000/}{http://178.62.253.47:3000/}.
+In this section, we are going through demonstrations of the project's features \ie test cases of the project's behaviours.
+
+% Miscellaneous guide ----------------------------
+\subsection{Miscellaneous}
+\label{ch:result:user_guide:miscellaneous}
+\autoref{fig:user_guide:homepage}, \autoref{fig:user_guide:user_interface}, \autoref{fig:user_guide:admin_interface},\autoref{fig:user_guide:profile}, and \autoref{fig:user_guide:not_permitted} are some general interfaces which are visible across the tool.
+
+\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/general/homepage}
+\caption[HotPot homepage]{HotPot homepage}
+\label{fig:user_guide:homepage}
+\end{figure}
+
+\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/general/user_interface}
+\caption[HotPot user interface]{HotPot user interface}
+\label{fig:user_guide:user_interface}
+\end{figure}
+
+\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/general/admin_interface}
+\caption[HotPot admin interface]{HotPot admin interface}
+\label{fig:user_guide:admin_interface}
+\end{figure}
+
+\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/general/profile}
+\caption[HotPot profile page]{HotPot profile page}
+\label{fig:user_guide:profile}
+\end{figure}
+
+\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/general/not_permitted}
+\caption[HotPot not permitted error]{HotPot not permitted error}
+\label{fig:user_guide:not_permitted}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Login}
+\label{ch:result:user_guide:miscellaneous:login}
+
+\begin{description}
+\item[Description] Every accounts can login to the system using its username and password.
+\item[Parameters] An account whose username:password is \emph{paavo\_neva:paavo\_neva}.
+\item[Results] If the account is authenticated then a token is created and save on client cookies, and the user is redirected to homepage.
+If the account is invalid, the login page will be rendered with error messages.
+\end{description}
+
+On homepage \autoref{fig:user_guide:homepage} click on \emph{Log in} link on the top bar to go to \href{http://178.62.253.47:3000/login}{http://178.62.253.47:3000/login}.
+
+\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/miscellaneous/login}
+\caption[HotPot login page]{HotPot login page}
+\label{fig:user_guide:miscellaneous:login}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Login failed]
+{
+\label{fig:user_guide:miscellaneous:login_failed}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/miscellaneous/login_failed}
+} \quad
+\subfloat[Login succeeded then redirected to profile page]
+{
+\label{fig:user_guide:miscellaneous:profile}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/general/profile}
+} \\
+\caption[Login results]{Login results}
+\label{fig:user_guide:login:result}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Logout}
+\label{ch:result:user_guide:miscellaneous:logout}
+
+\begin{description}
+\item[Description] Every logged in accounts can logout from the system.
+\item[Parameters] A logged in account.
+\item[Results] The account will be logged out.
+Its token will be deleted.
+All of his cookies data on the client will be emptied.
+Finally, he will be redirected to homepage.
+\end{description}
+
+After logging in, on any pages, click on the username link to show \emph{Log out} link.
+Click on it for logging out.
+After that, the user will be redirected to \emph{homepage} \(\autoref{fig:user_guide:homepage}\).
+
+\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/miscellaneous/logout}
+\caption[HotPot logout link]{HotPot logout link}
+\label{fig:user_guide:miscellaneous:logout}
+\end{figure}
+
+%\clearpage
+
+% Account guide ----------------------------
+\subsection{Account}
+\label{ch:result:user_guide:account}
+\subsubsection{Create}
+\label{ch:result:user_guide:account:create}
+
+\begin{description}
+\item[Description] Administrators can create new accounts on the system.
+\item[Pre-conditions] An administrator account is logged in.
+\item[Parameters] Create an account with values: username:\emph{testingtesting}, password:\emph{testingtesting}.
+\item[Results] If all the input information is valid, new account will be created, otherwise error messages will be displayed.
+\end{description}
+
+After logging in as an administrator, the user interface will appeared like in \autoref{fig:user_guide:admin_interface}.
+On the tool bar, click on \emph{Accounts}, then \emph{Create account}.
+The creating page will appear under URL
+
+\noindent\href{http://178.62.253.47:3000/accounts/create}{http://178.62.253.47:3000/accounts/create} as shown in \autoref{fig:user_guide:account:account_create}.
+Input the value, the \emph{Confirm Password} field is for re-typing password, and the result will be shown as \autoref{fig:user_guide:account:account_create_result}.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[HotPot Account creation link]
+{
+\label{fig:user_guide:account:account_create_link}
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/account/account_create_link}
+} \quad
+\subfloat[HotPot Account creating page]
+{
+\label{fig:user_guide:account:account_create}
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/account/account_create}
+} \\
+\caption[HotPot Account creation]{HotPot Account creating}
+\label{fig:user_guide:account:account_create}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Account creating failed]
+{
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/account/account_create_failed}
+} \quad
+\subfloat[Account creating succeeded then redirected to account detail page]
+{
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/account/account_view}
+} \\
+\caption[Login results]{Account creating results}
+\label{fig:user_guide:account:account_create_result}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Edit profile}
+\label{ch:result:user_guide:account:profile}
+
+\begin{description}
+\item[Description] Account's owner can edit his all profile details.
+\item[Pre-conditions] An account is logged in.
+\item[Parameters] Update the logged in account's profile with values: fullname:\emph{Paavo Neva}, email:\emph{paavo@hotpot.com}.
+\item[Results] If all the input information is valid, the account's profile will be updated.
+\end{description}
+
+After logging in, the user interface will appeared like in \autoref{fig:user_guide:user_interface}.
+On the tool bar, click on the account name on left top corner, then \emph{Profile} as shown in \autoref{fig:user_guide:account:profile_link}.
+The account's profile page will appear under URL \href{http://178.62.253.47:3000/accounts/3}{http://178.62.253.47:3000/accounts/3} as shown in \autoref{fig:user_guide:profile}.
+Click on \emph{Edit Profile} link, to go to \href{http://178.62.253.47:3000/accounts/update\_detail}{http://178.62.253.47:3000/accounts/update\_detail} as shown in 
+\autoref{fig:user_guide:account:edit_profile}
+Input the value, and the result will be shown as \autoref{fig:user_guide:account:profile_updated}.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[HotPot Profile update link]
+{
+\label{fig:user_guide:account:profile_link}
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/account/profile_link}
+} \quad
+\subfloat[HotPot Profile editing page]
+{
+\label{fig:user_guide:account:edit_profile}
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/account/edit_profile}
+} \\
+\caption[HotPot Account creation]{HotPot Account creating}
+\label{fig:user_guide:account:edit_profile}
+\end{figure}
+
+\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/account/profile_updated}
+\caption[HotPot Profile updated]{HotPot Profile updated}
+\label{fig:user_guide:account:profile_updated}
+\end{figure}
+
+\subsubsection{Change Password}
+\label{ch:result:user_guide:account:change_password}
+
+\begin{description}
+\item[Description] Account's owner can change his password.
+\item[Pre-conditions] An account is logged in.
+\item[Parameters] Update the logged in account's password with values: {newpasswordupdate}.
+\item[Results] If the new password is valid, the user will be redirected back to his profile page.
+\end{description}
+
+On user's profile page \(\autoref{fig:user_guide:profile}\), click \emph{Update Password} to go to \href{http://178.62.253.47:3000/accounts/update\_password}{http://178.62.253.47:3000/accounts/update\_password}.
+Input new password.
+If the new password is valid, the user will be redirected to \autoref{fig:user_guide:profile}, otherwise error messages will be shown as \autoref{fig:user_guide:account:change_password_failed}.
+
+\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/account/change_password}
+\caption[HotPot password changing page]{HotPot password changing page}
+\label{fig:user_guide:account:change_password}
+\end{figure}
+
+\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/account/change_password_failed}
+\caption[Password changing failed]{Password changing failed}
+\label{fig:user_guide:account:change_password_failed}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Delete}
+\label{ch:result:user_guide:account:delete}
+
+Delete account
+
+\subsubsection{List and View}
+\label{ch:result:user_guide:account:list}
+
+List account
+
+% Project guide ----------------------------
+\subsection{Project}
+\label{ch:result:user_guide:project}
+\subsubsection{Create}
+\label{ch:result:user_guide:project:create}
+
+Create project
+
+\subsubsection{Managing member}
+\label{ch:result:user_guide:project:managing_member}
+
+Add/remove member
+
+\subsubsection{Update}
+\label{ch:result:user_guide:project:update}
+
+Update project
+
+\subsubsection{Delete}
+\label{ch:result:user_guide:project:delete}
+
+Delete project
+
+\subsubsection{List and View}
+\label{ch:result:user_guide:project:list}
+
+List project
+
+% Article guide ----------------------------
+\subsection{Article}
+\label{ch:result:user_guide:article}
+\subsubsection{Create}
+\label{ch:result:user_guide:article:create}
+
+Create article
+
+\subsubsection{Update}
+\label{ch:result:user_guide:article:update}
+
+Update article
+
+\subsubsection{Delete}
+\label{ch:result:user_guide:article:delete}
+
+Delete article
+
+\subsubsection{List and View}
+\label{ch:result:user_guide:article:list}
+
+List article
+
+% Ticket guide ----------------------------
+\subsection{Ticket}
+\label{ch:result:user_guide:ticket}
+\subsubsection{Create}
+\label{ch:result:user_guide:ticket:create}
+
+Create ticket
+
+\subsubsection{Update}
+\label{ch:result:user_guide:ticket:update}
+
+Update ticket
+
+\subsubsection{Delete}
+\label{ch:result:user_guide:ticket:delete}
+
+Delete ticket
+
+\subsubsection{List and View}
+\label{ch:result:user_guide:ticket:list}
+
+List ticket
+
+% Security Level guide ----------------------------
+\subsection{Security Level}
+\label{ch:result:user_guide:security_level}
+\subsubsection{Create}
+\label{ch:result:user_guide:security_level:create}
+
+Create security level
+
+\subsubsection{Update}
+\label{ch:result:user_guide:security_level:update}
+
+Update security level
+
+\subsubsection{Delete}
+\label{ch:result:user_guide:security_level:delete}
+
+Delete security level
+
+\subsubsection{List and View}
+\label{ch:result:user_guide:security_level:list}
+
+List security level
+
+% Role guide ----------------------------
+\subsection{Role}
+\label{ch:result:user_guide:role}
+\subsubsection{Create}
+\label{ch:result:user_guide:role:create}
+
+Create role
+
+\subsubsection{Update}
+\label{ch:result:user_guide:role:update}
+
+Update role
+
+\subsubsection{Delete}
+\label{ch:result:user_guide:role:delete}
+
+Delete role
+
+\subsubsection{List and View}
+\label{ch:result:user_guide:role:list}
+
+List role
+
+% Priority guide ----------------------------
+\subsection{Priority}
+\label{ch:result:user_guide:priority}
+\subsubsection{Create}
+\label{ch:result:user_guide:priority:create}
+
+Create priority
+
+\subsubsection{Update}
+\label{ch:result:user_guide:priority:update}
+
+Update priority
+
+\subsubsection{Delete}
+\label{ch:result:user_guide:priority:delete}
+
+Delete priority
+
+\subsubsection{List and View}
+\label{ch:result:user_guide:priority:list}
+
+List priority
 
 %----------------------------------------------------------------------------------------
 \section{Learnings}
