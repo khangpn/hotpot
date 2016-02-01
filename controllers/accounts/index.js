@@ -52,13 +52,13 @@ router.get('/delete/:id', function(req, res, next) {
 //--------------------------------------------------------
 
 //------------------- Owner section ----------------------
-router.get('/updateDetail', function(req, res, next) {
+router.get('/update_detail', function(req, res, next) {
   if (!res.locals.authenticated) {
     var err = new Error('You are not permitted to access this!');
     err.status = 401;
     return next(err);
   }
-  var data = req.body;
+
   res.render('detail',
     {
       account: res.locals.current_account
@@ -66,7 +66,7 @@ router.get('/updateDetail', function(req, res, next) {
   );
 });
 
-router.post('/updateDetail', function(req, res, next) {
+router.post('/update_detail', function(req, res, next) {
   if (!res.locals.authenticated) {
     var err = new Error('You are not permitted to access this!');
     err.status = 401;
@@ -109,28 +109,19 @@ router.post('/updateDetail', function(req, res, next) {
 });
 
 router.get('/update_password', function(req, res, next) {
-  if (!res.locals.authenticated || res.locals.current_account.id != req.params.id) {
+  if (!res.locals.authenticated) {
     var err = new Error('You are not permitted to access this!');
     err.status = 401;
     return next(err);
   }
-  var Account = req.models.account;
-  var id = res.locals.current_account.id;
-  Account.findById(id, {include: [req.models.account_detail]})
-    .then(function(account) {
-        if (!account) 
-          return next(new Error("Can't find the account with id: " + req.params.id));
-        res.render('update_password', {
-          account: account
-        }); 
-      }, 
-      function(error) {
-        return next(error);
-    });
+
+  res.render('update_password', {
+    account: res.locals.current_account
+  }); 
 });
 
 router.post('/update_password', function(req, res, next) {
-  if (!res.locals.authenticated || res.locals.current_account.id != req.params.id) {
+  if (!res.locals.authenticated) {
     var err = new Error('You are not permitted to access this!');
     err.status = 401;
     return next(err);
@@ -139,6 +130,7 @@ router.post('/update_password', function(req, res, next) {
 
   var data = req.body;
   var Account = req.models.account;
+  var id = res.locals.current_account.id;
 
   Account.findById(data.id)
     .then(function(account) {

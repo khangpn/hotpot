@@ -6,7 +6,7 @@ block content
       h3.panel-title Profile
     div.panel-body
       - var detail = account.account_detail;
-      form.form-horizontal(action='/accounts/updateDetail', method='post', name='account_detail')
+      form.form-horizontal(action='/accounts/update_detail', method='post', name='account_detail')
         div.form-group
           label.col-sm-2.control-label(for='AccountDetail_fullname') Fullname
           div.col-sm-10
