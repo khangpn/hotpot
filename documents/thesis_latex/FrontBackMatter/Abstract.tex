@@ -9,21 +9,33 @@
 
 \chapter*{Abstract} % Abstract name
 
-In IT industry, in term of project management, there are various choices of solution for management tools \eg Redmine, FreshDesk, ProjectLibre, LibrePlan, OpenProject, ProjectOpen etc...
+In IT industry, in term of \emph{project management} (PM), there are various choices of solution for management tools \eg Redmine, FreshDesk, ProjectLibre, LibrePlan, OpenProject, ProjectOpen etc...
 They can cover most of organization's needs, including security.
 However, at the time of writing this document, none of those solutions covers protecting information in a multi level environment, \ie many roles, \eg developers, designer, manager, CEO etc..., working on a same system, which is a typical situation in most of companies. 
 
-Thinking about MLS, it is a system where many users with different clearance level can use a same system (or machine) without exposing their data to unreasonable users.
+Thinking about \emph{Multi-level Security} (MLS), it is a system where many users with different clearance levels can use a same system (or machine) without exposing their data to unreasonable users.
 For example, a user with \emph{roles} of programmer is very unlikely to need to know about designers' documents;
 a programmer with \emph{security level} 'secret' should not be able to read 'top secret' documents.
 These predefined accessing rules help to prevent data among the system to be mishandled, or leaked to insufficent people.
+MLS has been developed and used since the early time of computer ego.
+Many multi-level systems which requires highly secured protection for their internal data, especially military's systems, benifited from MLS.
 There are several MLS models, and due to the popularity, we are going to consider Bell-LaPadula model in the rest of this article.
 
-This project's idea is to create a web platform for project management implementing MLS.
+A small-scale web platform for project management was created in this thesis project.
+As the maturity of programming technologies (\eg Javascript in our case), given the completeness of the BLP model, a relatively minor effort may result in obvious benefits.
 Since using MLS sometimes is complicated and expensive, the goal of this project is to help organizations to benefit from MLS work flow while reducing its complexity.
-In developing progress, I will try to record all the problems both technically and logically of implementing Bell-LaPadula model into a project management tool, as well as the solutions for them if possible.
-Remaining limitations, and trade-offs should also be recorded and explained for later development.
-The key feature of this tool is to control accessibility of documents of an organization where many subjects with various roles can work and share documents centrally; the list of advantages using MLS will be introduced in more details in later chapter.
+Only the minimal essential functionality was being implemented to illustrate a project management environment, in which we will evaluate how MLS can solve real-world problems.
+The main issue will be the conventional security policies applied as the access control to existing documents management systems.
+The platform divides all components into two groups, either \emph{subjects} or \emph{objects}.
+These components, then, are labeled with a variety of combinations of \emph{clearance} and \emph{classification} labels.
+The sets of labels are to be compared whenever a \emph{subject} tries to access an \emph{object} in order to decide the \emph{subject}'s permissions \eg not permitted, readable, writable etc\dots
+
+Finally, as the project outcome, the \emph{project management platform} was given as the thesis project's demonstration.
+The platform showed potential to commercialization.
+Even though, the platform only provides some limited PM features, a clear future plan has been constructed with additional features which can advance the platform to a competive product in the market emphasizing its security advantages.
+In developing progress, I also recorded all the problems both technical and logical in implementing Bell-LaPadula (BLP) model into a \emph{project management tool} (PMT), as well as the solutions for them if available.
+Remaining limitations, and trade-offs were also recorded and explained for later improvement.
+The key feature of the tool is the accessibility control of documents of an organization where many employees with various roles can work and share documents centrally; the list of advantages using MLS will be introduced apparently in this thesis paper.
 
 \endgroup			
 
