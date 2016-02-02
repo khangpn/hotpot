@@ -30,7 +30,7 @@ block content
               each level in security_levels
                 option(
                   value=level.id,
-                  selected=(member && member.security_level.id == level.id ?
+                  selected=(member && member.security_level && member.security_level.id == level.id ?
                   'selected' : undefined)
                 ) 
                   =level.name
