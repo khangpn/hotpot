@@ -7,29 +7,53 @@ block content
     div.panel-heading
       h3.panel-title Profile
     div.panel-body
-      - var project = member.project;
-      - var account = member.account;
-      if account
-        div.row
-          label.col-md-2 Username:
-          div.col-md-10
-            = account.name
-      - var security_level = member.security_level
-      if security_level
-        div.row
-          label.col-md-2 Security Level:
-          div.col-md-10
-            = security_level.name
-      div.row
-        div.col-sm-offset-2.col-md-4
-          include ./_member_view_security_select.jade
-      if roles
-        div.row
-          label.col-md-2 Roles:
-          div.col-md-10
-            each role, index in roles
-              include ./_member_view_role_list.jade
+      form.form-horizontal(action='/projects/update_member', method='post')
+        input.form-control(type='hidden',
+          name='project_id',
+          value=member.project_id) 
+        input.form-control(type='hidden',
+          name='account_id',
+          value=member.account_id) 
 
-      div.row
-        div.col-sm-offset-2.col-md-4
-          include ./_member_view_role_select.jade
+        - var account = member.account;
+        if account
+          div.row
+            label.col-md-2.control-label Username
+            div.col-md-10
+              = account.name
+        div.form-group
+          label.col-sm-2.control-label(for='Member_security_level') Security Level
+          div.col-sm-4
+            select.form-control(
+              name='security_level_id',
+              id='Member_security_level')
+              each level in security_levels
+                option(
+                  value=level.id,
+                  selected=(member && member.security_level.id == level.id ?
+                  'selected' : undefined)
+                ) 
+                  =level.name
+        div.form-group
+          label.col-sm-2.control-label(for='Member_role') Roles
+          div.col-sm-10
+            each role in roles
+              - var checked_status = undefined
+              if (member && member.roles)
+                each member_role in member.roles
+                  if (member_role.id == role.id) 
+                    - checked_status = 'checked'
+              div.checkbox
+                label 
+                  input(type='checkbox',
+                    name='roles[]',
+                    value=role.id,
+                    id='Member_role',
+                    checked=checked_status
+                  ) 
+                  =role.name
+        if editable
+          div.form-group
+            div.col-sm-offset-2.col-sm-10
+              input.btn.btn-default(type='submit'
+              value='Submit')
