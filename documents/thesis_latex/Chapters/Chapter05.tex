@@ -108,7 +108,7 @@ In this section, we are going through demonstrations of the project's features \
 % Miscellaneous guide ----------------------------
 \subsection{Miscellaneous}
 \label{ch:result:user_guide:miscellaneous}
-\autoref{fig:user_guide:homepage}, \autoref{fig:user_guide:user_interface}, \autoref{fig:user_guide:admin_interface},\autoref{fig:user_guide:profile}, and \autoref{fig:user_guide:not_permitted} are some general interfaces which are visible across the tool.
+\autoref{fig:user_guide:homepage}, \autoref{fig:user_guide:user_interface}, \autoref{fig:user_guide:admin_interface},\autoref{fig:user_guide:profile}, and \autoref{fig:user_guide:not_permitted} are some general interfaces which are visible across the guide.
 
 \begin{figure}[bth]                                                                                                                                                  \myfloatalign
 \includegraphics[width=1.0\linewidth]{gfx/chapter_5/general/homepage}
@@ -167,7 +167,7 @@ On homepage \autoref{fig:user_guide:homepage} click on \emph{Log in} link on the
 \label{fig:user_guide:miscellaneous:login_failed}
 \includegraphics[width=1.\linewidth]{gfx/chapter_5/miscellaneous/login_failed}
 } \quad
-\subfloat[Login succeeded then redirected to profile page]
+\subfloat[Login successfully then redirected to profile page]
 {
 \label{fig:user_guide:miscellaneous:profile}
 \includegraphics[width=1.\linewidth]{gfx/chapter_5/general/profile}
@@ -244,8 +244,9 @@ Input the value, the \emph{Confirm Password} field is for re-typing password, an
 {
 \includegraphics[width=1.\linewidth]{gfx/chapter_5/account/account_create_failed}
 } \quad
-\subfloat[Account creating succeeded then redirected to account detail page]
+\subfloat[Account creating successfully then redirected to account detail page]
 {
+\label{fig:user_guide:account:account_view}
 \includegraphics[width=1.\linewidth]{gfx/chapter_5/account/account_view}
 } \\
 \caption[Login results]{Account creating results}
@@ -324,12 +325,42 @@ If the new password is valid, the user will be redirected to \autoref{fig:user_g
 \subsubsection{Delete}
 \label{ch:result:user_guide:account:delete}
 
-Delete account
+\begin{description}
+\item[Description] Account's owner can delete his account.
+\item[Pre-conditions] An account is logged in.
+\item[Results] The account will be deleted from the system.
+\end{description}
+
+On profile page \autoref{fig:user_guide:profile}, click on \emph{Delete Account} button.
 
 \subsubsection{List and View}
 \label{ch:result:user_guide:account:list}
 
-List account
+\begin{description}
+\item[Description] Every accounts can view the accounts list and their profile.
+\item[Pre-conditions] An account is logged in.
+\end{description}
+
+On any pages, click on \emph{Accounts} link on top bar, then click on \emph{Account list} link to go to \href{http://178.62.253.47:3000/accounts}{http://178.62.253.47:3000/accounts} as shown in \autoref{fig:user_guide:account:account_list}.
+Then, clicking on any user's name to go to account view, as shown in \autoref{fig:user_guide:account:account_view}.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[HotPot Account list link]
+{
+\label{fig:user_guide:account:list_link}
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/account/account_list_link}
+} \quad
+\subfloat[HotPot Account list page]
+{
+\label{fig:user_guide:account:account_list}
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/account/account_list}
+} \\
+\caption[HotPot Account list]{HotPot Account list}
+\label{fig:user_guide:account:account_list}
+\end{figure}
+
+\clearpage
 
 % Project guide ----------------------------
 \subsection{Project}
@@ -337,27 +368,158 @@ List account
 \subsubsection{Create}
 \label{ch:result:user_guide:project:create}
 
-Create project
+\begin{description}
+\item[Description] Every account can create a new project.
+\item[Pre-conditions] A logged in account.
+\item[Parameters] Create an project with values: \emph{Name}: Paavo Project, \emph{Description}: This project is created by paavo\_neva, \emph{Due Date}: 02/29/2016.
+\item[Results] If all the input information is valid, new project will be created, the account will be marked as its owner, and the owner will be its first member.
+\end{description}
+
+After logging in, on the tool bar, click on \emph{Projects}, then \emph{Create project} as shown in as shown in \autoref{fig:user_guide:project:project_create_link}.
+The creating page will appear under URL \href{http://178.62.253.47:3000/projects/create}{http://178.62.253.47:3000/projects/create} as shown in \autoref{fig:user_guide:project:project_create}.
+Input the value and the result will be shown as \autoref{fig:user_guide:project:project_create_result}.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[HotPot Project creation link]
+{
+\label{fig:user_guide:project:project_create_link}
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/project/project_create_link}
+} \quad
+\subfloat[HotPot Project creating page]
+{
+\label{fig:user_guide:project:project_create}
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/project/project_create}
+} \\
+\caption[HotPot Project creation]{HotPot Project creating}
+\label{fig:user_guide:project:project_create}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Project creating failed]
+{
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/project/project_create_failed}
+} \quad
+\subfloat[Project creating successfully then redirected to project detail page]
+{
+\label{fig:user_guide:project:project_view}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/project/project_view}
+} \\
+\caption[Project creating results]{Project creating results}
+\label{fig:user_guide:project:project_create_result}
+\end{figure}
+
+\clearpage
 
 \subsubsection{Managing member}
 \label{ch:result:user_guide:project:managing_member}
 
-Add/remove member
+\begin{description}
+\item[Description] Only project owner can add or remove project's member.
+\item[Pre-conditions] Project's owner logged in, \eg account \emph{paavo\_neva}.
+\item[Parameters] Add and remove user \emph{srinidi\_br} to/from \emph{Paavo Project} project.
+\item[Results] The account will respectively be added and removed from \emph{Paavo Project} project.
+\end{description}
+
+After logging in as the project's owner, go to his own project in URL \href{http://178.62.253.47:3000/projects/3}{http://178.62.253.47:3000/projects/3}.
+Input the \emph{account's name} and the result will be shown as \autoref{fig:user_guide:project:assign_member}.
+
+For removing project's member, on the project view, click on the member's \emph{Delete} button.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Project: inputting project's new member username]
+{
+\label{fig:user_guide:project:input_new_member}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/project/assign_member}
+} \quad
+\subfloat[Project: assigning project's new member successfully]
+{
+\label{fig:user_guide:project:project_view}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/project/assign_member_successfully}
+} \\
+\caption[Project: assigning project's new member]{Project: assigning project's new member}
+\label{fig:user_guide:project:assign_member}
+\end{figure}
+
+\clearpage
 
 \subsubsection{Update}
 \label{ch:result:user_guide:project:update}
 
-Update project
+\begin{description}
+\item[Description] Only project owner can edit his own project.
+\item[Pre-conditions] Project's owner logged in, \eg account \emph{paavo\_neva}.
+\item[Results] The project will be updated with new details.
+\end{description}
+
+After logging in as the project's owner, on the project view page, as shown in \autoref{fig:user_guide:project:project_view}, click \emph{Edit} button to go to its edit page 
+
+\noindent\href{http://178.62.253.47:3000/projects/edit/3}{http://178.62.253.47:3000/projects/edit/3}.
+Change the project's details.
+If there are any errors, they will be shown as \autoref{fig:user_guide:project:project_edit_failed}, otherwise the user will be redirected to project view.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Project: edit page]
+{
+\label{fig:user_guide:project:project_edit_page}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/project/project_edit}
+} \quad
+\subfloat[Project: project editing failed]
+{
+\label{fig:user_guide:project:project_edit_failed}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/project/project_edit_failed}
+} \\
+\caption[Project: project edit]{Project:  project edit}
+\label{fig:user_guide:project:project_edit}
+\end{figure}
+
+\clearpage
 
 \subsubsection{Delete}
 \label{ch:result:user_guide:project:delete}
 
-Delete project
+\begin{description}
+\item[Description] Only project owner can delete his own project.
+\item[Pre-conditions] Project's owner logged in, \eg account \emph{paavo\_neva}.
+\item[Results] The project will be deleted.
+\end{description}
+
+After logging in as the project's owner, on the project view page, as shown in \autoref{fig:user_guide:project:project_view}, click \emph{Delete} button to delete the current project. 
 
 \subsubsection{List and View}
 \label{ch:result:user_guide:project:list}
 
-List project
+\begin{description}
+\item[Description] Every accounts can view the list of projects. However, only the team member can view the project's details.
+\item[Pre-conditions] A logged in account, \eg account \emph{paavo\_neva}.
+\item[Results] The user can view the list of all projects, but can only see details of projects in which he is a team member.
+\end{description}
+
+After logging in, in every pages, on the top bar, click on \emph{Projects} link, then click on \emph{Projects list}, as shown in \autoref{fig:user_guide:project:project_list_link}, to go to 
+
+\noindent\href{http://178.62.253.47:3000/projects}{http://178.62.253.47:3000/projects} as shown in \autoref{fig:user_guide:project:project_list}.
+Then clicking on any project's name will go to the project's view page, as \autoref{fig:user_guide:project:project_view}, if the user is a member of the project, otherwise \autoref{fig:user_guide:not_permitted} will be shown.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Project: projects list link]
+{
+\label{fig:user_guide:project:project_list_link}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/project/project_list_link}
+} \quad
+\subfloat[Project: projects list]
+{
+\label{fig:user_guide:project:project_list}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/project/project_list}
+} \\
+\caption[Project: view projects list]{Project: view projects list}
+\label{fig:user_guide:project:project_list}
+\end{figure}
+
+\clearpage
 
 % Article guide ----------------------------
 \subsection{Article}
