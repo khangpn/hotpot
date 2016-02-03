@@ -502,11 +502,11 @@ router.post('/:ticket_id/assign',
     var assignee_name = data.assignee_name;
     var Account = req.models.account;
 
-    Account.findAll(
+    Account.findAll({
       where: {
         name: account_name
       }
-    ).then(function(accounts) {
+    }).then(function(accounts) {
         if (!accounts || accounts.length == 0) 
           return next(
             new Error( "Can't find the account: " + account_name)
