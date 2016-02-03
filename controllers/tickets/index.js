@@ -423,8 +423,8 @@ router.post('/:ticket_id/assign',
     var current_account = res.locals.current_account;
     var ticket_id = req.params.ticket_id;
     var data = req.body;
-    var assignee_id = data.assignee_id;
-    if (!assignee_id || assignee_id == "") return next(new Error('The assignee ID is missing'));
+    var assignee_name = data.assignee_name;
+    if (!assignee_name || assignee_name == "") return next(new Error('The assignee name is missing'));
 
     Ticket.findById(ticket_id, {
       include: [
@@ -445,7 +445,7 @@ router.post('/:ticket_id/assign',
       ]
     }).then(function(ticket) {
         if (!ticket) return next(new Error("Can't find the ticket with id: " + req.params.id));
-        if (ticket.assignee.id == assignee_id) return res.redirect('/tickets/' + ticket.id);
+        if (ticket.assignee.name == assignee_name) return res.redirect('/tickets/' + ticket.id);
 
         current_account.getProjectProfiles({
           where: {
@@ -499,11 +499,19 @@ router.post('/:ticket_id/assign',
     var project_profile= res.locals.current_profile ;
     var ticket = res.locals.current_ticket ;
     var data = req.body;
-    var assignee_id = data.assignee_id;
+    var assignee_name = data.assignee_name;
     var Account = req.models.account;
 
-    Account.findById(assignee_id).then(function(assignee) {
-        if (!assignee) return next(new Error("Can't find the account with id: " + req.params.id));
+    Account.findAll(
+      where: {
+        name: account_name
+      }
+    ).then(function(accounts) {
+        if (!accounts || accounts.length == 0) 
+          return next(
+            new Error( "Can't find the account: " + account_name)
+          );
+        var assignee = accounts[0];
         ticket.setAssignee(assignee).then(function(assignee) {
           return res.redirect('/tickets/' + ticket.id);
         }, function (error) {
