@@ -504,7 +504,7 @@ router.post('/:ticket_id/assign',
 
     Account.findAll({
       where: {
-        name: account_name
+        name: assignee_name
       }
     }).then(function(accounts) {
         if (!accounts || accounts.length == 0) 
