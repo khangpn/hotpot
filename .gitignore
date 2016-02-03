@@ -35,6 +35,8 @@ node_modules
 *.gz
 *.out
 *.toc
+*.bbl
+*.blg
 
 # some annoying files which I haven't sorted out yet
 documents/note.md
