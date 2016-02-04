@@ -323,7 +323,8 @@ On user's profile page \(\autoref{fig:user_guide:profile}\), click \emph{Update 
 Input new password.
 If the new password is valid, the user will be redirected to \autoref{fig:user_guide:profile}, otherwise error messages will be shown as \autoref{fig:user_guide:account:change_password_failed}.
 
-\begin{figure}[bth]                                                                                                                                                  \myfloatalign
+\begin{figure}[bth]
+\myfloatalign
 \includegraphics[width=1.0\linewidth]{gfx/chapter_5/account/change_password}
 \caption[HotPot password changing page]{HotPot password changing page}
 \label{fig:user_guide:account:change_password}
@@ -565,6 +566,43 @@ Then clicking on any project's name will go to the project's view page, as \auto
 \item[Results] A new artilce will be created under the project.
 \end{description}
 
+On the project's view page, click on \emph{Articles} link, then click on \emph{Create article}, as shown in \autoref{fig:user_guide:article:article_create}, to go to \href{http://178.62.253.47:3000/articles/create}{http://178.62.253.47:3000/articles/create}.
+Input the article's information.
+If the inputs are valid, a new article will be created and the user will be redirected to the article view page as \autoref{fig:user_guide:article:article_view}.
+Otherwise, error messages will be displayed as \autoref{fig:user_guide:article:article_create_failed}
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Article: articles create link]
+{
+\label{fig:user_guide:article:article_create_link}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/article/article_create_link}
+} \quad
+\subfloat[Article: articles create page]
+{
+\label{fig:user_guide:article:article_create}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/article/article_create}
+} \\
+\caption[Article: create articles]{Article: create articles}
+\label{fig:user_guide:article:article_create}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/article/article_view}
+\caption[Article: article view page]{Article: article view page}
+\label{fig:user_guide:article:article_view}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/article/article_create_failed}
+\caption[Article: article list]{Article: article creating failed}
+\label{fig:user_guide:article:article_create_failed}
+\end{figure}
+
+\clearpage
+
 \subsubsection{Update}
 \label{ch:result:user_guide:article:update}
 
@@ -588,6 +626,18 @@ The access control logics were discussed in \autoref{ch:hopot_project:project_co
 \item[Results] If the input values are valid, the artilce will be updated accordingly.
 \end{description}
 
+On the article's view page, click on \emph{Edit} button, as shown in \autoref{fig:user_guide:article:article_view}, to go to \href{http://178.62.253.47:3000/articles/edit/3}{http://178.62.253.47:3000/articles/edit/3} as shown in \autoref{fig:user_guide:article:article_edit}.
+Input the article's new details.
+If the inputs are valid, the article will be updated and the user will be redirected to the article view page as \autoref{fig:user_guide:article:article_view}.
+Otherwise, error messages will be displayed.
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/article/article_edit}
+\caption[Article: article view page]{Article: article edit page}
+\label{fig:user_guide:article:article_edit}
+\end{figure}
+
 \subsubsection{Delete}
 \label{ch:result:user_guide:article:delete}
 
@@ -597,6 +647,8 @@ The access control logics were discussed in \autoref{ch:hopot_project:project_co
 The article's owner logged in.
 \item[Results] The article will be deleted.
 \end{description}
+
+On the article's view page, click on \emph{Delete} button, as shown in \autoref{fig:user_guide:article:article_view}.
 
 \subsubsection{List}
 \label{ch:result:user_guide:article:list}
@@ -608,6 +660,26 @@ Articles in the list are filtered upon the member's set of security labels, as d
 \item[Results] List of filtered articles.
 \end{description}
 
+On the project's view page, click on \emph{Articles} link, then click on \emph{Articles list}, as shown in \autoref{fig:user_guide:article:article_list_link}, to go to \href{http://178.62.253.47:3000/articles/project/3}{http://178.62.253.47:3000/articles/project/3} as shown in \autoref{fig:user_guide:article:article_list}.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Article: articles list link]
+{
+\label{fig:user_guide:article:article_list_link}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/article/article_list_link}
+} \quad
+\subfloat[Article: articles list page]
+{
+\label{fig:user_guide:article:article_list}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/article/article_list}
+} \\
+\caption[Article: articles list]{Article: articles list}
+\label{fig:user_guide:article:article_list}
+\end{figure}
+
+\clearpage
+
 \subsubsection{View}
 \label{ch:result:user_guide:article:list}
 
@@ -617,6 +689,8 @@ Furthemore, the member must either be the article's owner or have a set of secur
 The access control logics were discussed in \autoref{ch:hopot_project:project_components}.
 \item[Pre-conditions] Project's member logged in.
 \item[Results] View the article's details.
+If the account is permitted, he can view the article as \autoref{fig:user_guide:article:article_view}.
+Otherwise, he will redirected to \autoref{fig:user_guide:not_permitted}.
 \end{description}
 
 % Ticket guide ----------------------------
@@ -640,8 +714,45 @@ The access control logics were discussed in \autoref{ch:hopot_project:project_co
 \item \emph{security level}: secret (equals to account \emph{paavo\_neva}).
 \item \emph{role}: designer and programmer.
 \end{itemize}
-\item[Results] A new artilce will be created under the project.
+\item[Results] A new ticket will be created under the project.
 \end{description}
+
+On the project's view page, click on \emph{Tickets} link, then click on \emph{Create ticket}, as shown in \autoref{fig:user_guide:ticket:ticket_create}, to go to \href{http://178.62.253.47:3000/tickets/create}{http://178.62.253.47:3000/tickets/create}.
+Input the ticket's information.
+If the inputs are valid, a new ticket will be created and the user will be redirected to the ticket view page as \autoref{fig:user_guide:ticket:ticket_view}.
+Otherwise, error messages will be displayed as \autoref{fig:user_guide:ticket:ticket_create_failed}
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Ticket: tickets create link]
+{
+\label{fig:user_guide:ticket:ticket_create_link}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/ticket/ticket_create_link}
+} \quad
+\subfloat[Ticket: tickets create page]
+{
+\label{fig:user_guide:ticket:ticket_create}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/ticket/ticket_create}
+} \\
+\caption[Ticket: create tickets]{Ticket: create tickets}
+\label{fig:user_guide:ticket:ticket_create}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/ticket/ticket_view}
+\caption[Ticket: ticket view page]{Ticket: ticket view page}
+\label{fig:user_guide:ticket:ticket_view}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/ticket/ticket_create_failed}
+\caption[Ticket: ticket create failed]{Ticket: ticket creating failed}
+\label{fig:user_guide:ticket:ticket_create_failed}
+\end{figure}
+
+\clearpage
 
 \subsubsection{Update}
 \label{ch:result:user_guide:ticket:update}
@@ -663,8 +774,20 @@ The access control logics were discussed in \autoref{ch:hopot_project:project_co
 \item \emph{security level}: top secret (equals to account \emph{paavo\_neva}).
 \item \emph{role}: programmer.
 \end{itemize}
-\item[Results] If the input values are valid, the artilce will be updated accordingly.
+\item[Results] If the input values are valid, the ticket will be updated accordingly.
 \end{description}
+
+On the ticket's view page, click on \emph{Edit} button, as shown in \autoref{fig:user_guide:ticket:ticket_view}, to go to \href{http://178.62.253.47:3000/tickets/edit/1}{http://178.62.253.47:3000/tickets/edit/1} as shown in \autoref{fig:user_guide:ticket:ticket_edit}.
+Input the ticket's new details.
+If the inputs are valid, the ticket will be updated and the user will be redirected to the ticket view page as \autoref{fig:user_guide:ticket:ticket_view}.
+Otherwise, error messages will be displayed.
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/ticket/ticket_edit}
+\caption[Ticket: ticket view page]{Ticket: ticket edit page}
+\label{fig:user_guide:ticket:ticket_edit}
+\end{figure}
 
 \subsubsection{Delete}
 \label{ch:result:user_guide:ticket:delete}
@@ -676,6 +799,8 @@ The ticket's owner logged in.
 \item[Results] The ticket will be deleted.
 \end{description}
 
+On the ticket's view page, click on \emph{Delete} button, as shown in \autoref{fig:user_guide:ticket:ticket_view}.
+
 \subsubsection{List}
 \label{ch:result:user_guide:ticket:list}
 
@@ -686,6 +811,26 @@ tickets in the list are filtered upon the member's set of security labels, as di
 \item[Results] List of filtered tickets.
 \end{description}
 
+On the project's view page, click on \emph{Tickets} link, then click on \emph{Tickets list}, as shown in \autoref{fig:user_guide:ticket:ticket_list_link}, to go to \href{http://178.62.253.47:3000/tickets/project/3}{http://178.62.253.47:3000/tickets/project/3} as shown in \autoref{fig:user_guide:ticket:ticket_list}.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Ticket: tickets list link]
+{
+\label{fig:user_guide:ticket:ticket_list_link}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/ticket/ticket_list_link}
+} \quad
+\subfloat[Ticket: tickets list page]
+{
+\label{fig:user_guide:ticket:ticket_list}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/ticket/ticket_list}
+} \\
+\caption[Ticket: tickets list]{Ticket: tickets list}
+\label{fig:user_guide:ticket:ticket_list}
+\end{figure}
+
+\clearpage
+
 \subsubsection{View}
 \label{ch:result:user_guide:ticket:list}
 
@@ -695,7 +840,41 @@ Furthemore, the member must either be the ticket's owner or have a set of securi
 The access control logics were discussed in \autoref{ch:hopot_project:project_components}.
 \item[Pre-conditions] Project's member logged in.
 \item[Results] View the ticket's details.
+If the account is permitted, he can view the ticket as \autoref{fig:user_guide:ticket:ticket_view}.
+Otherwise, he will redirected to \autoref{fig:user_guide:not_permitted}.
 \end{description}
+
+\subsubsection{Assign member}
+\label{ch:result:user_guide:ticket:managing_member}
+
+\begin{description}
+\item[Description] Every project's members can assign ticket to another member.
+Furthermore, this action is considered similar to \emph{edit}, so that it also need to follow \emph{edit}'s policies.
+\item[Pre-conditions] A project member logged in, \eg account \emph{paavo\_neva}.
+\item[Parameters] Set user \emph{khangnguyen} as the ticket's assignee.
+\item[Results] The account will be set as the ticket's assignee.
+\end{description}
+
+After logging in as the project's member, go to a ticket in URL \href{http://178.62.253.47:3000/tickets/1}{http://178.62.253.47:3000/tickets/1}.
+Input the \emph{account's name} and the result will be shown as \autoref{fig:user_guide:ticket:ticket_assign}.
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Ticket: inputting ticket's assignee username]
+{
+\label{fig:user_guide:ticket:input_new_member}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/ticket/ticket_assign}
+} \quad
+\subfloat[Ticket: assigning ticket's assignee successfully]
+{
+\label{fig:user_guide:ticket:ticket_view}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/ticket/ticket_assign_successfully}
+} \\
+\caption[Ticket: assigning ticket's assignee]{Ticket: assigning ticket's assignee}
+\label{fig:user_guide:ticket:ticket_assign}
+\end{figure}
+
+\clearpage
 
 % Security Level guide ----------------------------
 \subsection{Security Level}
@@ -715,6 +894,44 @@ The access control logics were discussed in \autoref{ch:hopot_project:project_co
 \item[Results] A new security level label will be created in the system.
 \end{description}
 
+On admin interface, on the top bar, click on \emph{Security Levels} link, then click on \emph{Create level}, as shown in \autoref{fig:user_guide:security_level:level_links}, 
+to go to \href{http://178.62.253.47:3000/security\_levels/create}{http://178.62.253.47:3000/security\_levels/create} as shown in \autoref{fig:user_guide:security_level:level_create}.
+Input the security level's information.
+If the inputs are valid, a new security level will be created and the administrator will be redirected to the security level view page as \autoref{fig:user_guide:security_level:level_view}.
+Otherwise, error messages will be displayed as \autoref{fig:user_guide:security_level:level_create_failed}
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Security Level: security level create link]
+{
+\label{fig:user_guide:security_level:level_links}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/security_level/level_links}
+} \quad
+\subfloat[Security Level: security level create page]
+{
+\label{fig:user_guide:security_level:security_level_create}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/security_level/level_create}
+} \\
+\caption[Security Level: create security level]{Security Level: create security level}
+\label{fig:user_guide:security_level:level_create}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/security_level/level_view}
+\caption[Security Level: security level view page]{Security Level: security level view page}
+\label{fig:user_guide:security_level:level_view}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/security_level/level_create_failed}
+\caption[Security Level: security level create]{Security Level: security level creating failed}
+\label{fig:user_guide:security_level:level_create_failed}
+\end{figure}
+
+\clearpage
+
 \subsubsection{Update}
 \label{ch:result:user_guide:security_level:update}
 
@@ -731,6 +948,19 @@ A security level is created as \autoref{ch:result:user_guide:security_level:crea
 \item[Results] The level will be updated.
 \end{description}
 
+On the security level's view page, click on \emph{Edit} button, as shown in \autoref{fig:user_guide:security_level:level_view}, 
+to go to \href{http://178.62.253.47:3000/security\_levels/edit/6}{http://178.62.253.47:3000/security\_levels/edit/6} as shown in \autoref{fig:user_guide:security_level:level_edit}.
+Input the security level's new details.
+If the inputs are valid, the security level will be updated and the administrator will be redirected to the security level view page as \autoref{fig:user_guide:security_level:level_view}.
+Otherwise, error messages will be displayed.
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/security_level/level_edit}
+\caption[Security Level: security level edit page]{Security Level: security level edit page}
+\label{fig:user_guide:security_level:level_edit}
+\end{figure}
+
 \subsubsection{Delete}
 \label{ch:result:user_guide:security_level:delete}
 
@@ -741,6 +971,8 @@ A security level is created as \autoref{ch:result:user_guide:security_level:crea
 \item[Results] The level will be deleted.
 \end{description}
 
+On the security level's view page, click on \emph{Delete} button, as shown in \autoref{fig:user_guide:security_level:level_view}.
+
 \subsubsection{List and View}
 \label{ch:result:user_guide:security_level:list}
 
@@ -749,6 +981,16 @@ A security level is created as \autoref{ch:result:user_guide:security_level:crea
 \item[Pre-conditions] A logged in account, \eg account \emph{khangnguyen:khangnguyen}.
 \item[Results] The list of security levels is shown.
 \end{description}
+
+On admin interface, on the top bar, click on \emph{Security Levels} link, then click on \emph{Levels list}, as shown in \autoref{fig:user_guide:security_level:level_links}, 
+to go to \href{http://178.62.253.47:3000/security\_levels}{http://178.62.253.47:3000/security\_levels} as shown in \autoref{fig:user_guide:security_level:level_list}.
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/security_level/level_list}
+\caption[Security Level: security level list page]{Security Level: security level list page}
+\label{fig:user_guide:security_level:level_list}
+\end{figure}
 
 % Role guide ----------------------------
 \subsection{Role}
@@ -767,6 +1009,44 @@ A security level is created as \autoref{ch:result:user_guide:security_level:crea
 \item[Results] A new role label will be created in the system.
 \end{description}
 
+On admin interface, on the top bar, click on \emph{Roles} link, then click on \emph{Create role}, as shown in \autoref{fig:user_guide:role:role_links}, 
+to go to \href{http://178.62.253.47:3000/roles/create}{http://178.62.253.47:3000/roles/create} as shown in \autoref{fig:user_guide:role:role_create}.
+Input the role's information.
+If the inputs are valid, a new role will be created and the administrator will be redirected to the role view page as \autoref{fig:user_guide:role:role_view}.
+Otherwise, error messages will be displayed as \autoref{fig:user_guide:role:role_create_failed}
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Role: role create link]
+{
+\label{fig:user_guide:role:role_links}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/role/role_links}
+} \quad
+\subfloat[Role: role create page]
+{
+\label{fig:user_guide:role:role_create}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/role/role_create}
+} \\
+\caption[Role: create role]{Role: create role}
+\label{fig:user_guide:role:role_create}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/role/role_view}
+\caption[Role: role view page]{Role: role view page}
+\label{fig:user_guide:role:role_view}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/role/role_create_failed}
+\caption[Role: role create]{Role: role creating failed}
+\label{fig:user_guide:role:role_create_failed}
+\end{figure}
+
+\clearpage
+
 \subsubsection{Update}
 \label{ch:result:user_guide:role:update}
 
@@ -782,6 +1062,19 @@ A role is created as \autoref{ch:result:user_guide:role:create}
 \item[Results] The role will be updated.
 \end{description}
 
+On the role's view page, click on \emph{Edit} button, as shown in \autoref{fig:user_guide:role:role_view}, 
+to go to \href{http://178.62.253.47:3000/roles/edit/6}{http://178.62.253.47:3000/roles/edit/6} as shown in \autoref{fig:user_guide:role:role_edit}.
+Input the role's new details.
+If the inputs are valid, the role will be updated and the administrator will be redirected to the role view page as \autoref{fig:user_guide:role:role_view}.
+Otherwise, error messages will be displayed.
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/role/role_edit}
+\caption[Role: role edit page]{Role: role edit page}
+\label{fig:user_guide:role:role_edit}
+\end{figure}
+
 \subsubsection{Delete}
 \label{ch:result:user_guide:role:delete}
 
@@ -792,6 +1085,8 @@ A role is created as \autoref{ch:result:user_guide:role:create}
 \item[Results] The role will be deleted.
 \end{description}
 
+On the role's view page, click on \emph{Delete} button, as shown in \autoref{fig:user_guide:role:role_view}.
+
 \subsubsection{List and View}
 \label{ch:result:user_guide:role:list}
 
@@ -800,6 +1095,16 @@ A role is created as \autoref{ch:result:user_guide:role:create}
 \item[Pre-conditions] A logged in account, \eg account \emph{khangnguyen:khangnguyen}.
 \item[Results] The list of roles is shown.
 \end{description}
+
+On admin interface, on the top bar, click on \emph{Roles} link, then click on \emph{roles list}, as shown in \autoref{fig:user_guide:role:role_links}, 
+to go to \href{http://178.62.253.47:3000/roles}{http://178.62.253.47:3000/roles} as shown in \autoref{fig:user_guide:role:role_list}.
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/role/role_list}
+\caption[Role: role list page]{Role: role list page}
+\label{fig:user_guide:role:role_list}
+\end{figure}
 
 % Priority guide ----------------------------
 \subsection{Priority}
@@ -819,6 +1124,44 @@ A role is created as \autoref{ch:result:user_guide:role:create}
 \item[Results] A new priority label will be created in the system.
 \end{description}
 
+On admin interface, on the top bar, click on \emph{Priorities} link, then click on \emph{Create priority}, as shown in \autoref{fig:user_guide:priority:priority_links}, 
+to go to \href{http://178.62.253.47:3000/security\_priorities/create}{http://178.62.253.47:3000/security\_priorities/create} as shown in \autoref{fig:user_guide:priority:priority_create}.
+Input the priority's information.
+If the inputs are valid, a new priority will be created and the administrator will be redirected to the priority view page as \autoref{fig:user_guide:priority:priority_view}.
+Otherwise, error messages will be displayed as \autoref{fig:user_guide:priority:priority_create_failed}
+
+\begin{figure}[bth]
+\myfloatalign
+\subfloat[Priority: priority create link]
+{
+\label{fig:user_guide:priority:priority_links}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/priority/priority_links}
+} \quad
+\subfloat[Priority: priority create page]
+{
+\label{fig:user_guide:priority:priority_create}
+\includegraphics[width=1.\linewidth]{gfx/chapter_5/priority/priority_create}
+} \\
+\caption[Priority: create priority]{priority: create priority}
+\label{fig:user_guide:priority:priority_create}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/priority/priority_view}
+\caption[priority: priority view page]{priority: priority view page}
+\label{fig:user_guide:priority:priority_view}
+\end{figure}
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/priority/priority_create_failed}
+\caption[priority: priority create]{priority: priority creating failed}
+\label{fig:user_guide:priority:priority_create_failed}
+\end{figure}
+
+\clearpage
+
 \subsubsection{Update}
 \label{ch:result:user_guide:priority:update}
 
@@ -835,6 +1178,19 @@ A priority is created as \autoref{ch:result:user_guide:priority:create}
 \item[Results] The priority will be updated.
 \end{description}
 
+On the priority's view page, click on \emph{Edit} button, as shown in \autoref{fig:user_guide:priority:priority_view}, 
+to go to \href{http://178.62.253.47:3000/security\_priorities/edit/6}{http://178.62.253.47:3000/security\_priorities/edit/6} as shown in \autoref{fig:user_guide:priority:priority_edit}.
+Input the priority's new details.
+If the inputs are valid, the priority will be updated and the administrator will be redirected to the priority view page as \autoref{fig:user_guide:priority:priority_view}.
+Otherwise, error messages will be displayed.
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/priority/priority_edit}
+\caption[Priority: priority edit page]{Priority: priority edit page}
+\label{fig:user_guide:priority:priority_edit}
+\end{figure}
+
 \subsubsection{Delete}
 \label{ch:result:user_guide:priority:delete}
 
@@ -845,6 +1201,8 @@ A priority is created as \autoref{ch:result:user_guide:priority:create}
 \item[Results] The priority will be deleted.
 \end{description}
 
+On the priority's view page, click on \emph{Delete} button, as shown in \autoref{fig:user_guide:priority:priority_view}.
+
 \subsubsection{List and View}
 \label{ch:result:user_guide:priority:list}
 
@@ -853,6 +1211,16 @@ A priority is created as \autoref{ch:result:user_guide:priority:create}
 \item[Pre-conditions] A logged in account, \eg account \emph{khangnguyen:khangnguyen}.
 \item[Results] The list of priorities is shown.
 \end{description}
+
+On admin interface, on the top bar, click on \emph{Priorities} link, then click on \emph{priorities list}, as shown in \autoref{fig:user_guide:priority:priority_links}, 
+to go to \href{http://178.62.253.47:3000/priorities}{http://178.62.253.47:3000/priorities} as shown in \autoref{fig:user_guide:priority:priority_list}.
+
+\begin{figure}[bth]
+\myfloatalign
+\includegraphics[width=1.0\linewidth]{gfx/chapter_5/priority/priority_list}
+\caption[Priority: priority list page]{Priority: priority list page}
+\label{fig:user_guide:priority:priority_list}
+\end{figure}
 
 %----------------------------------------------------------------------------------------
 \section{Learnings}
