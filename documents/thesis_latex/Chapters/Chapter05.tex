@@ -147,7 +147,11 @@ In this section, we are going through demonstrations of the project's features \
 
 \begin{description}
 \item[Description] Every accounts can login to the system using its username and password.
-\item[Parameters] An account whose username:password is \emph{paavo\_neva:paavo\_neva}.
+\item[Parameters] An account whose username:password are:
+\begin{itemize}
+\item \emph{username}: paavo\_neva.
+\item \emph{password}: paavo\_neva.
+\end{itemize}
 \item[Results] If the account is authenticated then a token is created and save on client cookies, and the user is redirected to homepage.
 If the account is invalid, the login page will be rendered with error messages.
 \end{description}
@@ -211,7 +215,11 @@ After that, the user will be redirected to \emph{homepage} \(\autoref{fig:user_g
 \begin{description}
 \item[Description] Administrators can create new accounts on the system.
 \item[Pre-conditions] An administrator account is logged in.
-\item[Parameters] Create an account with values: username:\emph{testingtesting}, password:\emph{testingtesting}.
+\item[Parameters] Create an account with values:
+\begin{itemize}
+\item \emph{username}: testingtesting.
+\item \emph{password}: testingtesting.
+\end{itemize}
 \item[Results] If all the input information is valid, new account will be created, otherwise error messages will be displayed.
 \end{description}
 
@@ -261,7 +269,11 @@ Input the value, the \emph{Confirm Password} field is for re-typing password, an
 \begin{description}
 \item[Description] Account's owner can edit his all profile details.
 \item[Pre-conditions] An account is logged in.
-\item[Parameters] Update the logged in account's profile with values: fullname:\emph{Paavo Neva}, email:\emph{paavo@hotpot.com}.
+\item[Parameters] Update the logged in account's profile with values:
+\begin{itemize}
+\item \emph{fullname}: Paavo Neva.
+\item \emph{email}: paavo@hotpot.com.
+\end{itemize}
 \item[Results] If all the input information is valid, the account's profile will be updated.
 \end{description}
 
@@ -300,7 +312,10 @@ Input the value, and the result will be shown as \autoref{fig:user_guide:account
 \begin{description}
 \item[Description] Account's owner can change his password.
 \item[Pre-conditions] An account is logged in.
-\item[Parameters] Update the logged in account's password with values: {newpasswordupdate}.
+\item[Parameters] Update the logged in account's password with values:
+\begin{itemize}
+\item \emph{password}: newpasswordupdate.
+\end{itemize}
 \item[Results] If the new password is valid, the user will be redirected back to his profile page.
 \end{description}
 
@@ -371,7 +386,12 @@ Then, clicking on any user's name to go to account view, as shown in \autoref{fi
 \begin{description}
 \item[Description] Every account can create a new project.
 \item[Pre-conditions] A logged in account.
-\item[Parameters] Create an project with values: \emph{Name}: Paavo Project, \emph{Description}: This project is created by paavo\_neva, \emph{Due Date}: 02/29/2016.
+\item[Parameters] Create an project with values:
+\begin{itemize}
+\item \emph{name}: Paavo Project.
+\item \emph{description}:  This project is created by paavo\_neva.
+\item \emph{due date}: 02/29/2016.
+\end{itemize}
 \item[Results] If all the input information is valid, new project will be created, the account will be marked as its owner, and the owner will be its first member.
 \end{description}
 
@@ -527,22 +547,77 @@ Then clicking on any project's name will go to the project's view page, as \auto
 \subsubsection{Create}
 \label{ch:result:user_guide:article:create}
 
-Create article
+\begin{description}
+\item[Description] Only project members can create the project's new articles.
+\item[Pre-conditions] Project's member logged in, \eg account \emph{paavo\_neva} and project \emph{Paavo Project}.
+\item[Conditions] The article's \emph{security level} can only be equal or higher than its creator's.
+\item[Parameters] Create new article with these values:
+\begin{itemize}
+\item \emph{name}: Paavo article.
+\item \emph{description}: This article is created by Paavo.
+\item \emph{content}: A secret content.
+\item \emph{is directory}: false.
+\item \emph{writable}: true.
+\item \emph{readable}: true.
+\item \emph{security level}: secret (equals to account \emph{paavo\_neva}).
+\item \emph{role}: designer and programmer.
+\end{itemize}
+\item[Results] A new artilce will be created under the project.
+\end{description}
 
 \subsubsection{Update}
 \label{ch:result:user_guide:article:update}
 
-Update article
+\begin{description}
+\item[Description] Only project members can update the project's articles.
+Furthemore, the member must either be the article's owner or have a set of security policies which satisfies the article's one.
+The access control logics were discussed in \autoref{ch:hopot_project:project_components}.
+\item[Pre-conditions] Project's member logged in, an article is created as \autoref{ch:result:user_guide:article:create}.
+\item[Conditions] The article's new \emph{security level} can only be equal or higher than its creator's.
+\item[Parameters] Update the article with these values:
+\begin{itemize}
+\item \emph{name}: Paavo article.
+\item \emph{description}: This updated article is created by Paavo.
+\item \emph{content}: A top secret content.
+\item \emph{is directory}: false.
+\item \emph{writable}: true.
+\item \emph{readable}: true.
+\item \emph{security level}: top secret (equals to account \emph{paavo\_neva}).
+\item \emph{role}: programmer.
+\end{itemize}
+\item[Results] If the input values are valid, the artilce will be updated accordingly.
+\end{description}
 
 \subsubsection{Delete}
 \label{ch:result:user_guide:article:delete}
 
-Delete article
+\begin{description}
+\item[Description] Only article's owner can delete it.
+\item[Pre-conditions] An article is created as \autoref{ch:result:user_guide:article:create}.
+The article's owner logged in.
+\item[Results] The article will be deleted.
+\end{description}
 
-\subsubsection{List and View}
+\subsubsection{List}
 \label{ch:result:user_guide:article:list}
 
-List article
+\begin{description}
+\item[Description] Only project's members can see the list of articles in that project.
+Articles in the list are filtered upon the member's set of security labels, as discussed in \autoref{ch:hopot_project:project_components}.
+\item[Pre-conditions] Project's member logged in.
+\item[Results] List of filtered articles.
+\end{description}
+
+\subsubsection{View}
+\label{ch:result:user_guide:article:list}
+
+\begin{description}
+\item[Description] Only project's members can view article's details in that project.
+Furthemore, the member must either be the article's owner or have a set of security policies which satisfies the article's one.
+The access control logics were discussed in \autoref{ch:hopot_project:project_components}.
+\item[Pre-conditions] Project's member logged in.
+\item[Results] View the article's details.
+\end{description}
 
 % Ticket guide ----------------------------
 \subsection{Ticket}
@@ -550,22 +625,77 @@ List article
 \subsubsection{Create}
 \label{ch:result:user_guide:ticket:create}
 
-Create ticket
+\begin{description}
+\item[Description] Only project members can create the project's new tickets.
+\item[Pre-conditions] Project's member logged in, \eg account \emph{paavo\_neva} and project \emph{Paavo Project}.
+\item[Conditions] The ticket's \emph{security level} can only be equal or higher than its creator's.
+\item[Parameters] Create new ticket with these values:
+\begin{itemize}
+\item \emph{name}: Paavo ticket.
+\item \emph{content}: A secret content.
+\item \emph{due date}: 02/29/2016.
+\item \emph{writable}: true.
+\item \emph{readable}: true.
+\item \emph{priority}: normal.
+\item \emph{security level}: secret (equals to account \emph{paavo\_neva}).
+\item \emph{role}: designer and programmer.
+\end{itemize}
+\item[Results] A new artilce will be created under the project.
+\end{description}
 
 \subsubsection{Update}
 \label{ch:result:user_guide:ticket:update}
 
-Update ticket
+\begin{description}
+\item[Description] Only project members can update the project's tickets.
+Furthemore, the member must either be the ticket's owner or have a set of security policies which satisfies the ticket's one.
+The access control logics were discussed in \autoref{ch:hopot_project:project_components}.
+\item[Pre-conditions] Project's member logged in, an ticket is created as \autoref{ch:result:user_guide:ticket:create}.
+\item[Conditions] The ticket's new \emph{security level} can only be equal or higher than its creator's.
+\item[Parameters] Update the ticket with these values:
+\begin{itemize}
+\item \emph{name}: Paavo ticket.
+\item \emph{content}: A top secret content.
+\item \emph{due date}: 02/29/2016.
+\item \emph{writable}: true.
+\item \emph{readable}: true.
+\item \emph{priority}: high.
+\item \emph{security level}: top secret (equals to account \emph{paavo\_neva}).
+\item \emph{role}: programmer.
+\end{itemize}
+\item[Results] If the input values are valid, the artilce will be updated accordingly.
+\end{description}
 
 \subsubsection{Delete}
 \label{ch:result:user_guide:ticket:delete}
 
-Delete ticket
+\begin{description}
+\item[Description] Only ticket's owner can delete it.
+\item[Pre-conditions] An ticket is created as \autoref{ch:result:user_guide:ticket:create}.
+The ticket's owner logged in.
+\item[Results] The ticket will be deleted.
+\end{description}
 
-\subsubsection{List and View}
+\subsubsection{List}
 \label{ch:result:user_guide:ticket:list}
 
-List ticket
+\begin{description}
+\item[Description] Only project's members can see the list of tickets in that project.
+tickets in the list are filtered upon the member's set of security labels, as discussed in \autoref{ch:hopot_project:project_components}.
+\item[Pre-conditions] Project's member logged in.
+\item[Results] List of filtered tickets.
+\end{description}
+
+\subsubsection{View}
+\label{ch:result:user_guide:ticket:list}
+
+\begin{description}
+\item[Description] Only project's members can view ticket's details in that project.
+Furthemore, the member must either be the ticket's owner or have a set of security policies which satisfies the ticket's one.
+The access control logics were discussed in \autoref{ch:hopot_project:project_components}.
+\item[Pre-conditions] Project's member logged in.
+\item[Results] View the ticket's details.
+\end{description}
 
 % Security Level guide ----------------------------
 \subsection{Security Level}
@@ -573,22 +703,52 @@ List ticket
 \subsubsection{Create}
 \label{ch:result:user_guide:security_level:create}
 
-Create security level
+\begin{description}
+\item[Description] Only administrators can create the system's new security level.
+\item[Pre-conditions] A logged in administrator account, \eg account \emph{khangnguyen:khangnguyen}.
+\item[Parameters] Create new security level with these values:
+\begin{itemize}
+\item \emph{name}: God file.
+\item \emph{level}: 5 (the higher level the more secured the label is).
+\item \emph{description}: Ultimately secret level.
+\end{itemize}
+\item[Results] A new security level label will be created in the system.
+\end{description}
 
 \subsubsection{Update}
 \label{ch:result:user_guide:security_level:update}
 
-Update security level
+\begin{description}
+\item[Description] Only administrators can update the system's existing security levels.
+\item[Pre-conditions] A logged in administrator account, \eg account \emph{khangnguyen:khangnguyen}.
+A security level is created as \autoref{ch:result:user_guide:security_level:create}
+\item[Parameters] Update the security level with these values:
+\begin{itemize}
+\item \emph{name}: Sheep file.
+\item \emph{level}: 1.
+\item \emph{description}: Ultimately low level.
+\end{itemize}
+\item[Results] The level will be updated.
+\end{description}
 
 \subsubsection{Delete}
 \label{ch:result:user_guide:security_level:delete}
 
-Delete security level
+\begin{description}
+\item[Description] Only administrators can delete the system's existing security levels.
+\item[Pre-conditions] A logged in administrator account, \eg account \emph{khangnguyen:khangnguyen}.
+A security level is created as \autoref{ch:result:user_guide:security_level:create}
+\item[Results] The level will be deleted.
+\end{description}
 
 \subsubsection{List and View}
 \label{ch:result:user_guide:security_level:list}
 
-List security level
+\begin{description}
+\item[Description] Every accounts can view the list of security levels in the system, as well as their details.
+\item[Pre-conditions] A logged in account, \eg account \emph{khangnguyen:khangnguyen}.
+\item[Results] The list of security levels is shown.
+\end{description}
 
 % Role guide ----------------------------
 \subsection{Role}
@@ -596,22 +756,50 @@ List security level
 \subsubsection{Create}
 \label{ch:result:user_guide:role:create}
 
-Create role
+\begin{description}
+\item[Description] Only administrators can create the system's new role.
+\item[Pre-conditions] A logged in administrator account, \eg account \emph{khangnguyen:khangnguyen}.
+\item[Parameters] Create new role with these values:
+\begin{itemize}
+\item \emph{name}: System admin.
+\item \emph{description}: He fix your machine.
+\end{itemize}
+\item[Results] A new role label will be created in the system.
+\end{description}
 
 \subsubsection{Update}
 \label{ch:result:user_guide:role:update}
 
-Update role
+\begin{description}
+\item[Description] Only administrators can update the system's existing roles.
+\item[Pre-conditions] A logged in administrator account, \eg account \emph{khangnguyen:khangnguyen}.
+A role is created as \autoref{ch:result:user_guide:role:create}
+\item[Parameters] Update the role with these values:
+\begin{itemize}
+\item \emph{name}: System admin.
+\item \emph{description}: He fix your machine, and back you up.
+\end{itemize}
+\item[Results] The role will be updated.
+\end{description}
 
 \subsubsection{Delete}
 \label{ch:result:user_guide:role:delete}
 
-Delete role
+\begin{description}
+\item[Description] Only administrators can delete the system's existing roles.
+\item[Pre-conditions] A logged in administrator account, \eg account \emph{khangnguyen:khangnguyen}.
+A role is created as \autoref{ch:result:user_guide:role:create}
+\item[Results] The role will be deleted.
+\end{description}
 
 \subsubsection{List and View}
 \label{ch:result:user_guide:role:list}
 
-List role
+\begin{description}
+\item[Description] Every accounts can view the list of roles in the system, as well as their details.
+\item[Pre-conditions] A logged in account, \eg account \emph{khangnguyen:khangnguyen}.
+\item[Results] The list of roles is shown.
+\end{description}
 
 % Priority guide ----------------------------
 \subsection{Priority}
@@ -619,22 +807,52 @@ List role
 \subsubsection{Create}
 \label{ch:result:user_guide:priority:create}
 
-Create priority
+\begin{description}
+\item[Description] Only administrators can create the system's new priority.
+\item[Pre-conditions] A logged in administrator account, \eg account \emph{khangnguyen:khangnguyen}.
+\item[Parameters] Create new priority with these values:
+\begin{itemize}
+\item \emph{name}: Highest Priority.
+\item \emph{level}: 5 (the higher level the higher the priority is).
+\item \emph{description}: Ultimately high priority.
+\end{itemize}
+\item[Results] A new priority label will be created in the system.
+\end{description}
 
 \subsubsection{Update}
 \label{ch:result:user_guide:priority:update}
 
-Update priority
+\begin{description}
+\item[Description] Only administrators can update the system's existing priorities.
+\item[Pre-conditions] A logged in administrator account, \eg account \emph{khangnguyen:khangnguyen}.
+A priority is created as \autoref{ch:result:user_guide:priority:create}
+\item[Parameters] Update the priority with these values:
+\begin{itemize}
+\item \emph{name}: Sheep file.
+\item \emph{level}: 1.
+\item \emph{description}: Ultimately low priority.
+\end{itemize}
+\item[Results] The priority will be updated.
+\end{description}
 
 \subsubsection{Delete}
 \label{ch:result:user_guide:priority:delete}
 
-Delete priority
+\begin{description}
+\item[Description] Only administrators can delete the system's existing priorities.
+\item[Pre-conditions] A logged in administrator account, \eg account \emph{khangnguyen:khangnguyen}.
+A priority is created as \autoref{ch:result:user_guide:priority:create}
+\item[Results] The priority will be deleted.
+\end{description}
 
 \subsubsection{List and View}
 \label{ch:result:user_guide:priority:list}
 
-List priority
+\begin{description}
+\item[Description] Every accounts can view the list of priorities in the system, as well as their details.
+\item[Pre-conditions] A logged in account, \eg account \emph{khangnguyen:khangnguyen}.
+\item[Results] The list of priorities is shown.
+\end{description}
 
 %----------------------------------------------------------------------------------------
 \section{Learnings}
