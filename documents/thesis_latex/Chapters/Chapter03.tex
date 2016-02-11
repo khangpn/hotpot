@@ -24,11 +24,11 @@ Go through their features list, we can see that most of features mainly focus on
 They aim to provide customers most convenient tool with rich features and best user experience.
 In term of security, most of the projects support SSL data encryption and apply vairous techniques to ensure data integrity.
 Those traits can protect data on communicating progress, or keep it away from external exploits.
-However, in order to protect internal assets from being accessed by authenticated users, most of them only support CAP which allow read/write permissions on an asset.
+However, in order to protect internal assets from being accessed by authenticated users, most of them only support \emph{Conventional Access Permissions} (CAP) which allow read/write permissions on an asset.
 In fact, many of data leaking cases were reported done by authenticated but unauthorized users.
 MLS perfectly matches into this scenario that it enforces all internal subjects to follow accessing policies, regardless of their priorities or the object's CAP.
 In another word, every objects in the system will served exactly to groups of subjects who satisfy their admission requirements.
-As the result, MLS is a eminently strong solution for lacking of MAC.
+As the result, MLS is a eminently strong solution for lacking of \emph{Mandatory Access Control} (MAC).
 And that is also the main goal of \myProject that tries to implement BLP model to PMT.
 
 \myProject is a PMT with essential features of managing projects.
@@ -116,8 +116,8 @@ So \emph{edit} is a special case where it requires the object's both \emph{read}
 Also \emph{delete} is also a sensitive action.
 It is a \emph{write action}.
 Yet, in term of data integrity, \emph{delete} action should only be executed by the object's owner \ie subject which created it.
-Let's consider this scenario, a secret article should be created to report a fault of a team member to the managers.
-If a manager with secrete label doesn't like that report, he can delete it.
+Let us consider this scenario, a secret article should be created to report a fault of a team member to the managers.
+If a manager with secrete label does not want that report to be available, he can delete it.
 Nevertheless, \emph{create} is also a distinctive action.
 It also depends on other logical rules for the subject to perform.
 For example, only team member can create articles and tickets of that project.
@@ -134,14 +134,14 @@ and the object is set to writable mode.
 
 On developing the project, I sometimes had to due with trade-off of strong security and convenient user experience.
 Solving object's owner's security policies is one of the trade-off I had to make.
-Let's consider a scenario.
+Let us consider a scenario.
 A subject, with secret security label, creates an object \eg article with top secret label. 
 After that, he needs to \emph{edit} the article, \eg add more information, but the security policies will prevent him from doing that because, as we explained above, he need to have the same security level with the artilce to \emph{edit} it.
 This will be very inconvenient in case he has to edit the article many times.
 On the contrary, if we allow the owner to read his objects regardless of their security level, it may be vulnerable to data leak.
 Since, if a top secret subject decides to edit the object to add some sensitive data into it, the owner can still read them.
 \marginpar{\emph{Trade-off}: a subject have all permissions on his own objects.}
-However, thinking about the user experience and because the project aims to serve civil organizations of medium scale, I think it's better to let owners have all permissions on their own objects.
+However, thinking about the user experience and because the project aims to serve civil organizations of medium scale, I think it is better to let owners have all permissions on their own objects.
 It also helps to solve the problem of \emph{delete} action that we discussed before.
 \marginpar{\emph{Future plan}: logging system is needed to track all actions in the system, especially these kind of compromising actions that need the subjects' awareness.}
 Because this is a compromise, so that we need a good practice to fix it.
@@ -315,7 +315,7 @@ Besides that, there are some actions on security related components like \emph{s
 \label{ch:hopot_project:project_components:project}
 
 Project is not actually neither subject nor object of the system.
-In the manner of management, it's just a grouping element to group related objects \eg accounts, articles and tickets.
+In the manner of management, it is just a grouping element to group related objects \eg accounts, articles and tickets together.
 
 According to \autoref{tab:account_on_detail}, all accounts can create new project.
 Then, the project's owner can add other accounts to the project as team members.

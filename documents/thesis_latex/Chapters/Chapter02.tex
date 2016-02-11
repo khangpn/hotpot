@@ -32,7 +32,7 @@ The same cannot be said of the defense and related communities, which includes m
 These organizations cannot easily recover should sensitive information be leaked, and may not recover at all. 
 \end{quote}
 
-In every organizations, there's very likely a central system where everyone with different roles can login and access data flowing in it.
+In every organizations, there is very likely a central system where everyone with different roles can login and access data flowing in it.
 While some pieces of data are not so vital, they can be viewed or edited by anyone in the team, the others could be only essential to be available to a small group of particular people who are more influential, or in charge of making decisions.
 
 According to \citeauthor{bancinco:2015} , under MLS, users and machine processes are called \emph{subjects}, and files, devices and other passive components of the system are called \emph{objects}.
@@ -50,7 +50,7 @@ The objects' owners should not be in charge of making decision who they want to 
 Hence, MLS design should \emph{force} subjects and all of their objects to follow an agreed set of \emph{predefined rules}, this is called \emph{mandatory access control}, in order to keep every pieces of data in the system from being accessed without awareness.
 
 Moreover, security levels sometimes are not enough for the system to gain someone permission to pieces of data.
-Let's consider this example. 
+Let us consider this example. 
 In one organization, at the same security level, there will be many people with different roles who may need contrasting data.
 Allowing everyone with the same security level access to the other roles' data is considered redundant.
 It causes confusion to the other users about which data is related to them and they can use.
@@ -89,7 +89,7 @@ Hence, BLP model endorse those components, and defines a set of rules for them t
 The most important principle of BLP can be summarized as \emph{no read up, no write down}.
 It means that users with lower security label cannot read data with higher security label.
 And so on, a higher security label user cannot write (create) data with lower security label.
-Let's call $S1$ subject's security level, and $S2$ is object's, where 
+Let us call $S1$ subject's security level, and $S2$ is object's, where 
 $$S1,S2 \in \{top secret, secret, confidential, unclassified\}$$ 
 and 
 $$top secret > secret > confidential > unclassified$$
