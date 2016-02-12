@@ -9,18 +9,18 @@
 
 From previous chapters, we studied about concepts of a MLS system, as well as logical security policies in the manner of PM.
 They together form a list of essential features of a MLS-implemented PMT.
-In another world, so far, we had a blueprint of a MLS PMT. 
+So far, we had a blueprint of a MLS PMT. 
 My \myProject project is built upon this blueprint.
-The project's purpose is to evaluate the possibility of my theory and to answer these questions.
+The purpose of the project is to evaluate the possibility of my theory and to answer these questions.
 
 \begin{enumerate}
 \item How much effort is needed to build a MLS system? 
-\item How practically they are used in PM?
+\item How practically it is to use them in PM?
 \item And how much does it affect to user experience?
 \end{enumerate}
 
 In this chapter, we are going to cover the implementation of the project.
-It consists of the project's agenda, technical requirements, the program architecture, its data models and their corresponding database schema, relations among data models, etc\dots
+It consists of the project agenda, technical requirements, the program architecture, its data models and their corresponding database schema, relations among data models, etc\dots
 
 %----------------------------------------------------------------------------------------
 
@@ -80,15 +80,15 @@ From 4/1/2016 to 31/1/2016
 \end{itemize}
 \end{description}
  
-Every iterations has one or two days different from the planed schedule, however, in general, the programming part was completed as scheduled.
+Every iteration has one or two days different from the planed schedule, however, in general, the programming part was completed as scheduled.
 
 %----------------------------------------------------------------------------------------
 
 \section{Technical information}
 \label{ch:implementation:technical_information} 
 
-In this section, I am going to introduce about the technologies used in this project, as well as the reason why I chose them at the first place.
-The list below are technologies used in the project's developing environment:
+In this section, I am going to introduce the technologies used in this project, as well as the reason why I chose them at the first place.
+The list below are technologies used in the project developing environment:
 
 \begin{description}
 \item[OS] \emph{Ubuntu 14.04}.
@@ -111,18 +111,18 @@ Moreover, it has many libraries to be used in numerous programming language.
 \end{description}
 
 In fact, after finishing developing, a sample of the project has been deployed on a cloud machine at the address \href{http://178.62.253.47:3000/}{http://178.62.253.47:3000/}.
-Most of the technical requirements are the same except that I used \emph{CentOS} (\emph{RedHat Inc} instead of Ubuntu for testing purpose and I can confirm that it works on \emph{CentOS} as well.
-I can find every things needed on CentOS just like on Ubuntu.
+Most of the technical requirements are the same except that I used \emph{CentOS} (\emph{RedHat Inc}) instead of Ubuntu for testing purpose and I can confirm that it works on \emph{CentOS} as well.
+I can find everything needed on CentOS just like on Ubuntu.
 
 %----------------------------------------------------------------------------------------
 
 \section{Models}
 \label{ch:implementation:models}
 
-This section is a summary of my project's design.
+This section is a summary of my project design.
 I utilized MVC design model in this project.
 All the logical controls will go to \emph{controllers}, which handle all the security policies as previously described in \autoref{ch:background:bell}.
-So that, in this thesis document, I only focus explaining about the project's models and their relationship so that we can understand about the system's architecture.
+So that, in this thesis document, I only focus explaining about the project models and their relationship so that we can understand about the system architecture.
 
 In this section, I am going to list all the data models of the system.
 We will learn about their properties, relations which will be illustrated as database diagrams.
@@ -152,11 +152,11 @@ It only consists of authentication and identity information of an account.
 \midrule
 \emph{name} &
 string, not null, unique & 
-The account's user name for logging in.\\
+The account username for logging in.\\
 \midrule
 \emph{password} & 
 string, not null &
-The account's password.\\
+The account password.\\
 \midrule
 \emph{password\_confirm} & 
 string, not null &
@@ -183,7 +183,7 @@ Every account will have one new token for every logging in.\\
 \midrule
 \emph{account\_detail} & 
 1:1 &
-The account's detail information \eg full name, email, phone \dots \\
+The account detail information \eg full name, email, phone \dots \\
 \midrule
 \emph{project} & 
 many:many &
@@ -193,13 +193,13 @@ This m:m relationship is defined through \emph{account\_project} model \ie relat
 \emph{account\_project} & 
 1:many &
 This is the relation model between \emph{account} and \emph{project} models to define the m:m relation.
-In another word, it defines an account's \emph{project profiles}.
+In another word, it defines a \emph{project profiles} of an account.
 More about \emph{project profile} is explained in \autoref{ch:implementation:models:account_project} \\
 \midrule
 \emph{project} & 
 1:many &
 This relation is used for defining the account's \emph{owned projects}.
-So once an account create a project, he will become that project's owner.\\
+So once an account create a project, he will become that project owner.\\
 \midrule
 \emph{article} & 
 1:many &
@@ -223,7 +223,7 @@ This relation is used for defining the account's \emph{assigned articles}.\\
 
 \subsection{Account Detail}
 
-This data model represents an account's detailed information. Its properties is listed in \autoref{tab:account_detail_model_properties}, and its relations to other models are explained in \autoref{tab:account_detail_model_relations}.
+This data model represents an account detailed information. Its properties is listed in \autoref{tab:account_detail_model_properties}, and its relations to other models are explained in \autoref{tab:account_detail_model_relations}.
 
 \begin{table}[!htbp]
 \myfloatalign
@@ -233,11 +233,11 @@ This data model represents an account's detailed information. Its properties is 
 \midrule
 \emph{fullname} &
 string, not null, length between 8 and 128 & 
-The account's fullname.\\
+The account fullname.\\
 \midrule
 \emph{email} & 
 string, not null, unique &
-The account's email address.\\
+The account email address.\\
 \bottomrule
 \end{tabularx}
 \caption[Account Detail model properties.]{\emph{account\_detail} model properties.}  
@@ -274,15 +274,15 @@ This model contains all the information of a project. Its details are described 
 \midrule
 \emph{name} &
 string, not null, unique & 
-The \emph{project}'s name.\\
+The \emph{project} name.\\
 \midrule
 \emph{description} & 
 string, allow null, length between 8 and 128  &
-The \emph{project}'s description.\\
+The \emph{project} description.\\
 \midrule
 \emph{due\_date} & 
 date, allow null  &
-The \emph{project}'s deadline.\\
+The \emph{project} deadline.\\
 \bottomrule
 \end{tabularx}
 \caption[Project model properties.]{\emph{project} model properties.}  
@@ -302,15 +302,15 @@ This m:m relationship is defined through \emph{account\_project} model. \\
 \midrule
 \emph{account} & 
 many:1 &
-This relation is used for defining the \emph{project}'s \emph{owner}.\\
+This relation is used for defining the \emph{project} \emph{owner}.\\
 \midrule
 \emph{article} & 
 1:many &
-This relation is used for defining the \emph{project}'s \emph{articles}.\\
+This relation is used for defining \emph{articles} of the \emph{project}.\\
 \midrule
 \emph{ticket} & 
 1:many &
-This relation is used for defining the \emph{project}'s \emph{tickets}.\\
+This relation is used for defining \emph{tickets} of the \emph{project}.\\
 \bottomrule
 \end{tabularx}
 \caption[Project model relations.]{Relations between \emph{project} and other models}  
@@ -326,7 +326,7 @@ This relation is used for defining the \emph{project}'s \emph{tickets}.\\
 \emph{account\_project} is a special model.
 It is the relation table used to define the \emph{m:m} relation between \emph{account} and \emph{project} model.
 Rather than that, it also contains all the information relating to a project of an account \eg his \emph{security level}, \emph{roles}.
-In another word, this model contains all the security information of an account in a project, that we can use to authorize the account's access requests to the project's objects later.
+In another word, this model contains all the security information of an account in a project, that we can use to authorize the access requests of the account to the objects of the project later.
 In that manner, we also call this model a \emph{project\_profile} model.
 Because this is only a relation model, there is no properties in it.
 Its relations to other models are defined in \autoref{tab:account_project_model_relations}
@@ -344,19 +344,19 @@ This m:m relationship is defined through \emph{account\_project} model. \\
 \midrule
 \emph{account} & 
 1:1 &
-This relation is used for defining the \emph{profile}'s \emph{account} (aka owner).\\
+This relation is used for defining the \emph{account} of \emph{profile} (aka owner).\\
 \midrule
 \emph{project} & 
 1:1 &
-This relation is used for defining the \emph{profile}'s \emph{project}.\\
+This relation is used for defining the \emph{project} of \emph{profile}.\\
 \midrule
 \emph{security\_level} & 
 1:1 &
-This relation is used for defining the \emph{profile}'s \emph{security\_level}.\\
+This relation is used for defining the \emph{security\_level} of the \emph{profile}.\\
 \midrule
 \emph{role} & 
 many:many &
-This relation is used for defining the \emph{profile}'s \emph{roles}.
+This relation is used for defining the \emph{roles} of the \emph{profile}.
 One profile may have many roles.\\
 \bottomrule
 \end{tabularx}
@@ -378,15 +378,15 @@ One profile may have many roles.\\
 \midrule
 \emph{name} &
 string, not null, unique & 
-The \emph{security level}'s name.\\
+The \emph{security level} name.\\
 \midrule
 \emph{description} & 
 string, allow null &
-The \emph{security level}'s description.\\
+The \emph{security level} description.\\
 \midrule
 \emph{level} & 
 integer, not null, unique &
-The \emph{security level}'s level.
+The \emph{security level} level.
 The higher value, the more important it is.\\
 \bottomrule
 \end{tabularx}
@@ -433,11 +433,11 @@ Its details are described in two table \autoref{tab:role_model_properties} and \
 \midrule
 \emph{name} &
 string, not null, unique & 
-The \emph{role}'s name.\\
+The \emph{role} name.\\
 \midrule
 \emph{description} & 
 string, allow null &
-The \emph{role}'s description.\\
+The \emph{role} description.\\
 \bottomrule
 \end{tabularx}
 \caption[Role model properties.]{\emph{role} model properties.}  
@@ -486,15 +486,15 @@ Its details are described in two table \autoref{tab:article_model_properties} an
 \midrule
 \emph{name} &
 string, not null & 
-The \emph{article}'s name.\\
+The \emph{article} name.\\
 \midrule
 \emph{description} & 
 string, allow null &
-The \emph{article}'s description.\\
+The \emph{article} description.\\
 \midrule
 \emph{content} & 
 string, allow null &
-The \emph{article}'s content.\\
+The \emph{article} content.\\
 \midrule
 \emph{is\_directory} & 
 boolean, not null, default false &
@@ -521,7 +521,7 @@ Indicate whether this article is readable or not.\\
 \midrule
 \emph{account} & 
 many:1 &
-This relation is used for defining the \emph{article}'s \emph{owner}.\\
+This relation is used for defining the \emph{owner} of the \emph{article}.\\
 \midrule
 \emph{project} & 
 many:1 &
@@ -534,7 +534,7 @@ This relation is defined through \emph{article\_role} model.\\
 \midrule
 \emph{security\_level} & 
 many:1 &
-This relation is used for defining the \emph{article}'s \emph{security level} label.\\
+This relation is used for defining the \emph{security level} label of the \emph{article}.\\
 \midrule
 \emph{article} & 
 1:many &
@@ -542,7 +542,7 @@ If this \emph{article} is a directory, this relation defines \emph{articles} bel
 \midrule
 \emph{article} & 
 many:1 &
-This relation is used for defining the \emph{article}'s \emph{directory} if available.\\
+This relation is used for defining the \emph{directory} of the \emph{article} if available.\\
 \bottomrule
 \end{tabularx}
 \caption[Article model relations.]{Relations between \emph{article} and other models}  
@@ -567,15 +567,15 @@ Its details are described in two table \autoref{tab:priority_model_properties} a
 \midrule
 \emph{name} &
 string, not null, unique & 
-The \emph{priority}'s name.\\
+The \emph{priority} name.\\
 \midrule
 \emph{description} & 
 string, allow null &
-The \emph{priority}'s description.\\
+The \emph{priority} description.\\
 \midrule
 \emph{level} & 
 integer, not null, unique &
-The \emph{priority}'s level.
+The \emph{priority} level.
 The higher level, the higher priority.\\
 \bottomrule
 \end{tabularx}
@@ -614,15 +614,15 @@ Its details are described in two table \autoref{tab:ticket_model_properties} and
 \midrule
 \emph{name} &
 string, not null & 
-The \emph{ticket}'s name.\\
+The \emph{ticket} name.\\
 \midrule
 \emph{content} & 
 string, not null &
-The \emph{ticket}'s content.\\
+The \emph{ticket} content.\\
 \midrule
 \emph{due\_date} & 
 date, allow null &
-The \emph{ticket}'s deadline.\\
+The \emph{ticket} deadline.\\
 \midrule
 \emph{writable} & 
 boolean, not null, default false &
@@ -645,11 +645,11 @@ Indicate whether this ticket is readable or not.\\
 \midrule
 \emph{account} & 
 many:1 &
-This relation is used for defining the \emph{ticket}'s \emph{owner}.\\
+This relation is used for defining the \emph{ticket} \emph{owner}.\\
 \midrule
 \emph{account} & 
 many:1 &
-This relation is used for defining the \emph{ticket}'s \emph{assignee}.\\
+This relation is used for defining the \emph{ticket} \emph{assignee}.\\
 \midrule
 \emph{project} & 
 many:1 &
@@ -662,11 +662,11 @@ This relation is defined through \emph{ticket\_role} model.\\
 \midrule
 \emph{security\_level} & 
 many:1 &
-This relation is used for defining the \emph{ticket}'s \emph{security level} label.\\
+This relation is used for defining the \emph{ticket} \emph{security level} label.\\
 \midrule
 \emph{priority} & 
 1:many &
-This relation is used for defining the \emph{ticket}'s \emph{priority} label.\\
+This relation is used for defining the \emph{ticket} \emph{priority} label.\\
 \bottomrule
 \end{tabularx}
 \caption[Ticket model relations.]{Relations between \emph{ticket} and other models}  
