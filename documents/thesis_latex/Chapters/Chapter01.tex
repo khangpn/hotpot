@@ -6,13 +6,12 @@
 
 %----------------------------------------------------------------------------------------
 
-MLS is a very popular term in security field, which means every subjects (\ie users) has different roles in a same system;
+MLS is a very popular term in security field, which means every subjects (\ie users) has different roles in the same system;
 so that corresponding to their role, the subject will have distinct security level to access to suitable data sources to perform their jobs.
 It is very trivial in military systems and its detailed explanation will be introduced shortly in later chapter.
 
-Thinking about IT-related organizations, one can see there are many scenarios of working in an interacting systems, where many users with various roles (\eg\,developers, designers, project managers, customers etc.) work together sharing same data sources, which is very common to serious military security problems.
-While most of every existing project management tools available in the market focus on productivity, accessibility of the project, some of services \eg\,FreshDesk even provides further data protection (authentication, data integrity etc.);
-however, not many projects realize how important to protect users' data internally. In fact, many of data leaking cases are because of people from the organization. MLS can cover strenuously those multi-roles issues. It could be used as a skeleton for a PM tool to help us to have an advanced view about PM and innumerable assets around it which we will discuss later.
+Thinking about IT-related organizations, one can see there are many scenarios for working in an interacting systems, where many users with various roles (\eg\,developers, designers, project managers, customers etc.) work together sharing same data sources, this is typical \eg to serious military security projects.
+While most of existing project management tools available in the market focus on productivity and accessibility of the project, some services \eg FreshDesk provides further data protection (authentication, data integrity etc.). However, not many projects realize how important it is to protect user data internally. In fact, many of data leaks happen inside the organization. MLS can cover strenuously those multi-role issues. It could be used as a skeleton for a PM tool to help us to have an advanced view about PM and innumerable assets around it which we will discuss later.
 
 The goal of this project is to evaluate how complex it is to build up a MLS management system used in IT industry.
 As the result, we are going to see the difficulty, limitation and solutions of building an MLS system and try to learn from that.
@@ -33,26 +32,26 @@ Let us have an example of a web project with its team members having various rol
 \item[Customer] The one who pays bills, so they need to access to: \emph{Product backlog}, \emph{Sprint backlog}, \emph{Sprint review}.
 \end{description}
 
-So, as we can see, there are multiple roles playing in a project who require different datasource for their work.
+So, as we can see, there are multiple roles played in a project by participants who require different data source for their work.
 \marginpar{MLS advantage: protect data from multiple categories access} 
-Whist some of them require the same piece of data and the others require distinguished ones.
+Some of them require a common piece of data and the others require special ones.
 This is what we normally see in most of PM tools feature list.
-Though, many of them do not have access control on those datasources.
-Other subjects with not-related-roles can still look at the others' data as long as they are public (if the tool supports privacy mode for data sharing).
+Though, many of them do not have access control on those data sources.
+Other subjects with non-relating roles can still observe the data as long as it is public (if the tool supports privacy mode for data sharing).
 
-Now, let me push this example to another level. In the \emph{Sprint review}, there are some comments and valuation of the project manager for \emph{developers} and \emph{designers} teams, or some customers' feedbacks at the 'company' level.
-These pieces of information has nothing to do with the rest of the team, except the \emph{Project Manager} (\ie the appropriate person who need to due with them).
+Now, let me push this example to another level. In the \emph{Sprint review}, there are some comments and evaluation by the project manager to \emph{developers} and \emph{designers}, or some customer feedbacks at the company level.
+These pieces of information have nothing to do with the rest of the team, except the \emph{Project Manager} (\ie the appropriate person who need access to them).
 The key point of this is that all of information concerned to the project should be kept in one place for convenience in tracking and making future plans.
-\marginpar{MLS advantage: protect data from multiple level access}At the same time, we want to isolate them from currious eyes (\ie improper level subjects)which interacting with the same system.
-Another advanced use-case is that, even in the same project, there may be some features that only need to get knowledge by high level developers \eg\, security features, customer's private information (bank account...) etc.
-\marginpar{MLS advantage: create a transparent working environemnt}So that, we can see how MTS is applicable in a PM tool, and it can also help us to create a transparent working environment where people only receive what are essential for them to finish their job without suffering from \emph{finding a leaf in the forest}.
+\marginpar{MLS advantage: protect data from multiple level access}At the same time, we want to isolate it from persons with improper security level interacting within the same system.
+Another advanced use-case is that, even in the same project, there may be some features that only need to be accessed by high level developers \eg\, security features, customer's private information (bank account...) etc.
+\marginpar{MLS advantage: create a transparent working environemnt}So that, we can see how \emph{Multi Level Security} (MLS) is applicable in \emph{Project Management Tools}, and it can also help us to create a transparent working environment where people only receive what is essential to them to finish their job without suffering from \emph{finding a leaf in the forest}.
 
 \section{Project Approach}
 In \autoref{ch:background} , we will see in detail how MTS can implement this security feature.
-In this section, I will introduce briefly about how we are going to architect this program.
+In this section, I will introduce briefly about how we are going to design this program.
 
 First of all, such as other MTS systems, we use things called \texttt{labels} (or \texttt{tag}).
-Every subjects (\ie users) using the system will have one or many roles \eg\, developer, designer, or both etc., and they will be marked by one or many \emph{label of category}.
+Every subjects (\ie users) using the system will have one or many roles \eg\, developer, designer, or both etc., and they will be marked by one or many \emph{category labels}.
 These labels are used to tell the system what kinds of document the subjects are interested in.
 Moreover, in the same category, every subject should only have access to data which they need to know.
 For example, a team leader, who is basically a senior developer, is the only one in the team should know about the customer's feedback, system changes, or customer's personal information etc...
@@ -61,7 +60,7 @@ even though those pieces of data can appear in a common directory (or even a fil
 We can control that by using another approach called \emph{security level label} \eg Top Secret, Secret, Authorised, Unauthorised etc...
 
 So, basically, every subject in our system will have 2 kinds of label:
-one or many \emph{label of category}, 
+one or many \emph{category labels}, 
 \marginpar{NOTE: may be one security level for every category labels} 
 and \emph{ONLY} one \emph{security level label}.
 And so does every data source.
