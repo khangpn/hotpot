@@ -390,3 +390,20 @@ It also need to follow security policies defined in \autoref{ch:background:bell}
 Every tickets will have an owner (or creator) and an assignee property.
 Assigning an assignee to a ticket is also considered as an \emph{edit action}, so that the subject who performs it also need full-fills the edit policies.
 Moreover, the assignees security policies should satisfy the tickets.
+
+%----------------------------------------------------------------------------------------
+
+\section{Logging}
+\label{ch:hopot_project:logging}
+
+In the context of this project, I did not implement any logging strategies, yet simple server log.
+However, logging is always a very important component in any secured systems. 
+No matter how strict the security policies are, the system may be vulnerable to be mis-behaved.
+In other words, I would like to emphasize that we can not trust any security models only by themselves.
+Every security policy is decided by human, and it can be erroneous at some points of time, or it can be vulnerable in some use cases.
+So that, in consequence, any actions inside the system should be logged for later diagnosing.
+On the other hand, there is another concern about logging that how can we prove that the logging data is correct?
+And how can we prove that the logging data is not modified intentionally?
+So, first of all, the logging data should be marked with a time stamp from a verified timing server.
+After that, all the logging data together with the time stamp has to be signed using a verified signature.
+By that way, the data integrity will be assured as non-modified, and can be used as an evidence against any security allegations.
