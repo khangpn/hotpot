@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="blp_security_level.svg">
+   sodipodi:docname="blp_security_level_rules.svg"
+   inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/blp_security_level_rules.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <marker
@@ -137,7 +140,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.78501258"
-     inkscape:cx="405.83193"
+     inkscape:cx="181.6317"
      inkscape:cy="349.19033"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -194,12 +197,12 @@
          id="tspan2997"
          x="291.13586"
          y="439.00787"
-         style="font-size:19.75786591px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans">Object A</tspan><tspan
+         style="font-size:19.75786590999999959px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans;fill:#ffffff">Object A</tspan><tspan
          sodipodi:role="line"
          x="291.13586"
          y="463.7052"
          id="tspan4587"
-         style="font-size:19.75786591px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans">Clearance: Top Secret</tspan></text>
+         style="font-size:19.75786590999999959px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans;fill:#ffffff">Clearance: Top Secret</tspan></text>
     <rect
        style="fill:#00a0ff;fill-opacity:1;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
        id="rect2991-3"
@@ -225,11 +228,11 @@
          x="291.13586"
          y="588.25879"
          id="tspan3810"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle">Object B</tspan><tspan
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff">Object B</tspan><tspan
          sodipodi:role="line"
          x="291.13586"
          y="612.95612"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4591">Clearance: Secret</tspan></text>
     <rect
        style="fill:#21a100;fill-opacity:1;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
@@ -256,14 +259,14 @@
          id="tspan2997-7"
          x="290.57156"
          y="891.09808"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle">Object D</tspan><tspan
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff">Object D</tspan><tspan
          sodipodi:role="line"
          x="290.57156"
          y="915.79541"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4599">Clearance: Unclassified</tspan></text>
     <rect
-       style="fill:#ffdd00;fill-opacity:1;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
+       style="fill:#800080;fill-opacity:1;stroke:#000000;stroke-width:0.89808463999999999;stroke-opacity:1"
        id="rect2991-11"
        width="354.10193"
        height="89.808441"
@@ -287,14 +290,14 @@
          x="290.57153"
          y="741.96606"
          id="tspan5542"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle">Object C</tspan><tspan
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff">Object C</tspan><tspan
          sodipodi:role="line"
          x="290.57153"
          y="766.66339"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4601">Clearance: Confidential</tspan></text>
     <rect
-       style="fill:#000000;fill-opacity:0.23744293;stroke:#000000;stroke-width:4.18688868999999997;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#000000;fill-opacity:0.43137255000000002;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect4708"
        width="267.81314"
        height="581.59204"
@@ -319,12 +322,12 @@
          id="tspan5238"
          x="813.58905"
          y="654.24323"
-         style="font-size:22px;text-align:center;text-anchor:middle">Subject A</tspan><tspan
+         style="font-size:22px;text-align:center;text-anchor:middle;fill:#ffffff">Subject A</tspan><tspan
          sodipodi:role="line"
          x="813.58905"
          y="681.74323"
          id="tspan5240"
-         style="font-size:22px;text-align:center;text-anchor:middle">Clearance: Secret</tspan></text>
+         style="font-size:22px;text-align:center;text-anchor:middle;fill:#ffffff">Clearance: Secret</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart-2);stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 470.05616,140.2825 206.36612,-1.27386"

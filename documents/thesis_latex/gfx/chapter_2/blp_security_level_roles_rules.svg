@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="blp_security_level_roles_rules.svg">
+   sodipodi:docname="blp_security_level_roles_rules.svg"
+   inkscape:export-filename="/home/khang/projects/hotpot-dev-env/hotpot/documents/thesis_latex/gfx/chapter_2/blp_security_level_roles_rules.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <marker
@@ -150,7 +153,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="367.09065"
+     inkscape:cx="115.66208"
      inkscape:cy="249.7722"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -207,17 +210,17 @@
          id="tspan2997"
          x="247.95477"
          y="430.77698"
-         style="font-size:19.75786591px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans">Object A</tspan><tspan
+         style="font-size:19.75786590999999959px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans;fill:#ffffff">Object A</tspan><tspan
          sodipodi:role="line"
          x="247.95477"
          y="455.4743"
          id="tspan4585"
-         style="font-size:19.75786591px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans">Clearance: Top Secret</tspan><tspan
+         style="font-size:19.75786590999999959px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans;fill:#ffffff">Clearance: Top Secret</tspan><tspan
          sodipodi:role="line"
          x="247.95477"
          y="480.17163"
          id="tspan4587"
-         style="font-size:19.75786591px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans">Classification: Project Manager</tspan></text>
+         style="font-size:19.75786590999999959px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans;fill:#ffffff">Classification: Project Manager</tspan></text>
     <rect
        style="fill:#00a0ff;fill-opacity:1;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
        id="rect2991-3"
@@ -243,16 +246,16 @@
          x="247.95477"
          y="578.11285"
          id="tspan3810"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle">Object B</tspan><tspan
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff">Object B</tspan><tspan
          sodipodi:role="line"
          x="247.95477"
          y="602.81018"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4589">Clearance: Secret</tspan><tspan
          sodipodi:role="line"
          x="247.95477"
          y="627.50751"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4591">Classification: Programmer</tspan></text>
     <rect
        style="fill:#21a100;fill-opacity:1;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
@@ -279,19 +282,19 @@
          id="tspan2997-7"
          x="247.39047"
          y="880.95227"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle">Object D</tspan><tspan
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff">Object D</tspan><tspan
          sodipodi:role="line"
          x="247.39047"
          y="905.6496"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4597">Clearance: Unclassified</tspan><tspan
          sodipodi:role="line"
          x="247.39047"
          y="930.34692"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4599">Classification: PM, Programmer</tspan></text>
     <rect
-       style="fill:#ffdd00;fill-opacity:1;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
+       style="fill:#800080;fill-opacity:1;stroke:#000000;stroke-width:0.89808463999999999;stroke-opacity:1"
        id="rect2991-11"
        width="354.10193"
        height="89.808441"
@@ -315,19 +318,19 @@
          x="247.39044"
          y="731.82019"
          id="tspan5542"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle">Object C</tspan><tspan
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff">Object C</tspan><tspan
          sodipodi:role="line"
          x="247.39044"
          y="756.51752"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4593">Clearance: Confidential</tspan><tspan
          sodipodi:role="line"
          x="247.39044"
          y="781.21484"
-         style="font-size:19.75786591px;text-align:center;text-anchor:middle"
+         style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4601">Classification: PM, Designer</tspan></text>
     <rect
-       style="fill:#000000;fill-opacity:0.30593609;stroke:#000000;stroke-width:2.10260963;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#000000;fill-opacity:0.43137255;stroke:#000000;stroke-width:2.10260962999999990;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect7891"
        width="328.46878"
        height="622.75452"
@@ -352,17 +355,17 @@
          id="tspan8421"
          x="774.82166"
          y="663.78864"
-         style="text-align:center;text-anchor:middle">Subject A</tspan><tspan
+         style="text-align:center;text-anchor:middle;fill:#ffffff">Subject A</tspan><tspan
          sodipodi:role="line"
          x="774.82166"
          y="691.28864"
          id="tspan8423"
-         style="text-align:center;text-anchor:middle">Clearance: Secret</tspan><tspan
+         style="text-align:center;text-anchor:middle;fill:#ffffff">Clearance: Secret</tspan><tspan
          sodipodi:role="line"
          x="774.82166"
          y="718.78864"
          id="tspan8425"
-         style="text-align:center;text-anchor:middle">Classification: Programmer</tspan></text>
+         style="text-align:center;text-anchor:middle;fill:#ffffff">Classification: Programmer</tspan></text>
     <path
        style="fill:none;stroke:#ff0000;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:9, 1.50000000000000000;stroke-dashoffset:0;marker-mid:none;marker-end:none;marker-start:url(#Arrow1Lstart)"
        d="m 425.3875,452.36218 183.51072,0"
