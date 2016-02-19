@@ -76,9 +76,9 @@ It reflects the real scenarios in organizations where one person may have more t
 By classifying users, MLS can ensure that users can only receive what is necessary for them to finish their jobs, no more no less.
 
 \emph{Clearance} and \emph{classification} assigned to a subject, then, are called \emph{labels}.
-By combining these two kinds of label and the \emph{access permissions} (read and write), the system can easily control the data flow in the system.
+By combining these two kinds of label and \emph{access permissions} (read and write), the system can easily control the data flow in the system.
 It can actively decide which pieces of data conform to a particular subjects or a group of relating ones and how they can interact with it (read or write).
-The users can, then, gain the access permission to data which full-fills predefined rules.
+The users can, then, gain the access permission to data which fullfills predefined rules.
 For instance, with BLP model which we are going to study more in \autoref{ch:background:bell}, an object is labeled as \emph{Secret} for clearance, and \emph{Programmer} and \emph{Designer} with \emph{read} permission can only be \emph{viewed} by subjects who have \emph{Secret} or higher clearance, and one of two label \emph{Programmer}, \emph{Designer} or both, and they cannot modify it.
 
 \begin{figure}[bth]                                                                                                                                                  
@@ -90,9 +90,9 @@ For instance, with BLP model which we are going to study more in \autoref{ch:bac
 In conclusion, MLS can be applied to business to ensure the data integrity of the company.
 \emph{Category} and \emph{Security Level} together form various combinations which help to secure our data access, and to be able to predict the system data flow.
 \graffito{Information Security is an adjustment between security and convenience, there is no \emph{single answer to all questions}.}
-There are many MLS models, each of them is a different set of predefined rules, which has different pros and cons.
-People should research about security models to select or adjust a suitable one for their system. 
-In the next sections, I will go in more detailed about some MLS models, and put them in comparison in order to explain my decision of selecting the one is used in my project management platform.
+There are many MLS models, each of them also inspects a different set of predefined rules with different pros and cons.
+People should study security models to select or adjust a suitable one for their system. 
+In the next sections, I will go to more details about some MLS models, and put them in comparison in order to explain my decision of selecting the one is used in my project management platform.
 
 %----------------------------------------------------------------------------------------
 
@@ -170,7 +170,7 @@ Hence, \autoref{fig:blp_full} will be a mostly complete picture describing about
 \label{fig:blp_full}
 \end{figure}
 
-Although its benefits in system secure, BLP has some disadvantages in usage.
+Although its benefits in system security, BLP has some disadvantages too.
 First of all, *-property only allows data to flow up.
 In my own opinion, it is not so handy for management.
 Because, subjects at higher level label can not send down commands to subjects of lower level label.
@@ -179,9 +179,9 @@ As reported in \cite{ross:2008}, John McLean, in order to get over the difficult
 System Z was defined as a BLP system with an additional feature that a user can ask the system administrator to temporarily reduce any objects to a lower security level label \ie from high to low.
 In my own opinion, the \emph{System Z} violated the BLP properties.
 It also gives the administrators too much power on the system data.
-I personally think that it is a fraud of the system.
+I personally think that it is a fraudulent system.
 The system administrator should be viewed as the other subjects in the system, which means that they are also labeled with a specific security level.
-Besides that, they should only work with the subjects labeling, not the objects.
+Besides that, they should only work with labeling the subjects, not the objects.
 In other words, administrator can change subject labels; 
 then subjects in the system will be in charge of modifying the system objects, which is strictly enforced by the security policies.
 Other limitations of the BLP models in management environment will be discussed later in \autoref{ch:background:security_model_in_hotpot} and \autoref{ch:hopot_project:concepts:security_features} where I explain my project implementation.

@@ -1,7 +1,95 @@
-% Appendix X
+% Appendix B
 
-\chapter{Appendix Title}
+\chapter{Source Code}
+\label{ch:appendix-b}
 
 %----------------------------------------------------------------------------------------
 
-% Content begins here
+\section{Repository Structure}
+\label{ch:appendix:repository_structure}  
+
+All of my project's source codes are stored on GitHub at this URL: \href{https://github.com/khangpn/hotpot}{https://github.com/khangpn/hotpot}.
+You can fork all of my project's source codes and documentation from this repository: \emph{git@github.com:khangpn/hotpot.git}.
+Below is structure of the repository.
+
+\begin{description}
+
+\item[bin/] Contain commands for setting up and start the project.
+\item[bin/db-intergration.js] Setup the project database skeleton, then add some testing information.
+\item[bin/www] The \emph{Expressjs}'s initial command for starting the project.
+
+\item[config/] Contain project's configurations \eg database connection.
+\item[config/database.js] Database connection configurations file.
+
+\item[controllers/] Directory contains all the controllers of the project.
+It consists of all the logic of the system \eg security policies, business logic\dots
+Every subdirectory in \emph{controllers/} represents a \emph{RESTful API object}.
+\item[controllers/<object\_name>] Every \emph{<object\_name>} is a directory represents for an object of RESTful API \eg \emph{controllers/accounts} represent for all actions performed on \emph{account} property of the system with the URL format as \emph{hotpot.com/accounts/<action\_name>}. 
+\emph{controllers/main} controller is a special one, it handle actions which don't relate to any objects of the system.
+\item[controllers/<object\_name>/index.js] The javascript file contains all the \emph{routes} of \emph{<object\_name>} \ie all \emph{actions} of \emph{<object\_name>}.
+These routes also consists of security policies and business logics of the \emph{<object\_name>}.
+\item[controllers/<object\_name>/views] This directory contains all the views of the corresponding controller.
+It's used for rendering response HTML.
+
+\item[documents/] 
+Directory contains all documentation of the project \eg thesis papers, project diary, project plans\dots
+\item[documents/diary] Directory contains all the project's diaries.
+They are my daily notes and reports including problems, solutions and learnings of the day.
+\item[documents/thesis\_latex] Directory contains the thesis papers.
+
+\item[lib/] Directory contains my own libraries and utilities used in this project.
+\item[lib/setup-controller.js] This file is used to include all the controllers from \emph{controllers} to \emph{Expressjs instance} to handle the system's actions.
+\item[lib/setup-model.js] This file includes \emph{models/index.js} to \emph{Expressjs instance's req object} for later uses.
+\item[lib/util.js] This file includes some common functions used in the whole project.
+\item[lib/validate-token.js] This is an \emph{Expressjs middleware} which is used to authenticate the request session by checking the request's emph{token} parameter.
+
+\item[models/] Directory contains all the data models of the project.
+These models are DAOs.
+They include properties, relations, and behaviors (\eg validations, instance/class functions) of the model.
+All of models' defination will be introduced in \autoref{ch:implementation:models}.
+\item[models/index.js] is a special file.
+It's not a model but a model loader.
+It utilize \emph{Sequelizejs} to setup all models and include the \emph{model classes} into \emph{Expressjs' req} object for later use.
+
+\item[public/] Directory contains all the public assets of the project which can be used in any views \eg javascript, css\dots
+\item[public/bootstrap] Directory contains \emph{Twitter Boostrap} libraries.
+\item[public/css] Directory contains the project's CSS files.
+\item[public/css] Directory contains the project's front-end Javascript files.
+
+\item[views/] Directory contains all common views used in the projects.
+\item[views/error.jade] a view page to display error information.
+\item[views/index.jade] the project's homepage.
+\item[views/layout.jade] the project's layout for all views.
+
+\item[app.js] the project's main script \ie the file includes everything needed and start the project.
+\item[db.sh] the script to access the database.
+\item[package.json] NPM configuration file which contain list of dependencies Nodejs libraries used in the project.
+They can be setup by the command \lstinline|npm install| at the first place.
+\item[setup] the script invokes the other \emph{bin/} script to setup the database, this should be run after setting up \emph{Postgresql} and editing \emph{config/database.json}.
+\item[start] the script invokes the other \emph{bin/} script to start the project, run this after finishing setting up the environment.
+
+\end{description}
+
+%----------------------------------------------------------------------------------------
+
+\section{Dependencies}
+\label{ch:appendix:dependencies}
+
+The project uses \emph{Nodejs} and its framework \emph{Expressjs}. 
+Here is the list of \emph{Nodejs packages} (dependencies) used in the project.
+
+\begin{itemize}
+\item \emph{bcrypt} from version 0.8.5.
+\item \emph{body-parser} from version 1.13.1.
+\item \emph{cookie-parser} from version 1.3.5.
+\item \emph{debug} from version 2.2.0.
+\item \emph{express} from version 4.13.0.
+\item \emph{jade} from version 1.11.0.
+\item \emph{morgan} from version 1.6.1.
+\item \emph{orm} from version 2.1.27.
+\item \emph{pg} from version 4.4.3.
+\item \emph{pg-hstore} from version 2.3.2.
+\item \emph{sequelize} from version 3.13.0.
+\item \emph{serve-favicon} from version 2.3.0.
+\item \emph{uuid} from version 2.0.1
+\end{itemize}
