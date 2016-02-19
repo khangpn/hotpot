@@ -153,7 +153,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="114.23351"
+     inkscape:cx="599.9663"
      inkscape:cy="249.7722"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -163,9 +163,9 @@
      inkscape:snap-to-guides="true"
      inkscape:snap-grids="true"
      inkscape:snap-page="false"
-     inkscape:window-width="1855"
-     inkscape:window-height="1056"
-     inkscape:window-x="65"
+     inkscape:window-width="1024"
+     inkscape:window-height="1256"
+     inkscape:window-x="1920"
      inkscape:window-y="24"
      inkscape:window-maximized="1" />
   <metadata
@@ -176,7 +176,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -186,7 +186,7 @@
      id="layer1"
      transform="translate(0,-308.2677)">
     <rect
-       style="fill:#ff0000;stroke:#000000;stroke-width:0.89808464;stroke-opacity:1"
+       style="fill:#9f2531;stroke:#000000;stroke-width:0.89808463999999999;stroke-opacity:1;fill-opacity:1"
        id="rect2991"
        width="354.10193"
        height="89.808441"
@@ -222,7 +222,7 @@
          id="tspan4587"
          style="font-size:19.75786590999999959px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans;fill:#ffffff">Classification: Project Manager</tspan></text>
     <rect
-       style="fill:#00a0ff;fill-opacity:1;stroke:#000000;stroke-width:1.0727644;stroke-opacity:1"
+       style="fill:#ef4136;fill-opacity:1;stroke:#000000;stroke-width:1.07276440000000006;stroke-opacity:1"
        id="rect2991-3"
        width="353.92725"
        height="128.20518"
@@ -263,7 +263,7 @@
          style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4964">Permission: read</tspan></text>
     <rect
-       style="fill:#21a100;fill-opacity:1;stroke:#000000;stroke-width:0.99250305;stroke-opacity:1"
+       style="fill:#8dc63f;fill-opacity:1;stroke:#000000;stroke-width:0.99250305000000005;stroke-opacity:1"
        id="rect2991-1"
        width="354.00751"
        height="109.71402"
@@ -304,7 +304,7 @@
          style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4966">Permission: non</tspan></text>
     <rect
-       style="fill:#800080;fill-opacity:1;stroke:#000000;stroke-width:0.89808463999999999;stroke-opacity:1"
+       style="fill:#f9a138;fill-opacity:1;stroke:#000000;stroke-width:0.89808463999999999;stroke-opacity:1"
        id="rect2991-11"
        width="354.10193"
        height="89.808441"
@@ -345,7 +345,7 @@
          style="font-size:19.75786590999999959px;text-align:center;text-anchor:middle;fill:#ffffff"
          id="tspan4968" /></text>
     <rect
-       style="fill:#000000;fill-opacity:0.43137255;stroke:#000000;stroke-width:2.10260962999999990;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.10260962999999990;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect7891"
        width="328.46878"
        height="622.75452"
@@ -358,7 +358,7 @@
        inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
-       style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        x="774.82166"
        y="663.78864"
        id="text8419"
